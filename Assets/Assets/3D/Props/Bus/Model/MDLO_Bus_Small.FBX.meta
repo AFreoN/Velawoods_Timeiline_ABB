@@ -1,0 +1,863 @@
+fileFormatVersion: 2
+guid: 3d5c5dc14c9b8d6438ce670a8507478a
+timeCreated: 1429623330
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Box001
+    100004: Box013
+    100006: Cylinder003
+    100008: Object001
+    100010: Object002
+    100012: Object
+    100014: Glass
+    100016: Object007
+    100018: Object010
+    100020: Object011
+    100022: Object012
+    100024: Box002
+    100026: Object013
+    100028: Object019
+    100030: Object022
+    100032: Object024
+    100034: Object025
+    100036: Tire
+    100038: Tire001
+    100040: Tire002
+    100042: Tire003
+    100044: Bus__Tire_R_L
+    100046: Bus_Door_L
+    100048: Bus_Door_R
+    100050: Bus_Rails
+    100052: Bus_Seats
+    100054: Bus_Tire_B_R
+    100056: Bus_Tire_F_L
+    100058: Bus_Tire_F_R
+    100060: WingMirror_L
+    100062: Bus_Door_L_Glass
+    100064: Bus_Door_R_Glass
+    100066: Bus_Main
+    100068: Bus_Door_R2
+    100070: Bus_Door_R_Glass 1
+    100072: polySurface146
+    100074: polySurface154
+    100076: polySurface155
+    100078: polySurface207
+    100080: polySurface208
+    100082: polySurface234
+    100084: polySurface235
+    100086: polySurface326
+    100088: polySurface334
+    100090: polySurface335
+    100092: polySurface336
+    100094: polySurface337
+    100096: polySurface338
+    100098: polySurface358
+    100100: polySurface359
+    100102: polySurface360
+    100104: polySurface361
+    100106: polySurface362
+    100108: polySurface363
+    100110: polySurface364
+    100112: polySurface367
+    100114: polySurface368
+    100116: polySurface369
+    100118: polySurface370
+    100120: polySurface373
+    100122: polySurface374
+    100124: polySurface375
+    100126: polySurface376
+    100128: polySurface378
+    100130: polySurface379
+    100132: polySurface380
+    100134: polySurface381
+    100136: polySurface382
+    100138: polySurface384
+    100140: polySurface400
+    100142: polySurface401
+    100144: polySurface404
+    100146: polySurface407
+    100148: polySurface418
+    100150: polySurface422
+    100152: polySurface423
+    100154: polySurface425
+    100156: polySurface426
+    100158: polySurface427
+    100160: polySurface428
+    100162: polySurface429
+    100164: polySurface445
+    100166: polySurface446
+    100168: polySurface447
+    100170: polySurface448
+    100172: polySurface450
+    100174: polySurface451
+    100176: polySurface452
+    100178: polySurface453
+    100180: pPlane10
+    100182: pPlane11
+    100184: pPlane12
+    100186: pPlane13
+    100188: pPlane14
+    100190: pPlane2
+    100192: pPlane5
+    100194: pPlane6
+    100196: pPlane7
+    100198: pPlane8
+    100200: pPlane9
+    100202: cab
+    100204: exterior
+    100206: glass1
+    100208: interior
+    100210: Exterior_dark_inside
+    100212: glass4
+    400000: //RootNode
+    400002: Box001
+    400004: Box013
+    400006: Cylinder003
+    400008: Object001
+    400010: Object002
+    400012: Object
+    400014: Glass
+    400016: Object007
+    400018: Object010
+    400020: Object011
+    400022: Object012
+    400024: Box002
+    400026: Object013
+    400028: Object019
+    400030: Object022
+    400032: Object024
+    400034: Object025
+    400036: Tire
+    400038: Tire001
+    400040: Tire002
+    400042: Tire003
+    400044: Bus__Tire_R_L
+    400046: Bus_Door_L
+    400048: Bus_Door_R
+    400050: Bus_Rails
+    400052: Bus_Seats
+    400054: Bus_Tire_B_R
+    400056: Bus_Tire_F_L
+    400058: Bus_Tire_F_R
+    400060: WingMirror_L
+    400062: Bus_Door_L_Glass
+    400064: Bus_Door_R_Glass
+    400066: Bus_Main
+    400068: Bus_Door_R2
+    400070: Bus_Door_R_Glass 1
+    400072: polySurface146
+    400074: polySurface154
+    400076: polySurface155
+    400078: polySurface207
+    400080: polySurface208
+    400082: polySurface234
+    400084: polySurface235
+    400086: polySurface326
+    400088: polySurface334
+    400090: polySurface335
+    400092: polySurface336
+    400094: polySurface337
+    400096: polySurface338
+    400098: polySurface358
+    400100: polySurface359
+    400102: polySurface360
+    400104: polySurface361
+    400106: polySurface362
+    400108: polySurface363
+    400110: polySurface364
+    400112: polySurface367
+    400114: polySurface368
+    400116: polySurface369
+    400118: polySurface370
+    400120: polySurface373
+    400122: polySurface374
+    400124: polySurface375
+    400126: polySurface376
+    400128: polySurface378
+    400130: polySurface379
+    400132: polySurface380
+    400134: polySurface381
+    400136: polySurface382
+    400138: polySurface384
+    400140: polySurface400
+    400142: polySurface401
+    400144: polySurface404
+    400146: polySurface407
+    400148: polySurface418
+    400150: polySurface422
+    400152: polySurface423
+    400154: polySurface425
+    400156: polySurface426
+    400158: polySurface427
+    400160: polySurface428
+    400162: polySurface429
+    400164: polySurface445
+    400166: polySurface446
+    400168: polySurface447
+    400170: polySurface448
+    400172: polySurface450
+    400174: polySurface451
+    400176: polySurface452
+    400178: polySurface453
+    400180: pPlane10
+    400182: pPlane11
+    400184: pPlane12
+    400186: pPlane13
+    400188: pPlane14
+    400190: pPlane2
+    400192: pPlane5
+    400194: pPlane6
+    400196: pPlane7
+    400198: pPlane8
+    400200: pPlane9
+    400202: cab
+    400204: exterior
+    400206: glass1
+    400208: interior
+    400210: Exterior_dark_inside
+    400212: glass4
+    2300000: //RootNode
+    2300002: Box001
+    2300004: Box013
+    2300006: Cylinder003
+    2300008: Object001
+    2300010: Object002
+    2300012: Object
+    2300014: Glass
+    2300016: Object007
+    2300018: Object010
+    2300020: Object011
+    2300022: Object012
+    2300024: Box002
+    2300026: Object013
+    2300028: Object019
+    2300030: Object022
+    2300032: Object024
+    2300034: Object025
+    2300036: Tire
+    2300038: Tire001
+    2300040: Tire002
+    2300042: Tire003
+    2300044: Bus__Tire_R_L
+    2300046: Bus_Door_L
+    2300048: Bus_Door_R
+    2300050: Bus_Rails
+    2300052: Bus_Seats
+    2300054: Bus_Tire_B_R
+    2300056: Bus_Tire_F_L
+    2300058: Bus_Tire_F_R
+    2300060: WingMirror_L
+    2300062: Bus_Door_L_Glass
+    2300064: Bus_Door_R_Glass
+    2300066: Bus_Main
+    2300068: Bus_Door_R2
+    2300070: Bus_Door_R_Glass 1
+    2300072: polySurface154
+    2300074: polySurface155
+    2300076: polySurface207
+    2300078: polySurface208
+    2300080: polySurface234
+    2300082: polySurface235
+    2300084: polySurface334
+    2300086: polySurface335
+    2300088: polySurface336
+    2300090: polySurface337
+    2300092: polySurface338
+    2300094: polySurface358
+    2300096: polySurface359
+    2300098: polySurface360
+    2300100: polySurface361
+    2300102: polySurface362
+    2300104: polySurface363
+    2300106: polySurface364
+    2300108: polySurface367
+    2300110: polySurface368
+    2300112: polySurface369
+    2300114: polySurface370
+    2300116: polySurface373
+    2300118: polySurface374
+    2300120: polySurface375
+    2300122: polySurface376
+    2300124: polySurface378
+    2300126: polySurface379
+    2300128: polySurface380
+    2300130: polySurface382
+    2300132: polySurface384
+    2300134: polySurface400
+    2300136: polySurface401
+    2300138: polySurface407
+    2300140: polySurface418
+    2300142: polySurface422
+    2300144: polySurface423
+    2300146: polySurface425
+    2300148: polySurface426
+    2300150: polySurface427
+    2300152: polySurface428
+    2300154: polySurface429
+    2300156: polySurface445
+    2300158: polySurface446
+    2300160: polySurface447
+    2300162: polySurface450
+    2300164: polySurface451
+    2300166: polySurface452
+    2300168: polySurface453
+    2300170: pPlane10
+    2300172: pPlane11
+    2300174: pPlane12
+    2300176: pPlane13
+    2300178: pPlane14
+    2300180: pPlane2
+    2300182: pPlane5
+    2300184: pPlane6
+    2300186: pPlane7
+    2300188: pPlane8
+    2300190: pPlane9
+    2300192: cab
+    2300194: exterior
+    2300196: glass1
+    2300198: interior
+    2300200: Exterior_dark_inside
+    2300202: glass4
+    3300000: //RootNode
+    3300002: Box001
+    3300004: Box013
+    3300006: Cylinder003
+    3300008: Object001
+    3300010: Object002
+    3300012: Object
+    3300014: Glass
+    3300016: Object007
+    3300018: Object010
+    3300020: Object011
+    3300022: Object012
+    3300024: Box002
+    3300026: Object013
+    3300028: Object019
+    3300030: Object022
+    3300032: Object024
+    3300034: Object025
+    3300036: Tire
+    3300038: Tire001
+    3300040: Tire002
+    3300042: Tire003
+    3300044: Bus__Tire_R_L
+    3300046: Bus_Door_L
+    3300048: Bus_Door_R
+    3300050: Bus_Rails
+    3300052: Bus_Seats
+    3300054: Bus_Tire_B_R
+    3300056: Bus_Tire_F_L
+    3300058: Bus_Tire_F_R
+    3300060: WingMirror_L
+    3300062: Bus_Door_L_Glass
+    3300064: Bus_Door_R_Glass
+    3300066: Bus_Main
+    3300068: Bus_Door_R2
+    3300070: Bus_Door_R_Glass 1
+    3300072: polySurface154
+    3300074: polySurface155
+    3300076: polySurface207
+    3300078: polySurface208
+    3300080: polySurface234
+    3300082: polySurface235
+    3300084: polySurface334
+    3300086: polySurface335
+    3300088: polySurface336
+    3300090: polySurface337
+    3300092: polySurface338
+    3300094: polySurface358
+    3300096: polySurface359
+    3300098: polySurface360
+    3300100: polySurface361
+    3300102: polySurface362
+    3300104: polySurface363
+    3300106: polySurface364
+    3300108: polySurface367
+    3300110: polySurface368
+    3300112: polySurface369
+    3300114: polySurface370
+    3300116: polySurface373
+    3300118: polySurface374
+    3300120: polySurface375
+    3300122: polySurface376
+    3300124: polySurface378
+    3300126: polySurface379
+    3300128: polySurface380
+    3300130: polySurface382
+    3300132: polySurface384
+    3300134: polySurface400
+    3300136: polySurface401
+    3300138: polySurface407
+    3300140: polySurface418
+    3300142: polySurface422
+    3300144: polySurface423
+    3300146: polySurface425
+    3300148: polySurface426
+    3300150: polySurface427
+    3300152: polySurface428
+    3300154: polySurface429
+    3300156: polySurface445
+    3300158: polySurface446
+    3300160: polySurface447
+    3300162: polySurface450
+    3300164: polySurface451
+    3300166: polySurface452
+    3300168: polySurface453
+    3300170: pPlane10
+    3300172: pPlane11
+    3300174: pPlane12
+    3300176: pPlane13
+    3300178: pPlane14
+    3300180: pPlane2
+    3300182: pPlane5
+    3300184: pPlane6
+    3300186: pPlane7
+    3300188: pPlane8
+    3300190: pPlane9
+    3300192: cab
+    3300194: exterior
+    3300196: glass1
+    3300198: interior
+    3300200: Exterior_dark_inside
+    3300202: glass4
+    4300000: Box001
+    4300002: Object001
+    4300004: Box013
+    4300006: Object002
+    4300008: Cylinder003
+    4300010: Object
+    4300012: Object007
+    4300014: Glass
+    4300016: Object010
+    4300018: Object011
+    4300020: Object012
+    4300022: Box002
+    4300024: Object013
+    4300026: Object019
+    4300028: Object022
+    4300030: Object024
+    4300032: Object025
+    4300034: Tire
+    4300036: Tire001
+    4300038: Tire002
+    4300040: Tire003
+    4300042: Bus_Door_R
+    4300044: Bus_Door_L
+    4300046: Bus_Seats
+    4300048: WingMirror_L
+    4300050: Bus_Rails
+    4300052: Bus_Tire_F_L
+    4300054: Bus__Tire_R_L
+    4300056: Bus_Tire_B_R
+    4300058: Bus_Tire_F_R
+    4300060: Bus_Main
+    4300062: Bus_Door_R_Glass
+    4300064: Bus_Door_L_Glass
+    4300066: Bus_Door_R2
+    4300068: Bus_Door_R_Glass
+    4300070: polySurface400
+    4300072: polySurface401
+    4300074: polySurface154
+    4300076: polySurface155
+    4300078: polySurface207
+    4300080: polySurface208
+    4300082: pPlane2
+    4300084: pPlane5
+    4300086: pPlane6
+    4300088: polySurface234
+    4300090: polySurface235
+    4300092: pPlane7
+    4300094: pPlane8
+    4300096: pPlane9
+    4300098: polySurface334
+    4300100: polySurface335
+    4300102: polySurface336
+    4300104: polySurface337
+    4300106: polySurface338
+    4300108: polySurface376
+    4300110: polySurface379
+    4300112: polySurface358
+    4300114: polySurface359
+    4300116: polySurface360
+    4300118: polySurface361
+    4300120: polySurface362
+    4300122: polySurface363
+    4300124: polySurface364
+    4300126: polySurface367
+    4300128: polySurface368
+    4300130: polySurface369
+    4300132: polySurface370
+    4300134: polySurface373
+    4300136: polySurface374
+    4300138: polySurface375
+    4300140: polySurface378
+    4300142: polySurface380
+    4300144: polySurface382
+    4300146: polySurface384
+    4300148: polySurface407
+    4300150: polySurface418
+    4300152: polySurface422
+    4300154: polySurface423
+    4300156: polySurface425
+    4300158: polySurface426
+    4300160: polySurface427
+    4300162: polySurface428
+    4300164: polySurface429
+    4300166: polySurface445
+    4300168: polySurface446
+    4300170: pPlane10
+    4300172: pPlane11
+    4300174: pPlane12
+    4300176: pPlane13
+    4300178: pPlane14
+    4300180: polySurface447
+    4300182: polySurface450
+    4300184: polySurface451
+    4300186: polySurface452
+    4300188: polySurface453
+    4300190: glass1
+    4300192: exterior
+    4300194: interior
+    4300196: cab
+    4300198: Exterior_dark_inside
+    4300200: glass4
+    7400000: ANIM_BusDoors_1
+    7400002: ANIM_Bus_Wheels_Straight
+    7400004: ANIM_Bus_Doors_Open
+    7400006: ANIM_Bus_Turn_Right
+    7400008: ANIM_Bus_Doors_Close
+    7400010: ANIM_Bus_Drive_Straight
+    7400012: ANIM_Bus_Turn_Left
+    9500000: //RootNode
+    11400000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: ANIM_Bus_Doors_Open
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bus__Tire_R_L
+        weight: 1
+      - path: Bus_Door_L
+        weight: 1
+      - path: Bus_Door_L/Bus_Door_L_Glass
+        weight: 1
+      - path: Bus_Door_R
+        weight: 1
+      - path: Bus_Door_R/Bus_Door_R_Glass
+        weight: 1
+      - path: Bus_Main
+        weight: 1
+      - path: Bus_Main/Glass
+        weight: 1
+      - path: Bus_Rails
+        weight: 1
+      - path: Bus_Seats
+        weight: 1
+      - path: Bus_Tire_B_R
+        weight: 1
+      - path: Bus_Tire_F_L
+        weight: 1
+      - path: Bus_Tire_F_R
+        weight: 1
+      - path: WingMirror_L
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: ANIM_Bus_Doors_Close
+      takeName: Take 001
+      firstFrame: 20
+      lastFrame: 35
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bus__Tire_R_L
+        weight: 1
+      - path: Bus_Door_L
+        weight: 1
+      - path: Bus_Door_L/Bus_Door_L_Glass
+        weight: 1
+      - path: Bus_Door_R
+        weight: 1
+      - path: Bus_Door_R/Bus_Door_R_Glass
+        weight: 1
+      - path: Bus_Main
+        weight: 1
+      - path: Bus_Main/Glass
+        weight: 1
+      - path: Bus_Rails
+        weight: 1
+      - path: Bus_Seats
+        weight: 1
+      - path: Bus_Tire_B_R
+        weight: 1
+      - path: Bus_Tire_F_L
+        weight: 1
+      - path: Bus_Tire_F_R
+        weight: 1
+      - path: WingMirror_L
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: ANIM_Bus_Drive_Straight
+      takeName: Take 001
+      firstFrame: 35
+      lastFrame: 55
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bus__Tire_R_L
+        weight: 1
+      - path: Bus_Door_L
+        weight: 1
+      - path: Bus_Door_L/Bus_Door_L_Glass
+        weight: 1
+      - path: Bus_Door_R
+        weight: 1
+      - path: Bus_Door_R/Bus_Door_R_Glass
+        weight: 1
+      - path: Bus_Main
+        weight: 1
+      - path: Bus_Main/Glass
+        weight: 1
+      - path: Bus_Rails
+        weight: 1
+      - path: Bus_Seats
+        weight: 1
+      - path: Bus_Tire_B_R
+        weight: 1
+      - path: Bus_Tire_F_L
+        weight: 1
+      - path: Bus_Tire_F_R
+        weight: 1
+      - path: WingMirror_L
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: ANIM_Bus_Turn_Left
+      takeName: Take 001
+      firstFrame: 60
+      lastFrame: 75
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bus__Tire_R_L
+        weight: 1
+      - path: Bus_Door_L
+        weight: 1
+      - path: Bus_Door_L/Bus_Door_L_Glass
+        weight: 1
+      - path: Bus_Door_R
+        weight: 1
+      - path: Bus_Door_R/Bus_Door_R_Glass
+        weight: 1
+      - path: Bus_Main
+        weight: 1
+      - path: Bus_Main/Glass
+        weight: 1
+      - path: Bus_Rails
+        weight: 1
+      - path: Bus_Seats
+        weight: 1
+      - path: Bus_Tire_B_R
+        weight: 1
+      - path: Bus_Tire_F_L
+        weight: 1
+      - path: Bus_Tire_F_R
+        weight: 1
+      - path: WingMirror_L
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: ANIM_Bus_Turn_Right
+      takeName: Take 001
+      firstFrame: 75
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bus__Tire_R_L
+        weight: 1
+      - path: Bus_Door_L
+        weight: 1
+      - path: Bus_Door_L/Bus_Door_L_Glass
+        weight: 1
+      - path: Bus_Door_R
+        weight: 1
+      - path: Bus_Door_R/Bus_Door_R_Glass
+        weight: 1
+      - path: Bus_Main
+        weight: 1
+      - path: Bus_Main/Glass
+        weight: 1
+      - path: Bus_Rails
+        weight: 1
+      - path: Bus_Seats
+        weight: 1
+      - path: Bus_Tire_B_R
+        weight: 1
+      - path: Bus_Tire_F_L
+        weight: 1
+      - path: Bus_Tire_F_R
+        weight: 1
+      - path: WingMirror_L
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 8
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
