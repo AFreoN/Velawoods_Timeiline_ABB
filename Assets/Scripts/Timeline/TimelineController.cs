@@ -7,11 +7,17 @@ using System;
 public class TimelineController : MonoBehaviour
 {
     public static TimelineController instance { get; private set; }
+    bool isPlaying = true;
 
+    /// <summary>
+    /// Delegate to handle timeline pause and play state change events
+    /// </summary>
+    /// <param name="b">Is Timeline Pauses</param>
     public delegate void OnTimelineStateChange(bool b); //b = isPaused
     public static event OnTimelineStateChange onTimelineStateChange;
 
     PlayableDirector playableDirector = null;
+    PlayableDirector getPlayableDirector() => playableDirector;
 
     [SerializeField] TimelineData timelineData = null;
 
@@ -19,9 +25,10 @@ public class TimelineController : MonoBehaviour
     {
         instance = this;
         playableDirector = GetComponent<PlayableDirector>();
+        isPlaying = true;
 
         if(timelineData != null)
-            timelineData.setData(playableDirector);
+            timelineData.setData(getPlayableDirector, playableDirector.playableAsset);
     }
 
     /// <summary>
@@ -33,6 +40,7 @@ public class TimelineController : MonoBehaviour
         //StartCoroutine(toggleTimeline(true));
         playableDirector.Pause();
         Debug.Log("Timeline Paused");
+        isPlaying = false;
     }
 
     /// <summary>
@@ -43,6 +51,7 @@ public class TimelineController : MonoBehaviour
         onTimelineStateChange?.Invoke(false);
         //StartCoroutine(toggleTimeline(false));
         playableDirector.Play();
+        isPlaying = true;
     }
 
     [ContextMenu("Skip duration")]
@@ -58,6 +67,17 @@ public class TimelineController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         if (pause) playableDirector.Pause();
         else playableDirector.Play();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isPlaying)
+                PauseTimeline();
+            else
+                PlayTimeline();
+        }    
     }
 }
 

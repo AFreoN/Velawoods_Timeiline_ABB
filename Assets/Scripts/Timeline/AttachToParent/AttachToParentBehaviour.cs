@@ -11,10 +11,10 @@ public class AttachToParentBehaviour : PlayableBehaviour
     [HideInInspector] public Transform parentObject;
     public bool WorldPositionStays = true;
 
-    public override void OnPlayableCreate (Playable playable)
-    {
-        
-    }
+    #region For resetting
+    Transform previousParent;
+    Vector3 oldPosition;
+    #endregion
 
     public override void OnBehaviourPlay(Playable playable, FrameData info)
     {
@@ -31,5 +31,19 @@ public class AttachToParentBehaviour : PlayableBehaviour
     {
         if (!Application.isPlaying) return;
 
+    }
+
+    public override void OnGraphStart(Playable playable)
+    {
+        if (targetTransform == null) return;
+        previousParent = targetTransform.parent;
+        oldPosition = targetTransform.position;
+    }
+
+    public override void OnGraphStop(Playable playable)
+    {
+        if (targetTransform == null) return;
+        targetTransform.SetParent(previousParent);
+        targetTransform.position = oldPosition;
     }
 }

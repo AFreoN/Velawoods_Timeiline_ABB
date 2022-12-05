@@ -14,7 +14,6 @@ public class AttachToParentTrack : TrackAsset
         foreach (var c in GetClips())
         {
             ((AttachToParentClip)(c.asset)).template.targetTransform = t;
-            Debug.Log("Setting target : " + t.name);
         }
 
         return ScriptPlayable<AttachToParentBehaviour>.Create (graph, inputCount);

@@ -1,0 +1,46 @@
+using UnityEngine;
+using UnityEngine.Timeline;
+using UnityEngine.Playables;
+using CustomExtensions;
+
+[System.Serializable]
+public class LookAtBehaviour : PlayableBehaviour
+{
+    FaceLookAt flt = null;
+    public Transform target = null;
+    public LookType lookType;
+
+    bool isPlayed = false;
+
+    public void setProperties(FaceLookAt _flt, Transform _target, LookType _lookType)
+    {
+        flt = _flt;
+        target = _target;
+        lookType = _lookType;
+    }
+
+    public override void OnBehaviourPlay(Playable playable, FrameData info)
+    {
+        if (Application.isPlaying && flt != null && !isPlayed)
+        {
+            flt.OnClipStart(this);
+            isPlayed = true;
+            //if (lookType == LookType.Face)
+            //    flt.setTarget(target);
+            //else if (lookType == LookType.Camera)
+            //    flt.setRootTarget(target);
+            //else
+            //    flt.setFreeLook();
+        }
+    }
+
+    public override void OnBehaviourPause(Playable playable, FrameData info)
+    {
+        if (Application.isPlaying == false || flt == null || !isPlayed) return;
+        if (playable.isPlayableCompleted(info))
+        {
+            flt.OnClipEnd(this);
+            isPlayed = false;
+        }
+    }
+}
