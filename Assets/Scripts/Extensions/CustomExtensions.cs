@@ -21,6 +21,13 @@ namespace CustomExtensions
             return Quaternion.LookRotation(lookDir).eulerAngles;
         }
 
+        public static float InverseLerp(Vector3 a, Vector3 b, Vector3 value)
+        {
+            Vector3 AB = b - a;
+            Vector3 AV = value - a;
+            return Vector3.Dot(AV, AB) / Vector3.Dot(AB, AB);
+        }
+
         #endregion
 
         #region Quaternion
@@ -121,7 +128,70 @@ namespace CustomExtensions
             return result;
         }
         #endregion
-        
 
+    }
+
+    public static class CEditor
+    {
+        public static void ShowVector(ref Vector3 v, PlayableAsset asset, string label, string undoName)
+        {
+            Vector3 s = v, e = v;
+
+            e = UnityEditor.EditorGUILayout.Vector3Field(label, v);
+
+            if (s != e)
+            {
+                UnityEditor.Timeline.UndoExtensions.RegisterPlayableAsset(asset, undoName);
+                v = e;
+            }
+        }
+    }
+
+    public static class Bezier
+    {
+        public static Vector3 getQuadraticPoint(Vector3 startPoint, Vector3 endPoint, Vector3 p, float t)
+        {
+            return Mathf.Pow((1f - t),2) * startPoint + 2f* (1f-t) * t * p + Mathf.Pow(t, 2) * endPoint;
+        }
+
+        public static Vector3 getQuadraticTangent(Vector3 startPoint, Vector3 endPoint, Vector3 p, float t)
+        {
+            return 2 * (1f - t) * (p - startPoint) + 2 * t * (endPoint - p);
+        }
+
+        public static Vector3 getCubicPoint(Vector3 startPoint, Vector3 endPoint, Vector3 p1, Vector3 p2, float t)
+        {
+            return Mathf.Pow(1f - t, 3) * startPoint + 3 * Mathf.Pow(1f - t, 2) * t * p1 + 3 * (1f - t) * t * t * p2 + Mathf.Pow(t, 3) * endPoint;
+        }
+
+        public static Vector3 getCubicTangent(Vector3 startPoint, Vector3 endPoint, Vector3 p1, Vector3 p2, float t)
+        {
+            return 3 * Mathf.Pow(1f - t, 2) * (p1 - startPoint) + 6 * (1f - t) * t * (p2 - p1) + 2 * t * t * (endPoint - p2);
+        }
+
+        //public static Vector3 getQuadraticPoint(Vector3 startPoint, Vector3 endPoint, Vector3 p, float t)
+        //{
+        //    if (t < 0 || t > 1) Debug.LogError("Quadratic bezier interpolation value is invalid : " + t);
+
+        //    t = Math.Clamp(t, 0.0f, 1.0f);
+
+        //    Vector3 a = Vector3.Lerp(startPoint, p, t);
+        //    Vector3 b = Vector3.Lerp(p, endPoint, t);
+        //    return Vector3.Lerp(a, b, t);
+        //}
+
+        //public static Vector3 getCubicPoint(Vector3 startPoint, Vector3 endPoint, Vector3 p1, Vector3 p2, float t)
+        //{
+        //    if (t < 0 || t > 1) Debug.LogError("Quadratic bezier interpolation value is invalid : " + t);
+
+        //    t = Math.Clamp(t, 0.0f, 1.0f);
+
+        //    Vector3 a = Vector3.Lerp(startPoint, p1, t);
+        //    Vector3 b = Vector3.Lerp(p1, p2, t);
+        //    Vector3 c = Vector3.Lerp(p2, endPoint, t);
+        //    Vector3 d = Vector3.Lerp(a, b, t);
+        //    Vector3 e = Vector3.Lerp(b, c, t);
+        //    return Vector3.Lerp(d, e, t);
+        //}
     }
 }

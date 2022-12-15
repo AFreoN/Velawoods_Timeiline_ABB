@@ -14,13 +14,14 @@ public class TweenBehaviour : PlayableBehaviour
     Quaternion resetRotation = Quaternion.identity;
     #endregion
 
+    public bool useCurveRotation = false;
     public TranslateType translateType = TranslateType.FromPreviousClip;
 
-    //[BoxGroup("Start")]
-    //[HideIfGroup("Start/translateType", TranslateType.FromPreviousClip)]
     public Vector3 startPosition, startRotation;
-    
     public Vector3 endPosition, endRotation;
+
+    public BezierType curveType = BezierType.Linear;
+    public Vector3 point1, point2;
 
     [HideInInspector] public double startTime;
     [HideInInspector] public double endTime;
@@ -62,8 +63,44 @@ public class TweenBehaviour : PlayableBehaviour
 
         double i = Extensions.InverseLerp(startTime, endTime, playTime);
 
-        t.position = Vector3.Lerp(startPosition, endPosition, (float)i);
-        t.rotation = Quaternion.Slerp(Quaternion.Euler(startRotation), Quaternion.Euler(endRotation), (float)i);
+        move((float)i);
+        if(useCurveRotation == false)
+            t.rotation = Quaternion.Slerp(Quaternion.Euler(startRotation), Quaternion.Euler(endRotation), (float)i);
+    }
+
+    void move(float i)
+    {
+        float lerpSpeed = 0.1f;
+
+        switch (curveType)
+        {
+            case BezierType.Linear:
+                t.position = Vector3.Lerp(startPosition, endPosition, i);
+                if (useCurveRotation)
+                {
+                    Vector3 final = (endPosition - startPosition).setY(0);
+                    t.forward = Vector3.Lerp(t.forward, final, lerpSpeed);
+                }
+                break;
+
+            case BezierType.Quadratic:
+                t.position = Bezier.getQuadraticPoint(startPosition, endPosition, point1, i);
+                if (useCurveRotation)
+                {
+                    Vector3 final = Bezier.getQuadraticTangent(startPosition, endPosition, point1, i).setY(0);
+                    t.forward = Vector3.Lerp(t.forward, final, lerpSpeed);
+                }
+                break;
+
+            case BezierType.Cubic:
+                t.position = Bezier.getCubicPoint(startPosition, endPosition, point1, point2, i);
+                if (useCurveRotation)
+                {
+                    Vector3 final = Bezier.getCubicTangent(startPosition, endPosition, point1, point2, i);
+                    t.forward = Vector3.Lerp(t.forward, final, lerpSpeed);
+                }
+                break;
+        }
     }
 
     public override void OnBehaviourPause(Playable playable, FrameData info)
@@ -103,5 +140,12 @@ public class TweenBehaviour : PlayableBehaviour
         FromPreviousClip,
         FromNewPosition,
         HoldNewPosition
+    }
+
+    public enum BezierType
+    {
+        Linear,
+        Quadratic,
+        Cubic
     }
 }

@@ -3,6 +3,8 @@ using UnityEditor;
 using System.Collections.Generic;
 using UnityEditor.Timeline;
 using UnityEngine.Timeline;
+using System;
+using CustomExtensions;
 
 [CanEditMultipleObjects]
 [CustomEditor(typeof(TweenAsset))]
@@ -11,12 +13,32 @@ public class TweenSceneDraw : Editor
     TweenAsset asset;
     TweenBehaviour behaviour;
 
+    static GUIStyle style;
+    static Texture2D texture;
+
+    static bool showHandles = true;
+
     private void OnEnable()
     {
         SceneView.duringSceneGui += SceneGUI;
 
         asset = (TweenAsset)target;
         behaviour = asset.behaviour;
+
+        if(style == null)
+        {
+            style = new GUIStyle();
+            if(texture == null)
+            {
+                texture = new Texture2D(1, 1);
+                texture.SetPixel(0, 0, new Color(0.3f, 0.3f, 0.3f));
+                texture.Apply();
+            }
+            style.normal.background = texture;
+        }
+        //13, 45, 86
+        //texture.SetPixel(0, 0, getColor(8,90,130));
+        //texture.Apply();
     }
 
     private void OnDisable()
@@ -29,7 +51,7 @@ public class TweenSceneDraw : Editor
         //Draws OnSceneGUI for all the selected tween track clips
         foreach (TweenAsset t in targets)
         {
-            if (t.OnSceneSelected())
+            if (t.OnSceneSelected(showHandles))
             {
                 Repaint();
                 TimelineEditor.Refresh(RefreshReason.ContentsModified);
@@ -37,44 +59,127 @@ public class TweenSceneDraw : Editor
         }
     }
 
+    void showEnum(Enum e)
+    {
+        if(e.GetType() == typeof(TweenBehaviour.TranslateType))
+        {
+            TweenBehaviour.TranslateType prev = (TweenBehaviour.TranslateType)e;
+            TweenBehaviour.TranslateType cur = (TweenBehaviour.TranslateType)EditorGUILayout.EnumPopup("Translate Type", behaviour.translateType);
+
+            if(prev != cur)
+            {
+                UndoExtensions.RegisterPlayableAsset(asset, "Tween Behaviour Translate Type Changed");
+                behaviour.translateType = cur;
+            }
+        }
+        if(e.GetType() == typeof(TweenBehaviour.BezierType))
+        {
+            TweenBehaviour.BezierType prev = (TweenBehaviour.BezierType)e;
+            TweenBehaviour.BezierType cur = (TweenBehaviour.BezierType)EditorGUILayout.EnumPopup("Curve Type", behaviour.curveType);
+
+            if(prev != cur)
+            {
+                UndoExtensions.RegisterPlayableAsset(asset, "Tween Behaviour Curve Type Changed");
+                behaviour.curveType = cur;
+
+                if(cur == TweenBehaviour.BezierType.Quadratic)
+                {
+                    if (behaviour.point1 == Vector3.zero)
+                        behaviour.point1 = (behaviour.startPosition + behaviour.endPosition) / 2;
+                }
+                else if(cur == TweenBehaviour.BezierType.Cubic)
+                {
+                    Vector3 diff = (behaviour.endPosition - behaviour.startPosition) / 2;
+                    if (behaviour.point1 == Vector3.zero)
+                        behaviour.point1 = behaviour.startPosition + diff / 3;
+
+                    if (behaviour.point2 == Vector3.zero)
+                        behaviour.point2 = behaviour.startPosition + diff * 2 / 3;
+                }
+            }
+        }
+    }
+
+    void ShowVector(ref Vector3 v, string label, string undoName)
+    {
+        Vector3 s = v, e = v;
+
+        e = EditorGUILayout.Vector3Field(label, v);
+
+        if (s != e)
+        {
+            UndoExtensions.RegisterPlayableAsset(asset, undoName);
+            v = e;
+        }
+    }
+
     public override void OnInspectorGUI()
     {
-        //base.OnInspectorGUI();
+        GUILayout.BeginHorizontal();
+        bool u1 = behaviour.useCurveRotation, u2 = behaviour.useCurveRotation;
+        u2 = EditorGUILayout.Toggle("Use Curve Rotation", behaviour.useCurveRotation);
+        if (u1 != u2)
+        {
+            UndoExtensions.RegisterPlayableAsset(asset, "Tween use curve rotation changed");
+            behaviour.useCurveRotation = u2;
+        }
+        if (showHandles) { if (GUILayout.Button("Hide Handles")) showHandles = false; }
+        else if (GUILayout.Button("Show Handles")) showHandles = true;
+        GUILayout.EndHorizontal();
 
-        behaviour.translateType = (TweenBehaviour.TranslateType)EditorGUILayout.EnumPopup("Translate Type", behaviour.translateType);
+        GUILayout.Space(10);
 
-        if(behaviour.translateType != TweenBehaviour.TranslateType.FromPreviousClip)
+        EditorGUILayout.BeginVertical(style);
+        showEnum(behaviour.translateType);
+
+        if (behaviour.translateType != TweenBehaviour.TranslateType.FromPreviousClip)
+        {
+            GUILayout.Space(10);
+            ShowVector(ref behaviour.startPosition, "Start Position", "tween start position changed");
+
+            if (behaviour.useCurveRotation == false)
+            {
+                ShowVector(ref behaviour.startRotation, "Start Rotation", "tween start rotation changed");
+            }
+        }
+
+        if (behaviour.translateType != TweenBehaviour.TranslateType.HoldNewPosition)
+        {
+            GUILayout.Space(10);
+            ShowVector(ref behaviour.endPosition, "End Position", "tween end position changed");
+
+            if (behaviour.useCurveRotation == false)
+            {
+                ShowVector(ref behaviour.endRotation, "End Rotation", "tween end rotation changed");
+            }
+        }
+        EditorGUILayout.EndVertical();
+        //DrawLine(boxRect);
+
+        GUILayout.Space(30);
+        EditorGUILayout.BeginVertical(style);
+        showEnum(behaviour.curveType);
+
+        if(behaviour.curveType == TweenBehaviour.BezierType.Quadratic)
+        {
+            GUILayout.Space(10);
+            ShowVector(ref behaviour.point1, "Control Point", "tween control point 1 changed");
+        }
+        else if(behaviour.curveType == TweenBehaviour.BezierType.Cubic)
         {
             GUILayout.Space(10);
 
-            Vector3 sp = behaviour.startPosition;
-            Vector3 sr = behaviour.startRotation;
-
-            behaviour.startPosition = EditorGUILayout.Vector3Field("Start Position", behaviour.startPosition);
-            behaviour.startRotation = EditorGUILayout.Vector3Field("Start Rotation", behaviour.startRotation);
-
-            if (sp != behaviour.startPosition || sr != behaviour.startRotation)
-                UndoExtensions.RegisterPlayableAsset(asset, "start position changed");
+            ShowVector(ref behaviour.point1, "Control Point 1", "tween control point 1 changed");
+            ShowVector(ref behaviour.point2, "Control Point 2", "tween control point 2 changed");
         }
+        EditorGUILayout.EndVertical();
+        //DrawLine(boxRect);
 
-        if(behaviour.translateType != TweenBehaviour.TranslateType.HoldNewPosition)
-        {
-            GUILayout.Space(10);
-
-            Vector3 ep = behaviour.endPosition;
-            Vector3 er = behaviour.endRotation;
-
-            behaviour.endPosition = EditorGUILayout.Vector3Field("End Position", behaviour.endPosition);
-            behaviour.endRotation = EditorGUILayout.Vector3Field("End Rotation", behaviour.endRotation);
-
-            if (ep != behaviour.endPosition || er != behaviour.endRotation)
-                UndoExtensions.RegisterPlayableAsset(asset, "end position changed");
-        }
-
+        GUILayout.Space(20);
+        GUILayout.BeginHorizontal();
         if(asset.targetTransform != null && behaviour.translateType != TweenBehaviour.TranslateType.FromPreviousClip)
         {
-            GUILayout.Space(10);
-            if(GUILayout.Button("Copy Start Values"))
+            if(GUILayout.Button("Copy start values from transform"))
             {
                 UndoExtensions.RegisterPlayableAsset(asset, "start position modified");
                 behaviour.startPosition = asset.targetTransform.position;
@@ -85,8 +190,7 @@ public class TweenSceneDraw : Editor
 
         if(asset.targetTransform != null && behaviour.translateType != TweenBehaviour.TranslateType.HoldNewPosition)
         {
-            GUILayout.Space(10);
-            if(GUILayout.Button("Copy End Values"))
+            if(GUILayout.Button("Copy end values from transform"))
             {
                 UndoExtensions.RegisterPlayableAsset(asset, "end position modified");
                 behaviour.endPosition = asset.targetTransform.position;
@@ -94,5 +198,21 @@ public class TweenSceneDraw : Editor
                 TimelineEditor.Refresh(RefreshReason.ContentsModified);
             }
         }
+        GUILayout.EndHorizontal();
+    }
+
+    void DrawLine(Rect boxRect)
+    {
+        boxRect.y -= 5;
+        GUI.BeginClip(boxRect);
+        Handles.color = Color.white;
+        //Vector3[] points = new Vector3[] {}
+        Handles.DrawAAPolyLine(Texture2D.whiteTexture, 2, new Vector3[2] { new Vector3(0, 0, 0), new Vector3(EditorGUIUtility.currentViewWidth, 1, 0) });
+        GUI.EndClip();
+    }
+
+    Color getColor(float x, float y, float z)
+    {
+        return new Color(x / 255f, y / 255f, z / 255);
     }
 }

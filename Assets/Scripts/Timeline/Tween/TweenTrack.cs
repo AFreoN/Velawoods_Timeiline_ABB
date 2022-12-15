@@ -34,6 +34,7 @@ public class TweenTrack : TrackAsset
             ta.behaviour.director = pd;
             behaviours.Add(ta.behaviour);
         }
+
         //foreach (var v in asset.GetOutputTracks())
         //{
         //    if (v == this)
