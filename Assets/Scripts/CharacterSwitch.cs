@@ -22,7 +22,9 @@ public class CharacterSwitch : TimelineBehaviour
 
         clonedGO = Instantiate(gameObject);
         removeComponents();
-        setPositions(clonedGO);
+        //setPositions(clonedGO);
+        clonedGO.transform.position = transform.position;
+        clonedGO.transform.rotation = transform.rotation;
         clonedGO.GetComponent<WaypointMovement>().startMoving();
         clonedGO.GetComponent<WaypointMovement>().originalGameobject = gameObject;
 

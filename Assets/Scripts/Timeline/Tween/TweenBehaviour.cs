@@ -14,6 +14,7 @@ public class TweenBehaviour : PlayableBehaviour
     Quaternion resetRotation = Quaternion.identity;
     #endregion
 
+    bool positionInitialized = false;
     public bool useCurveRotation = false;
     public TranslateType translateType = TranslateType.FromPreviousClip;
 
@@ -46,15 +47,6 @@ public class TweenBehaviour : PlayableBehaviour
 
     public override void ProcessFrame(Playable playable, FrameData info, object playerData)
     {
-        //Transform t = playerData as Transform;
-        //if (!firstFrameHappened)
-        //{
-        //    firstFrameHappened = true;
-        //    referenceTransform = t;
-        //    resetPosition = t.position;
-        //    resetRotation = t.rotation;
-        //}
-
         if (!t || !director) return;
 
         double playTime = director.time;
@@ -63,6 +55,18 @@ public class TweenBehaviour : PlayableBehaviour
 
         double i = Extensions.InverseLerp(startTime, endTime, playTime);
 
+        if(translateType == TranslateType.HoldNewPosition)
+        {
+            t.position = startPosition;
+            t.rotation = Quaternion.Euler(startRotation);
+            return;
+        }
+
+        if(translateType == TranslateType.FromNewPosition && !positionInitialized)
+        {
+            positionInitialized = true;
+            t.forward = (endPosition - startPosition).setY(0);
+        }
         move((float)i);
         if(useCurveRotation == false)
             t.rotation = Quaternion.Slerp(Quaternion.Euler(startRotation), Quaternion.Euler(endRotation), (float)i);
@@ -70,7 +74,7 @@ public class TweenBehaviour : PlayableBehaviour
 
     void move(float i)
     {
-        float lerpSpeed = 0.1f;
+        float lerpSpeed = 0.02f;
 
         switch (curveType)
         {
@@ -110,7 +114,10 @@ public class TweenBehaviour : PlayableBehaviour
 #endif
 
         if (playable.isPlayableCompleted(info) && tb != null)
+        {
             tb.OnClipEnd(this);
+            positionInitialized = false;
+        }
     }
 
     public override void OnGraphStart(Playable playable)

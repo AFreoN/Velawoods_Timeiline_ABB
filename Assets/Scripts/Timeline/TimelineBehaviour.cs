@@ -5,7 +5,7 @@ using UnityEngine;
 //Every object in the scene that requires control from custom timeline track needs to derived from this class
 public abstract class TimelineBehaviour : MonoBehaviour
 {
-    //[HideInInspector]
+    [HideInInspector]
     public float startTime, endTime;
 
     public void setTimings(float _startTime, float _endTime)

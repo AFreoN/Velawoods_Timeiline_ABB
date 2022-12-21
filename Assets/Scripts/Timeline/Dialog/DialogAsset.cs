@@ -20,6 +20,7 @@ public class DialogAsset : PlayableAsset
     public AudioClip audio;
     [Multiline] public string subtitle;
 
+    [HideInInspector]
     public DialogBehaviour behaviour;
 
     public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
