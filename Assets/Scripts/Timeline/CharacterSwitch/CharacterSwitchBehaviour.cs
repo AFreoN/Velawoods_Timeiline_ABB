@@ -22,4 +22,15 @@ public class CharacterSwitchBehaviour : PlayableBehaviour
             ogCharacter.OnClipStart(this);
         }
     }
+
+    public override void OnBehaviourPause(Playable playable, FrameData info)
+    {
+#if UNITY_EDITOR
+        if (Application.isPlaying == false) return;
+#endif
+
+        if (!ogCharacter) return;
+
+        ogCharacter.OnClipEnd(this);
+    }
 }

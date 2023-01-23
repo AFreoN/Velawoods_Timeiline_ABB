@@ -3,7 +3,7 @@ using UnityEngine.Playables;
 
 public class PlayableInstance : MonoBehaviour
 {
-    [SerializeField] ActivePlayable activePlayable;
+    [SerializeField] ActivePlayable activePlayable; //Scriptable object to hold all the current playing TimelineBehaviours
 
     public static ActivePlayable playable;
 

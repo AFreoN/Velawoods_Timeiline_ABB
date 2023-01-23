@@ -129,6 +129,10 @@ public class Bones_FaceFXControllerScript_Setup : FaceFXControllerScript_Base
 
 		}
 
+		void FootStepAudio()
+    {
+		//Debug.Log("Foot step audio played : " + gameObject.name);
+    }
 }
 
 

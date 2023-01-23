@@ -8,9 +8,9 @@ using CustomExtensions;
 public class FadeAudioBehaviour : PlayableBehaviour
 {
     [HideInInspector]
-    public AudioSource audioSource;
+    public AudioSource audioSource;     //Audio source binded in this track
 
-    public AnimationCurve fadeCurve;
+    public AnimationCurve fadeCurve;    //Curve used to evaluate audio source volume
 
     [HideInInspector]
     public double startTime, endTime;
@@ -40,6 +40,7 @@ public class FadeAudioBehaviour : PlayableBehaviour
 
         if (!director || !IsInTime) return;
 
+        //Interpolate this clip playtime to evaluate the animation curve, use it's value to set volume of the audio source
         float i = (float)Extensions.InverseLerp(startTime, endTime, director.time);
         Fade(fadeCurve.Evaluate(i));
     }

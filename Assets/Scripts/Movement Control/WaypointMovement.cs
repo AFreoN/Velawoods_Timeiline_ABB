@@ -14,7 +14,7 @@ public class WaypointMovement : MonoBehaviour
     List<WayPoint> waypoints = new List<WayPoint>();        //Holds list of target position, animation to play and duration to reach the target point
     public List<WayPoint> WayPoints => waypoints;
 
-    public int currentPoint = 0;
+    int currentPoint = 0;
     string currentAnimName = "";
 
     private void Start()
@@ -83,6 +83,7 @@ public class WaypointMovement : MonoBehaviour
         }
     }
 
+    //Initialize movement once this component is added
     public void startMoving()
     {
         canMove = true;

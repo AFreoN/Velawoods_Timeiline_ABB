@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class FadeScreenClip : PlayableAsset, ITimelineClipAsset
 {
     public FadeScreenBehaviour behaviour = new FadeScreenBehaviour ();
-    //public ExposedReference<PlayableDirector> director;
 
     public ClipCaps clipCaps
     {
@@ -19,8 +18,6 @@ public class FadeScreenClip : PlayableAsset, ITimelineClipAsset
     public override Playable CreatePlayable (PlayableGraph graph, GameObject owner)
     {
         var playable = ScriptPlayable<FadeScreenBehaviour>.Create (graph, behaviour);
-        FadeScreenBehaviour clone = playable.GetBehaviour ();
-        //clone.director = director.Resolve(graph.GetResolver());
         return playable;
     }
 }

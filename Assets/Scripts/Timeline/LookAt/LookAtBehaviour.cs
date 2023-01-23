@@ -6,9 +6,9 @@ using CustomExtensions;
 [System.Serializable]
 public class LookAtBehaviour : PlayableBehaviour
 {
-    FaceLookAt flt = null;
-    public Transform target = null;
-    public LookType lookType;
+    FaceLookAt flt = null;      //FaceLookAt this track is binded to
+    public Transform target = null;     //Target transform to look at
+    public LookType lookType;     
 
     bool isPlayed = false;
 
@@ -25,12 +25,6 @@ public class LookAtBehaviour : PlayableBehaviour
         {
             flt.OnClipStart(this);
             isPlayed = true;
-            //if (lookType == LookType.Face)
-            //    flt.setTarget(target);
-            //else if (lookType == LookType.Camera)
-            //    flt.setRootTarget(target);
-            //else
-            //    flt.setFreeLook();
         }
     }
 

@@ -36,7 +36,6 @@ public class FadeScreenBehaviour : PlayableBehaviour
 
             GameObject canvas = GameObject.Find("OverlayCanvas");
             fadeObject.transform.SetParent(canvas.transform);
-            //fadeObject.transform.position = Vector3.zero;
 
             // Add image and make it fill the screen
             fadeImage = fadeObject.AddComponent<Image>();
@@ -51,6 +50,7 @@ public class FadeScreenBehaviour : PlayableBehaviour
             RectTransform rt = fadeObject.GetComponent<RectTransform>();
             rt.sizeDelta = new Vector2(0, 0);
             rt.anchoredPosition = new Vector2(0, 0);
+            rt.localScale = Vector3.one;
         }
     }
 
@@ -60,10 +60,9 @@ public class FadeScreenBehaviour : PlayableBehaviour
         if (Application.isPlaying == false) return;
 #endif
 
-        //if (director) Debug.Log("Director found");
-
         if (!director || !IsInTime) return;
 
+        //Interpolate time values to evaluate animation curve,use it's value to set image alpha value
         float i = (float)Extensions.InverseLerp(startTime, endTime, director.time);
         Fade(fadeCurve.Evaluate(i));
     }
@@ -90,6 +89,6 @@ public class FadeScreenBehaviour : PlayableBehaviour
 #endif
 
         if (playable.isPlayableCompleted(info) && fadeObject)
-            UnityEngine.Object.DestroyImmediate(fadeObject);
+            UnityEngine.Object.DestroyImmediate(fadeObject);    //Destroy create image and it's gameobject on end of this clip
     }
 }

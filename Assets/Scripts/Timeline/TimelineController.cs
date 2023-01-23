@@ -39,7 +39,7 @@ public class TimelineController : MonoBehaviour
         onTimelineStateChange?.Invoke(true);
         //StartCoroutine(toggleTimeline(true));
         playableDirector.Pause();
-        Debug.Log("Timeline Paused");
+        //Debug.Log("Timeline Paused");
         isPlaying = false;
     }
 

@@ -64,6 +64,13 @@ namespace CustomExtensions
             return g.GetComponent<T>() != null;
         }
 
+        public static void executeAction<T>(this GameObject g, System.Action<T> action) where T : Component
+        {
+            T t = (T)g.GetComponent<T>();
+            if (t != null)
+                action?.Invoke(t);
+        }
+
         public static void RemoveComponent<T>(this GameObject g) where T : Component
         {
             if (g.GetComponent<T>() != null)
@@ -129,6 +136,28 @@ namespace CustomExtensions
         }
         #endregion
 
+        #region Color
+        public static Color ToColor(this Color32 c)
+        {
+            return new Color(c.r / 255f, c.g / 255f, c.b / 255f);
+        }
+        #endregion
+
+        #region Animation Curve
+        public static AnimationCurve clone(this AnimationCurve curve)
+        {
+            AnimationCurve result = new AnimationCurve();
+
+            for(int i = 0; i < curve.length; i++)
+            {
+                result.AddKey(curve.keys[i].time, curve.keys[i].time);
+            }
+            result.preWrapMode = curve.preWrapMode;
+            result.postWrapMode = curve.postWrapMode;
+            return result;
+        }
+
+        #endregion
     }
 
     public static class CEditor

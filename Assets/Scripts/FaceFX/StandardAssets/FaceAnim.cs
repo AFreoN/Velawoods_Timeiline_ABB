@@ -2,15 +2,13 @@
 using System.Collections;
 
 [RequireComponent(typeof(AudioSource))]
-public class FaceAnim : MonoBehaviour {
-
-	[HideInInspector] public string animName = "AnimName";    //Default_taming_the_bicycle_twain_ep_001
-
+public class FaceAnim : MonoBehaviour 
+{
 	AudioSource audioSource = null;
 
 	public bool IsMorphCharacter;
-	public AudioClip clip;
-	[SerializeField] AudioClip footStepSound = null;
+	AudioClip clip;
+	[HideInInspector] public AudioClip footStepSound = null; //Foot step sound played by animator keyframes, values set by FootStepSound Timeline Track
 
 	Transform footStepTransform = null;
 	AudioSource footAudioSource = null;
@@ -18,12 +16,6 @@ public class FaceAnim : MonoBehaviour {
 	void Start () {
 
 		audioSource = GetComponent<AudioSource>();
-
-		if (clip != null)
-		{
-			audioSource.clip = clip;
-			animName = "Default_" + clip.name;
-		}
 
 		#region Getting the Foot Step AudioSource
 		footStepTransform = transform.Find("FootStepSound(Clone)");
@@ -45,8 +37,8 @@ public class FaceAnim : MonoBehaviour {
 
 	public void FootStepAudio()
     {
-        UnityEngine.Debug.Log("Playing footstep sound");
 		if (footStepSound == null) return;
+        UnityEngine.Debug.Log("Playing footstep sound : " + footStepSound.name);
 		footAudioSource.spatialBlend = 1f;
 		footAudioSource.PlayOneShot(footStepSound);
     }
@@ -56,7 +48,7 @@ public class FaceAnim : MonoBehaviour {
     {
 		clip = _clip;
 		//animName = "Default_" + _animClip.name;
-		animName = _animClipName;
+		string animName = string.IsNullOrEmpty(_animClipName) ? null : _animClipName;
 		audioSource.clip = clip;
 
 		if (IsMorphCharacter)

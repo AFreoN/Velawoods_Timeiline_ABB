@@ -7,18 +7,21 @@ public class ActivePlayable : ScriptableObject
 {
     public List<TimelineBehaviour> playables = new List<TimelineBehaviour>();
 
+    //Add new TimelineBehaviour in the playables list
     public void Add(TimelineBehaviour behaviour)
     {
         if (!playables.Contains(behaviour))
             playables.Add(behaviour);
     }
 
+    //Remove TimelineBehaviour in the playables list
     public void Remove(TimelineBehaviour behaviour)
     {
         if (playables.Contains(behaviour))
             playables.Remove(behaviour);
     }
 
+    //Call OnSkip() on TimelineBehaviours in the playable list if playable director time is outside of this TimelineBehaviours play times
     public void Skip(float duration)
     {
         if (playables.Count == 0) return;

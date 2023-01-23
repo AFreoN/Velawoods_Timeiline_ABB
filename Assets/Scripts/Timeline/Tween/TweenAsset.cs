@@ -8,19 +8,20 @@ using UnityEditor.Timeline;
 public class TweenAsset : PlayableAsset, ITimelineClipAsset, ITimelineGizmoDrawable
 {
     [HideInInspector] public Transform targetTransform;
-    [HideInInspector] public TweenTrack track;
     [HideInInspector] public TimelineAsset asset;
     public TweenBehaviour behaviour = new TweenBehaviour();
-
+    public AnimationCurve timeCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
 
     public ClipCaps clipCaps => ClipCaps.ClipIn;
 
     public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
     {
         var playable = ScriptPlayable<TweenBehaviour>.Create(graph, behaviour);
+        playable.GetBehaviour().asset = this;
         return playable;
     }
 
+    //For interface ITimelineGizmoDrawable, called from TimelineGizmoDrawHelper.cs OnDrawGizmos() to draw Gizmos while this clip is selected
     public void OnDrawGizmoSelected()
     {
         return;
@@ -63,6 +64,8 @@ public class TweenAsset : PlayableAsset, ITimelineClipAsset, ITimelineGizmoDrawa
             DrawArrow.ForGizmoMiddle(behaviour.startPosition, behaviour.endPosition - behaviour.startPosition, Color.white);
     }
 
+
+    //For interace ITimelineGizmoDrawable, called from TimelineGizmoDrawHelper.cs OnSceneGUI() to draw Handles as well as Gizmos while this clip is selected
     public bool OnSceneSelected(bool showHandles)
     {
         bool requireRepaint = false;
@@ -214,4 +217,5 @@ public class TweenAsset : PlayableAsset, ITimelineClipAsset, ITimelineGizmoDrawa
 
         return r1 || r2;
     }
+
 }

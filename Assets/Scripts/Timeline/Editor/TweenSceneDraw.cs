@@ -15,8 +15,9 @@ public class TweenSceneDraw : Editor
 
     static GUIStyle style;
     static Texture2D texture;
-
     static bool showHandles = true;
+
+    SerializedProperty timeCurve;
 
     private void OnEnable()
     {
@@ -36,9 +37,8 @@ public class TweenSceneDraw : Editor
             }
             style.normal.background = texture;
         }
-        //13, 45, 86
-        //texture.SetPixel(0, 0, getColor(8,90,130));
-        //texture.Apply();
+
+        timeCurve = serializedObject.FindProperty("timeCurve");
     }
 
     private void OnDisable()
@@ -113,19 +113,70 @@ public class TweenSceneDraw : Editor
         }
     }
 
+    bool isSameCurve(AnimationCurve ac1, AnimationCurve ac2)
+    {
+        if (ac1.keys.Length != ac2.keys.Length)
+            return false;
+
+        for(int i = 0; i < ac1.keys.Length; i++)
+        {
+            if (ac1.keys[i].value != ac2.keys[i].value)
+                return false;
+
+            if (ac1.keys[i].time != ac2.keys[i].time)
+                return false;
+        }
+        return true;
+    }
+
     public override void OnInspectorGUI()
     {
-        GUILayout.BeginHorizontal();
-        bool u1 = behaviour.useCurveRotation, u2 = behaviour.useCurveRotation;
-        u2 = EditorGUILayout.Toggle("Use Curve Rotation", behaviour.useCurveRotation);
-        if (u1 != u2)
+        if(behaviour.translateType == TweenBehaviour.TranslateType.Hold)
         {
-            UndoExtensions.RegisterPlayableAsset(asset, "Tween use curve rotation changed");
-            behaviour.useCurveRotation = u2;
+            showEnum(behaviour.translateType);
+            return;
         }
+
+        EditorGUI.BeginChangeCheck();
+
         if (showHandles) { if (GUILayout.Button("Hide Handles")) showHandles = false; }
         else if (GUILayout.Button("Show Handles")) showHandles = true;
-        GUILayout.EndHorizontal();
+
+        if(behaviour.translateType != TweenBehaviour.TranslateType.HoldNewPosition)
+        {
+            GUILayout.Space(10);
+            GUILayout.BeginHorizontal();
+            bool u1 = behaviour.useCurveRotation, u2 = behaviour.useCurveRotation;
+            u2 = EditorGUILayout.Toggle("Use Curve Rotation", behaviour.useCurveRotation);
+            if (u1 != u2)
+            {
+                UndoExtensions.RegisterPlayableAsset(asset, "Tween boolean use curve rotation changed");
+                behaviour.useCurveRotation = u2;
+            }
+
+            bool t1 = behaviour.useTimeCurve, t2 = behaviour.useTimeCurve;
+            t2 = EditorGUILayout.Toggle("Use Time Curve", behaviour.useTimeCurve);
+            if (t1 != t2)
+            {
+                UndoExtensions.RegisterPlayableAsset(asset, "Tween boolean use time curve changed");
+                behaviour.useTimeCurve = t2;
+            }
+            GUILayout.EndHorizontal();
+
+            if (behaviour.useTimeCurve)
+            {
+                GUILayout.Space(10);
+                EditorGUILayout.PropertyField(timeCurve);
+                //AnimationCurve curve1 = behaviour.timeCurve.clone();
+                //curve1 = EditorGUILayout.CurveField("Time Curve", curve1);
+                //if(!isSameCurve(curve1, behaviour.timeCurve))
+                //{
+                //    Debug.Log("Curve Changed");
+                //    UndoExtensions.RegisterPlayableAsset(asset, "Tween time curve changed");
+                //    behaviour.timeCurve = curve1;
+                //}
+            }
+        }
 
         GUILayout.Space(10);
 
@@ -156,23 +207,32 @@ public class TweenSceneDraw : Editor
         EditorGUILayout.EndVertical();
         //DrawLine(boxRect);
 
-        GUILayout.Space(30);
-        EditorGUILayout.BeginVertical(style);
-        showEnum(behaviour.curveType);
-
-        if(behaviour.curveType == TweenBehaviour.BezierType.Quadratic)
+        if(behaviour.translateType != TweenBehaviour.TranslateType.HoldNewPosition)
         {
-            GUILayout.Space(10);
-            ShowVector(ref behaviour.point1, "Control Point", "tween control point 1 changed");
-        }
-        else if(behaviour.curveType == TweenBehaviour.BezierType.Cubic)
-        {
-            GUILayout.Space(10);
+            GUILayout.Space(30);
+            EditorGUILayout.BeginVertical(style);
+            showEnum(behaviour.curveType);
 
-            ShowVector(ref behaviour.point1, "Control Point 1", "tween control point 1 changed");
-            ShowVector(ref behaviour.point2, "Control Point 2", "tween control point 2 changed");
+            if (behaviour.curveType == TweenBehaviour.BezierType.Quadratic)
+            {
+                GUILayout.Space(10);
+                ShowVector(ref behaviour.point1, "Control Point", "tween control point 1 changed");
+            }
+            else if (behaviour.curveType == TweenBehaviour.BezierType.Cubic)
+            {
+                GUILayout.Space(10);
+
+                ShowVector(ref behaviour.point1, "Control Point 1", "tween control point 1 changed");
+                ShowVector(ref behaviour.point2, "Control Point 2", "tween control point 2 changed");
+            }
+            EditorGUILayout.EndVertical();
         }
-        EditorGUILayout.EndVertical();
+
+        if (EditorGUI.EndChangeCheck())
+        {
+            
+        }
+        serializedObject.ApplyModifiedProperties();
         //DrawLine(boxRect);
 
         GUILayout.Space(20);

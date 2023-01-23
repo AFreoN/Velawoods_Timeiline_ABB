@@ -11,6 +11,7 @@ public class AttachToParentTrack : TrackAsset
     {
         Transform t = (Transform)go.GetComponent<PlayableDirector>().GetGenericBinding(this);
 
+        //Get all clips in this track and set it's clip target transform value to the one attached in this track
         foreach (var c in GetClips())
         {
             ((AttachToParentClip)(c.asset)).template.targetTransform = t;

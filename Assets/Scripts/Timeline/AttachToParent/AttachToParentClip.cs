@@ -7,8 +7,10 @@ using UnityEngine.Timeline;
 [TrackClipType(typeof(AttachToParentBehaviour))]
 public class AttachToParentClip : PlayableAsset, ITimelineClipAsset
 {
+    public ExposedReference<Transform> parentObject;    //parent object to attach to
+
+    [Space(10)]
     public AttachToParentBehaviour template = new AttachToParentBehaviour ();
-    public ExposedReference<Transform> parentObject;
 
     public ClipCaps clipCaps
     {

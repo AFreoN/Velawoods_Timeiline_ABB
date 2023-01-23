@@ -11,6 +11,7 @@ public class CharacterSwitchTrack : TrackAsset
     {
         CharacterSwitch g = (CharacterSwitch)go.GetComponent<PlayableDirector>().GetGenericBinding(this);
 
+        //Get all clips in this track and set it's clips ogCharacter value to the one attached in this track
         foreach (var c in GetClips())
         {
             ((CharacterSwitchAsset)(c.asset)).ogCharacter = g;

@@ -10,7 +10,8 @@ public class LookAtTrack : TrackAsset
     {
         FaceLookAt lookAt = (FaceLookAt)gameObject.GetComponent<PlayableDirector>().GetGenericBinding(this);
 
-        foreach(var c in GetClips())
+        //Get all clips in this track and set it's clips faceLookAt value to the one attached in this track
+        foreach (var c in GetClips())
         {
             ((LookAtAsset)(c.asset)).faceLookAt = lookAt;
         }

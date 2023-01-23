@@ -15,12 +15,18 @@ public class CharacterSwitch : TimelineBehaviour
         o.executeAction<CharacterSwitchBehaviour>(switchCharacter);
     }
 
+    public override void OnClipEnd(object o)
+    {
+        o.executeAction<CharacterSwitchBehaviour>(() => gameObject.SetActive(true));
+    }
+
     public void switchCharacter()   //Duplicate this character that will be controlled independent of timeline, disables timeline character
     {
         originalGO = gameObject;
 
+        if(clonedGO == null)
+            clonedGO = Instantiate(gameObject);
 
-        clonedGO = Instantiate(gameObject);
         removeComponents();
         //setPositions(clonedGO);
         clonedGO.transform.position = transform.position;

@@ -7,9 +7,12 @@ using CustomExtensions;
 [Serializable]
 public class AttachToParentBehaviour : PlayableBehaviour
 {
-    [HideInInspector] public Transform targetTransform;
-    [HideInInspector] public Transform parentObject;
+    [HideInInspector] public Transform targetTransform;     //Transform that's binded in this track
+    [HideInInspector] public Transform parentObject;    //Parent object to attach to
     public bool WorldPositionStays = true;
+
+    public bool warpPosition = false;   //If true, change position of the target transform to it's parent position
+    public bool warpRotation = false;   //If true, change rotation of the target transform to it's parent rotation
 
     #region For resetting
     Transform previousParent;
@@ -25,25 +28,31 @@ public class AttachToParentBehaviour : PlayableBehaviour
         }
 
         targetTransform.SetParent(parentObject, WorldPositionStays);
+
+        if (warpPosition)
+            targetTransform.position = parentObject.position;
+
+        if (warpRotation)
+            targetTransform.rotation = parentObject.rotation;
     }
 
-    public override void OnBehaviourPause(Playable playable, FrameData info)
-    {
-        if (!Application.isPlaying) return;
+    //public override void OnBehaviourPause(Playable playable, FrameData info)
+    //{
+    //    if (!Application.isPlaying) return;
 
-    }
+    //}
 
-    public override void OnGraphStart(Playable playable)
-    {
-        if (targetTransform == null) return;
-        previousParent = targetTransform.parent;
-        oldPosition = targetTransform.position;
-    }
+    //public override void OnGraphStart(Playable playable)
+    //{
+    //    if (targetTransform == null) return;
+    //    previousParent = targetTransform.parent;
+    //    oldPosition = targetTransform.position;
+    //}
 
-    public override void OnGraphStop(Playable playable)
-    {
-        if (targetTransform == null) return;
-        targetTransform.SetParent(previousParent);
-        targetTransform.position = oldPosition;
-    }
+    //public override void OnGraphStop(Playable playable)
+    //{
+    //    if (targetTransform == null) return;
+    //    targetTransform.SetParent(previousParent);
+    //    targetTransform.position = oldPosition;
+    //}
 }

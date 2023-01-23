@@ -11,11 +11,14 @@ public class FadeAudioTrack : TrackAsset
     {
         PlayableDirector pd = go.GetComponent<PlayableDirector>();
         AudioSource source = (AudioSource)pd.GetGenericBinding(this);
-        foreach(var v in GetClips())
+
+        //Get all clips in this track and set it's clips audioSource value to the one attached in this track
+        foreach (var v in GetClips())
         {
             FadeAudioBehaviour behaviour = ((FadeAudioClip)(v.asset)).behaviour;
             behaviour.audioSource = source;
 
+            //Set start time, end time and playable director for timely interpolation
             behaviour.startTime = v.start;
             behaviour.endTime = v.end;
             behaviour.director = pd;

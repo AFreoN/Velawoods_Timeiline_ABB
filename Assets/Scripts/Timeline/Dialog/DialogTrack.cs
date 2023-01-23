@@ -12,7 +12,8 @@ public class DialogTrack : TrackAsset
     {
         DialogEventManager d = (DialogEventManager)go.GetComponent<PlayableDirector>().GetGenericBinding(this);
 
-        foreach(var c in GetClips())
+        //Get all clips in this track and set it's clips dialogManger value to the one attached in this track
+        foreach (var c in GetClips())
         {
             ((DialogAsset)(c.asset)).dialogManager = d;
         }
