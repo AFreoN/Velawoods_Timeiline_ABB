@@ -190,7 +190,8 @@ public class FaceFXControllerScriptGUI : Editor
 				EditorGUILayout.BeginVertical ("box");
 				GUILayout.Label ("Scale Factor should match the FBX Scale Factor!");
 				float scaleFactor = EditorGUILayout.FloatField ("Scale Factor", _target.ScaleFactor);
-	
+
+		_target.debug = EditorGUILayout.Toggle("Debug", _target.debug);
 
 				EditorGUILayout.EndVertical ();
 				if (GUI.changed) {

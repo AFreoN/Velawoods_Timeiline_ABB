@@ -6,12 +6,12 @@ public class TimelineCharacter : MonoBehaviour
 {
     private void OnEnable()
     {
-        TimelineController.onTimelineStateChange += playAnimation;
+        //TimelineController.onTimelineStateChange += playAnimation;
     }
 
     private void OnDisable()
     {
-        TimelineController.onTimelineStateChange -= playAnimation;
+        //TimelineController.onTimelineStateChange -= playAnimation;
     }
 
     /// <summary>

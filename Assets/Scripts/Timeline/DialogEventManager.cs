@@ -19,9 +19,13 @@ public class DialogEventManager : TimelineBehaviour
     [SerializeField] Transform tutorialContentHolder = null;    //Gameobjects that holds all the tutorial text
     [SerializeField] Transform tutorialSubPrefab = null;    //Prefab to instantiate when new text has to be shown
 
+    DialogOpener dialogOpener = null;
+
     private void Start()
     {
-        subHolder.SetActive(false);
+        subHolder.SetActive(true);
+
+        dialogOpener = GetComponent<DialogOpener>();
     }
 
     /// <summary>
@@ -56,7 +60,10 @@ public class DialogEventManager : TimelineBehaviour
         if (character == null || audioClip == null) return;
 
         if (!isTutorial)
+        {
+            subHolder.GetComponent<DialogArrow>().changeTarget(character);
             writeSubtitle(subtitle);
+        }
         else
             writeTutorialSubtititle(subtitle);
 
@@ -66,10 +73,15 @@ public class DialogEventManager : TimelineBehaviour
     public void writeSubtitle(string s)
     {
         subtitleText.text = s;
-        subHolder.SetActive(true);
+        //subHolder.SetActive(true);
+        dialogOpener.OpenDialog();
     }
 
-    public void disableSubtitle() => subHolder.SetActive(false);
+    public void disableSubtitle()
+    {
+        dialogOpener.CloseDialog();
+        //subHolder.SetActive(false);
+    } 
 
     void writeTutorialSubtititle(string subtitle)
     {

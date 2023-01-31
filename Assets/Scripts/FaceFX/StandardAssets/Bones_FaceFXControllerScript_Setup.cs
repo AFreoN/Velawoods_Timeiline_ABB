@@ -9,7 +9,6 @@ using System.Collections;
 
 public class Bones_FaceFXControllerScript_Setup : FaceFXControllerScript_Base
 {
-
 		// If you need to add a new target, you must add it in 3 places:
 		
 		// 1.

@@ -7,6 +7,7 @@ using System.Collections;
 public class AnimPlayer : MonoBehaviour
 {
     Animator anim = null;
+    bool initialized = false;
 
     RuntimeAnimatorController defaultController = null;
 
@@ -31,6 +32,11 @@ public class AnimPlayer : MonoBehaviour
 
     private void Start()
     {
+        Initialize();
+    }
+
+    void Initialize()
+    {
         anim = GetComponent<Animator>();
         defaultController = anim.runtimeAnimatorController;
 
@@ -38,12 +44,12 @@ public class AnimPlayer : MonoBehaviour
         asset = timelineData.timelineAsset;
         resetController = timelineData.resetController;
 
-        if(asset != null)
+        if (asset != null)
         {
             getAnimationBindings();
         }
 
-        //anim.Play(clip[0].name);
+        initialized = true;
     }
 
     bool isLoopingRequired(TimelineClip clip)
@@ -162,6 +168,9 @@ public class AnimPlayer : MonoBehaviour
     /// </summary>
     public void playAnimation()
     {
+        if (!initialized)
+            Initialize();
+
         if (useCustomController)
             anim.runtimeAnimatorController = customResetController;
         else
@@ -203,6 +212,48 @@ public class AnimPlayer : MonoBehaviour
             //anim.CrossFadeInFixedTime(cName, .5f);
         }
 
+    }
+
+    public void PlayNonTimelineAnimation()
+    {
+        if (!initialized)
+            Initialize();
+
+        for (int i = 0; i < layers.Length; i++)
+        {
+            var ctc = getCurrentTimelineClip((float)director.time, i);
+            if (ctc == null)
+            {
+                if (debugTracks)
+                    Debug.Log($"No animations tracks to play at this { (float)director.time} : " + trackName);
+                continue;
+            }
+            string cName = ctc.clip.name;
+            float normalizedTime = (float)(director.time - ctc.startTime);
+            normalizedTime = normalizedTime % ctc.clip.averageDuration;
+            normalizedTime /= ctc.clip.averageDuration;
+
+            //if(trackName == "Mark")
+            //{
+            //    Debug.Log("Mark Clip : " + cName + ", director time : " + director.time);
+            //}
+
+            if (ctc.loop == false && (director.time - ctc.startTime) >= ctc.clip.length)
+            {
+                normalizedTime = 1;
+            }
+
+
+            anim.StartPlayback();
+            anim.speed = 1;
+            anim.Play(cName, layers[i], normalizedTime);
+
+            if (debugTracks)
+            {
+                Debug.Log("Current playing animation : " + cName);
+            }
+            //anim.CrossFadeInFixedTime(cName, .5f);
+        }
     }
 
     /// <summary>

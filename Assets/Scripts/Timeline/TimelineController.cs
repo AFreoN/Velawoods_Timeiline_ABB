@@ -29,6 +29,9 @@ public class TimelineController : MonoBehaviour
 
         if(timelineData != null)
             timelineData.setData(getPlayableDirector, playableDirector.playableAsset);
+
+        playableDirector.RebuildGraph();
+        playableDirector.Play();
     }
 
     /// <summary>
@@ -37,9 +40,10 @@ public class TimelineController : MonoBehaviour
     public void PauseTimeline()
     {
         onTimelineStateChange?.Invoke(true);
-        //StartCoroutine(toggleTimeline(true));
-        playableDirector.Pause();
-        //Debug.Log("Timeline Paused");
+
+        playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(0);
+        //playableDirector.Pause();
+
         isPlaying = false;
     }
 
@@ -49,8 +53,10 @@ public class TimelineController : MonoBehaviour
     public void PlayTimeline()
     {
         onTimelineStateChange?.Invoke(false);
-        //StartCoroutine(toggleTimeline(false));
-        playableDirector.Play();
+
+        playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(1);
+        //playableDirector.Play();
+
         isPlaying = true;
     }
 
@@ -77,6 +83,12 @@ public class TimelineController : MonoBehaviour
                 PauseTimeline();
             else
                 PlayTimeline();
-        }    
+        }
+
+        //if(play)
+        //    playableDirector.time += Time.deltaTime;
+
+        //if(play)
+        //    playableDirector.Evaluate();
     }
 }

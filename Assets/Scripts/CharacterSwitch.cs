@@ -24,13 +24,14 @@ public class CharacterSwitch : TimelineBehaviour
     {
         originalGO = gameObject;
 
-        if(clonedGO == null)
-            clonedGO = Instantiate(gameObject);
+        if (clonedGO == null)
+            clonedGO = Instantiate(gameObject, transform.position, transform.rotation);
 
+        //clonedGO.RemoveComponent<FaceLookAt>();
+        //clonedGO.RemoveComponent<TimelineCharacter>();
         removeComponents();
-        //setPositions(clonedGO);
-        clonedGO.transform.position = transform.position;
-        clonedGO.transform.rotation = transform.rotation;
+        clonedGO.GetComponent<AnimPlayer>().PlayNonTimelineAnimation();
+        clonedGO.GetComponent<Animator>().applyRootMotion = false;
         clonedGO.GetComponent<WaypointMovement>().startMoving();
         clonedGO.GetComponent<WaypointMovement>().originalGameobject = gameObject;
 

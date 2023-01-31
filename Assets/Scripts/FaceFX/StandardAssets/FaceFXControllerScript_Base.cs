@@ -42,7 +42,7 @@ using System.Collections.Generic;
 public class FaceFXControllerScript_Base : MonoBehaviour
 {
 
-
+		public bool debug = false;
 	
 	
 		protected Animation animationComponent;
@@ -237,7 +237,10 @@ public class FaceFXControllerScript_Base : MonoBehaviour
 		private void initalizeController ()
 		{
 				bIsInitialized = true;
-        UnityEngine.Debug.Log ("Initializing FaceFX Controller.");
+        if (debug)
+        {
+			UnityEngine.Debug.Log ("Initializing FaceFX Controller.");
+        }
 				play_state = play_state_enum.READY;
 				animationComponent = GetComponent<Animation> ();
 				audioComponent = GetComponent<AudioSource> ();
@@ -326,7 +329,10 @@ public class FaceFXControllerScript_Base : MonoBehaviour
 
 						AnimationState animState = animationComponent [animation_name];
 						if (animState != null) {
-                UnityEngine.Debug.Log ("playing anim " + animName);
+                if (debug)
+                {
+					UnityEngine.Debug.Log ("playing anim " + animName);
+                }
 								animState.speed = 0;
 								animState.time = 0;
 								animState.layer = FACEFX_ANIMATION_LAYER;

@@ -3,6 +3,7 @@ using UnityEngine.Timeline;
 using UnityEngine.Playables;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace CustomExtensions
 {
@@ -137,6 +138,18 @@ namespace CustomExtensions
         #endregion
 
         #region Color
+        public static void ChangeAlpha(this Image img, float alpha)
+        {
+            alpha = Mathf.Clamp(alpha, 0f, 1f);
+            img.color = new Color(img.color.r, img.color.g, img.color.b, alpha);
+        }
+
+        public static void ChangeAlpha(this TMPro.TMP_Text text, float alpha)
+        {
+            alpha = Mathf.Clamp(alpha, 0f, 1f);
+            text.color = new Color(text.color.r, text.color.g, text.color.b, alpha);
+        }
+
         public static Color ToColor(this Color32 c)
         {
             return new Color(c.r / 255f, c.g / 255f, c.b / 255f);

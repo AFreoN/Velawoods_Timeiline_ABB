@@ -14,7 +14,7 @@ public class WaypointMovement : MonoBehaviour
     List<WayPoint> waypoints = new List<WayPoint>();        //Holds list of target position, animation to play and duration to reach the target point
     public List<WayPoint> WayPoints => waypoints;
 
-    int currentPoint = 0;
+    public int currentPoint = 0;
     string currentAnimName = "";
 
     private void Start()
@@ -45,15 +45,19 @@ public class WaypointMovement : MonoBehaviour
 
             if(anim != null && anim.GetCurrentAnimatorStateInfo(1).IsName(waypoints[currentPoint].animName) == false)
             {
-                anim.Play(waypoints[currentPoint].animName);
+                if (currentPoint != 0)
+                    anim.Play(waypoints[currentPoint].animName);
+                else
+                    anim.CrossFade(waypoints[currentPoint].animName, .05f);
             }
 
             Vector3 v = waypoints[currentPoint].position;
             Vector3 rot = transform.getLookRotationInEuler(v);
             float targetDuration = waypoints[currentPoint].duration;
+            float rotTime = targetDuration < 0.5f ? targetDuration : 0.5f;
 
             iTween.MoveTo(gameObject, iTween.Hash("x",v.x,"y", v.y, "z", v.z, "time", targetDuration, "easeType", "linear"));
-            iTween.RotateTo(gameObject, iTween.Hash("x", rot.x, "y", rot.y, "z", rot.z, "time", .3f, "easeType", "linear"));
+            iTween.RotateTo(gameObject, iTween.Hash("x", rot.x, "y", rot.y, "z", rot.z, "time", rotTime, "easeType", "linear"));
 
             IEnumerator routine = stopHoldingMovement(true, targetDuration);
 
