@@ -98,7 +98,9 @@ public class WaypointMovement : MonoBehaviour
     {
         if (waypoints.Count <= 0) return;
 
+#if UNITY_EDITOR
         UnityEditor.Undo.RecordObject(this, "Waypoint position change");
+#endif
 
         waypoints[waypoints.Count - 1].position = transform.position;
     }

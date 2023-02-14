@@ -41,23 +41,4 @@ public class DialogAsset : PlayableAsset
         if (audio == null) return;
         animationClipName = "Default_" + audio.name;
     }
-
-    private string MyCustomHeader(string s, GUIContent label)
-    {
-        GUIStyle style = new GUIStyle
-        {
-            alignment = TextAnchor.MiddleCenter,
-            fontStyle = FontStyle.Bold,
-            fontSize = 15
-        };
-        style.normal.background = null;
-        style.normal.textColor = new Color(1, 1, 0, 1);
-        //style.onNormal.textColor = Color.white;
-
-        Color contentColor = GUI.contentColor;
-        GUI.contentColor = new Color(1, 1, 1, 1);
-        string result = UnityEditor.EditorGUILayout.TextField(s, style);
-        GUI.contentColor = contentColor;
-        return result;
-    }
 }

@@ -2,7 +2,10 @@ using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.Playables;
 
-[TrackClipType(typeof(LookAtBehaviour))][UnityEditor.CanEditMultipleObjects]
+[TrackClipType(typeof(LookAtBehaviour))]
+#if UNITY_EDITOR
+[UnityEditor.CanEditMultipleObjects]
+#endif
 public class LookAtAsset : PlayableAsset, ITimelineClipAsset
 {
     public ClipCaps clipCaps => ClipCaps.ClipIn;

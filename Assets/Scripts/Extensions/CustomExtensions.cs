@@ -177,6 +177,7 @@ namespace CustomExtensions
     {
         public static void ShowVector(ref Vector3 v, PlayableAsset asset, string label, string undoName)
         {
+#if UNITY_EDITOR
             Vector3 s = v, e = v;
 
             e = UnityEditor.EditorGUILayout.Vector3Field(label, v);
@@ -186,6 +187,7 @@ namespace CustomExtensions
                 UnityEditor.Timeline.UndoExtensions.RegisterPlayableAsset(asset, undoName);
                 v = e;
             }
+#endif
         }
     }
 

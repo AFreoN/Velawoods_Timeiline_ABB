@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.Playables;
 using UnityEditor;
+#if UNITY_EDITOR
 using UnityEditor.Timeline;
+#endif
 
 [TrackClipType(typeof(TweenBehaviour))]
 public class TweenAsset : PlayableAsset, ITimelineClipAsset, ITimelineGizmoDrawable
@@ -24,6 +26,7 @@ public class TweenAsset : PlayableAsset, ITimelineClipAsset, ITimelineGizmoDrawa
     //For interface ITimelineGizmoDrawable, called from TimelineGizmoDrawHelper.cs OnDrawGizmos() to draw Gizmos while this clip is selected
     public void OnDrawGizmoSelected()
     {
+#if UNITY_EDITOR
         return;
         Vector3 sPos = behaviour.startPosition;
         Vector3 ePos = behaviour.endPosition;
@@ -62,10 +65,13 @@ public class TweenAsset : PlayableAsset, ITimelineClipAsset, ITimelineGizmoDrawa
 
         if(Vector3.Distance(sPos, ePos) >= .1f)
             DrawArrow.ForGizmoMiddle(behaviour.startPosition, behaviour.endPosition - behaviour.startPosition, Color.white);
+
+#endif
     }
 
 
     //For interace ITimelineGizmoDrawable, called from TimelineGizmoDrawHelper.cs OnSceneGUI() to draw Handles as well as Gizmos while this clip is selected
+#if UNITY_EDITOR
     public bool OnSceneSelected(bool showHandles)
     {
         bool requireRepaint = false;
@@ -181,7 +187,9 @@ public class TweenAsset : PlayableAsset, ITimelineClipAsset, ITimelineGizmoDrawa
 
         return requireRepaint;
     }
+#endif
 
+#if UNITY_EDITOR
     bool showQuadraticHandles()
     {
         Vector3 p1 = behaviour.point1;
@@ -197,7 +205,9 @@ public class TweenAsset : PlayableAsset, ITimelineClipAsset, ITimelineGizmoDrawa
         }
         return false;
     }
+#endif
 
+#if UNITY_EDITOR
     bool showCubicHandles()
     {
         bool r1 = showQuadraticHandles();
@@ -217,5 +227,6 @@ public class TweenAsset : PlayableAsset, ITimelineClipAsset, ITimelineGizmoDrawa
 
         return r1 || r2;
     }
+#endif
 
 }

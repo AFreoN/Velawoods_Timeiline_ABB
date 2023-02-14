@@ -5,6 +5,7 @@ using CustomExtensions;
 
 public static class DrawArrow
 {
+#if UNITY_EDITOR
     public static void ForGizmo(Vector3 pos, Vector3 direction, float arrowHeadLength = 0.25f, float arrowHeadAngle = 20.0f)
     {
         //Gizmos.DrawRay(pos, direction);
@@ -143,4 +144,5 @@ public static class DrawArrow
         Debug.DrawRay(pos + direction, right * arrowHeadLength, color);
         Debug.DrawRay(pos + direction, left * arrowHeadLength, color);
     }
+#endif
 }

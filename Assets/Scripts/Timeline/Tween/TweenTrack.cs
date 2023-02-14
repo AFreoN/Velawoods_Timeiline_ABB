@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.Playables;
 using System.Collections.Generic;
-using UnityEditor.Timeline;
 
 [TrackClipType(typeof(TweenAsset))]
 [TrackBindingType(typeof(Transform))]
