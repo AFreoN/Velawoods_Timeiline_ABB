@@ -44,6 +44,10 @@ public class TweenSceneDraw : Editor
     private void OnDisable()
     {
         SceneView.duringSceneGui -= SceneGUI;
+        if(texture != null)
+        {
+            DestroyImmediate(texture);
+        }
     }
 
     void SceneGUI(SceneView sceneView)
