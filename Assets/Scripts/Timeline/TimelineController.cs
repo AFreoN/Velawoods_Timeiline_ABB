@@ -64,20 +64,20 @@ public class TimelineController : MonoBehaviour
     public void SkipTimeline(double _time, bool _play = true)
     {
         //onTimelineStateChange?.Invoke(true);
+        PlayableInstance.Skip((float)_time);
         playableDirector.time = _time;
-        PlayableInstance.Skip((float)playableDirector.time);
 
         if (_play && isPlaying == false)
-            PlayTimeline();
+            StartCoroutine(toggleTimeline(false));
         else if (isPlaying)
-            PauseTimeline();
+            StartCoroutine(toggleTimeline(true));
     }
 
     IEnumerator toggleTimeline(bool pause)
     {
         yield return new WaitForEndOfFrame();
-        if (pause) playableDirector.Pause();
-        else playableDirector.Play();
+        if (pause) PauseTimeline();
+        else PlayTimeline();
     }
 
     private void Update()

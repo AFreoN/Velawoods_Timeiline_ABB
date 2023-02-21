@@ -13,9 +13,9 @@ public class PlayableInstance : MonoBehaviour
         playable.clear();
     }
 
-    public static void AddPlayable(TimelineBehaviour behaviour) => playable.Add(behaviour);
+    public static void AddPlayable(ITimelineBehaviour behaviour) => playable.Add(behaviour);
 
-    public static void RemovePlayable(TimelineBehaviour behaviour) => playable.Remove(behaviour);
+    public static void RemovePlayable(ITimelineBehaviour behaviour) => playable.Remove(behaviour);
 
     public static void Skip(float duration) => playable.Skip(duration);
 }

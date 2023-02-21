@@ -149,6 +149,16 @@ namespace CustomExtensions
             }
             return result;
         }
+
+        public static List<ITimelineBehaviour> Clone<ITimelineBehaviour>(this List<ITimelineBehaviour> target)
+        {
+            List<ITimelineBehaviour> result = new List<ITimelineBehaviour>();
+            for (int i = 0; i < target.Count; i++)
+            {
+                result.Add(target[i]);
+            }
+            return result;
+        }
         #endregion
 
         #region Color

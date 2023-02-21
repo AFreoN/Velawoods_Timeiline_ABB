@@ -39,13 +39,13 @@ public class TouchAndJumpBehaviour : PlayableBehaviour
 
             Outline o = data.touchObject.GetComponent<Outline>();
 
-            if(o == null)
+            if(data.shouldFlash && o == null)
             {
-                if (data.shouldFlash)
-                    data.touchObject.AddComponent<Outline>();
-
-                data.touchObject.AddComponent<ObjectClick>().Initialize(data.touchObject.transform, OnTouch, false);
+                data.touchObject.AddComponent<Outline>();
             }
+
+            data.touchObject.executeAction((ObjectClick obj) => UnityEngine.Object.Destroy(obj));
+            data.touchObject.AddComponent<ObjectClick>().Initialize(data.touchObject.transform, OnTouch, false);
         }
 
         isTriggerered = true;
@@ -65,7 +65,6 @@ public class TouchAndJumpBehaviour : PlayableBehaviour
             {
                 TouchAndJumpClip.TouchableData data = touchables[i];
 
-                Outline o = data.touchObject.GetComponent<Outline>();
                 data.touchObject.executeAction((Outline o) => UnityEngine.Object.Destroy(o));
                 data.touchObject.executeAction((ObjectClick o) => UnityEngine.Object.Destroy(o));
             }
@@ -80,9 +79,20 @@ public class TouchAndJumpBehaviour : PlayableBehaviour
         TouchAndJumpClip.TouchableData td = touchables[index];
         if(td.skipTo != -1f)
         {
+            for (int i = 0; i < touchables.Count; i++)
+            {
+                TouchAndJumpClip.TouchableData data = touchables[i];
+
+                data.touchObject.executeAction((Outline o) => UnityEngine.Object.Destroy(o));
+                data.touchObject.executeAction((ObjectClick o) => UnityEngine.Object.Destroy(o));
+            }
+
+            isTriggerered = false;
+
             TimelineController.instance.SkipTimeline(td.skipTo, true);
             Camera.main.GetComponent<CameraApartmentController>().ObjectTouched(null);
         }
+        //Debug.Log("Calling on touch from : " + _touchedObject.name);
     }
 
     public override void OnGraphStop(Playable playable)

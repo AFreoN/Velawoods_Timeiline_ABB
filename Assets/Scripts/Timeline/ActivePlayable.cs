@@ -5,38 +5,39 @@ using CustomExtensions;
 [CreateAssetMenu(menuName = "CurrentPlayables", fileName = "Current Playable")]
 public class ActivePlayable : ScriptableObject
 {
-    public List<TimelineBehaviour> playables = new List<TimelineBehaviour>();
+    public List<ITimelineBehaviour> playables = new List<ITimelineBehaviour>();
 
-    //Add new TimelineBehaviour in the playables list
-    public void Add(TimelineBehaviour behaviour)
+    //Add new ITimelineBehaviour in the playables list
+    public void Add(ITimelineBehaviour behaviour)
     {
         if (!playables.Contains(behaviour))
             playables.Add(behaviour);
     }
 
-    //Remove TimelineBehaviour in the playables list
-    public void Remove(TimelineBehaviour behaviour)
+    //Remove ITimelineBehaviour in the playables list
+    public void Remove(ITimelineBehaviour behaviour)
     {
         if (playables.Contains(behaviour))
             playables.Remove(behaviour);
     }
 
-    //Call OnSkip() on TimelineBehaviours in the playable list if playable director time is outside of this TimelineBehaviours play times
+    //Call OnSkip() on ITimelineBehaviours in the playable list if playable director time is outside of this ITimelineBehaviours play times
     public void Skip(float duration)
     {
         if (playables.Count == 0) return;
 
-        List<TimelineBehaviour> currentPlayable = playables.clone();
+        List<ITimelineBehaviour> currentPlayable = playables.Clone();
 
         for (int i = 0; i < playables.Count; i++)
         {
-            if (isSkippable(duration, playables[i].startTime, playables[i].endTime))
+            if (isSkippable(duration, (float)playables[i].startTime, (float)playables[i].endTime))
             {
                 playables[i].OnSkip();
                 currentPlayable.Remove(playables[i]);
+                Debug.Log("Skipped playable");
             }
-            else
-                Debug.Log("Unskippable on : " + playables[i].gameObject.name);
+            //else
+            //    Debug.Log("Unskippable on : " + playables[i].ToString());
         }
 
         playables = currentPlayable;

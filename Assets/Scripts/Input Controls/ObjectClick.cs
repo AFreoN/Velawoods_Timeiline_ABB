@@ -62,8 +62,8 @@ public class ObjectClick : MonoBehaviour
 
         if(Physics.Raycast(ray, out RaycastHit hit))
         {
-
-            //Transform t = targetTransform != null ? targetTransform : transform;
+            //if (hit.transform != null)
+            //    Debug.Log("Clicking on : " + hit.transform.name);
 
             if(hit.transform == transform || hit.transform.parent == transform)
             {

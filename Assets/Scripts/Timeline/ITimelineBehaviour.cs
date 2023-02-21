@@ -12,7 +12,7 @@ public abstract class TimelineBehaviour : MonoBehaviour
     {
         startTime = _startTime;
         endTime = _endTime;
-        PlayableInstance.AddPlayable(this);
+        //PlayableInstance.AddPlayable(this);
     }
 
     public virtual void OnClipStart(object o)
@@ -34,4 +34,12 @@ public abstract class TimelineBehaviour : MonoBehaviour
     {
 
     }
+}
+
+public interface ITimelineBehaviour
+{
+    public double startTime { get; set; }
+    public double endTime { get; set; }
+
+    public abstract void OnSkip();
 }

@@ -7149,6 +7149,7 @@ GameObject:
   - component: {fileID: 328269058}
   - component: {fileID: 328269057}
   - component: {fileID: 328269056}
+  - component: {fileID: 328269060}
   m_Layer: 0
   m_Name: Nav_Marker_Study_from_TV
   m_TagString: Untagged
@@ -7255,6 +7256,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 328269054}
   m_Mesh: {fileID: 4300000, guid: d5e4ddf151aecf84dbea2e59f2c8ca47, type: 3}
+--- !u!65 &328269060
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328269054}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6641377, y: 0.3, z: 0.66413784}
+  m_Center: {x: 0.0000005066395, y: -0.059200004, z: 0.0000006556511}
 --- !u!1 &334158497
 GameObject:
   m_ObjectHideFlags: 0
@@ -11218,6 +11232,7 @@ GameObject:
   - component: {fileID: 510188358}
   - component: {fileID: 510188357}
   - component: {fileID: 510188356}
+  - component: {fileID: 510188359}
   m_Layer: 0
   m_Name: Nav_Marker_TV_from_Kitchen
   m_TagString: Untagged
@@ -11304,6 +11319,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510188354}
   m_Mesh: {fileID: 4300000, guid: d5e4ddf151aecf84dbea2e59f2c8ca47, type: 3}
+--- !u!65 &510188359
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510188354}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.66413796, y: 0.3, z: 0.66413814}
+  m_Center: {x: -0.0000023543835, y: -0.059215263, z: -0.000001013279}
 --- !u!1 &513032449
 GameObject:
   m_ObjectHideFlags: 0
@@ -11550,6 +11578,7 @@ GameObject:
   - component: {fileID: 528758849}
   - component: {fileID: 528758848}
   - component: {fileID: 528758846}
+  - component: {fileID: 528758850}
   m_Layer: 0
   m_Name: Nav_Marker_TV
   m_TagString: Untagged
@@ -11636,6 +11665,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528758843}
   m_Mesh: {fileID: 4300000, guid: d5e4ddf151aecf84dbea2e59f2c8ca47, type: 3}
+--- !u!65 &528758850
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528758843}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6641377, y: 0.3, z: 0.66413784}
+  m_Center: {x: 0.0000009834766, y: -0.059215263, z: 0.0000004172325}
 --- !u!1 &529769523
 GameObject:
   m_ObjectHideFlags: 0
@@ -12695,6 +12737,7 @@ GameObject:
   - component: {fileID: 580449426}
   - component: {fileID: 580449425}
   - component: {fileID: 580449424}
+  - component: {fileID: 580449428}
   m_Layer: 0
   m_Name: Nav_Marker_Kitchen
   m_TagString: Untagged
@@ -12801,6 +12844,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 580449421}
   m_Mesh: {fileID: 4300000, guid: d5e4ddf151aecf84dbea2e59f2c8ca47, type: 3}
+--- !u!65 &580449428
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580449421}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6641377, y: 0.3, z: 0.66413784}
+  m_Center: {x: 0.0000014603138, y: -0.059200004, z: -0.0000005364418}
 --- !u!1 &590140262
 GameObject:
   m_ObjectHideFlags: 0
@@ -14566,6 +14622,7 @@ GameObject:
   - component: {fileID: 645044081}
   - component: {fileID: 645044080}
   - component: {fileID: 645044079}
+  - component: {fileID: 645044083}
   m_Layer: 0
   m_Name: Nav_Marker_TV_from_Study
   m_TagString: Untagged
@@ -14652,6 +14709,19 @@ Transform:
   m_Father: {fileID: 89990540}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &645044083
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645044078}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6641378, y: 0.3, z: 0.6641379}
+  m_Center: {x: -0.00000020861626, y: -0.059215263, z: 0.0000008940697}
 --- !u!1 &646344580
 GameObject:
   m_ObjectHideFlags: 0
@@ -20014,6 +20084,7 @@ GameObject:
   - component: {fileID: 933702151}
   - component: {fileID: 933702150}
   - component: {fileID: 933702149}
+  - component: {fileID: 933702153}
   m_Layer: 0
   m_Name: Nav_Marker_Kitchen_from_Study
   m_TagString: Untagged
@@ -20120,6 +20191,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 933702147}
   m_Mesh: {fileID: 4300000, guid: d5e4ddf151aecf84dbea2e59f2c8ca47, type: 3}
+--- !u!65 &933702153
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933702147}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.66413766, y: 0.3, z: 0.66413784}
+  m_Center: {x: -0.000000923872, y: -0.059207633, z: -0.000000059604645}
 --- !u!1 &936483997
 GameObject:
   m_ObjectHideFlags: 0
@@ -21309,6 +21393,7 @@ GameObject:
   - component: {fileID: 991922713}
   - component: {fileID: 991922712}
   - component: {fileID: 991922711}
+  - component: {fileID: 991922715}
   m_Layer: 5
   m_Name: Nav_Marker_Back_to_Start
   m_TagString: Untagged
@@ -21415,6 +21500,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 991922709}
   m_Mesh: {fileID: 4300000, guid: d5e4ddf151aecf84dbea2e59f2c8ca47, type: 3}
+--- !u!65 &991922715
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991922709}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.66413814, y: 0.11836973, z: 0.66413844}
+  m_Center: {x: 0.000017204318, y: -0.05916952, z: -0.000015328977}
 --- !u!1 &1001977478
 GameObject:
   m_ObjectHideFlags: 0
@@ -25334,6 +25432,7 @@ GameObject:
   - component: {fileID: 1206160924}
   - component: {fileID: 1206160923}
   - component: {fileID: 1206160922}
+  - component: {fileID: 1206160926}
   m_Layer: 0
   m_Name: Nav_Marker_Kitchen_from_TV
   m_TagString: Untagged
@@ -25440,6 +25539,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1206160920}
   m_Mesh: {fileID: 4300000, guid: d5e4ddf151aecf84dbea2e59f2c8ca47, type: 3}
+--- !u!65 &1206160926
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206160920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6641377, y: 0.3, z: 0.6641378}
+  m_Center: {x: 0.00000074505806, y: -0.059200004, z: -0.00000005960464}
 --- !u!1 &1216014630
 GameObject:
   m_ObjectHideFlags: 0
@@ -25654,6 +25766,7 @@ GameObject:
   - component: {fileID: 1222123279}
   - component: {fileID: 1222123278}
   - component: {fileID: 1222123277}
+  - component: {fileID: 1222123281}
   m_Layer: 0
   m_Name: Nav_Marker_Study_from_Kitchen
   m_TagString: Untagged
@@ -25760,6 +25873,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222123275}
   m_Mesh: {fileID: 4300000, guid: d5e4ddf151aecf84dbea2e59f2c8ca47, type: 3}
+--- !u!65 &1222123281
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222123275}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6641377, y: 0.3, z: 0.66413784}
+  m_Center: {x: 0.0000005066395, y: -0.059200004, z: -0.000000059604645}
 --- !u!1 &1223901667
 GameObject:
   m_ObjectHideFlags: 0
@@ -28898,6 +29024,7 @@ GameObject:
   - component: {fileID: 1382464871}
   - component: {fileID: 1382464870}
   - component: {fileID: 1382464869}
+  - component: {fileID: 1382464873}
   m_Layer: 0
   m_Name: Nav_Marker_Study
   m_TagString: Untagged
@@ -29004,6 +29131,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1382464866}
   m_Mesh: {fileID: 4300000, guid: d5e4ddf151aecf84dbea2e59f2c8ca47, type: 3}
+--- !u!65 &1382464873
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382464866}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6641377, y: 0.3, z: 0.66413784}
+  m_Center: {x: -0.00000044703484, y: -0.059200004, z: 0.00000017881393}
 --- !u!1 &1383675308
 GameObject:
   m_ObjectHideFlags: 0

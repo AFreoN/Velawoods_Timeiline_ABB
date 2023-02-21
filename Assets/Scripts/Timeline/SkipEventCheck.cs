@@ -9,7 +9,7 @@ public class SkipEventCheck : TimelineBehaviour
 
     public override void OnClipEnd(object o)
     {
-        PlayableInstance.RemovePlayable(this);
+        //PlayableInstance.RemovePlayable(this);
     }
 
     public override void OnProcessFrame(object o)
