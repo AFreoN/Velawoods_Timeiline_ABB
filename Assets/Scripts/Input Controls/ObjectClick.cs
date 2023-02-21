@@ -6,8 +6,18 @@ public class ObjectClick : MonoBehaviour
 {
     Collider col = null;    //Collider attached to this gameobject
     bool addedCollider = false;
+    bool playAfterClick = true;
 
+    Transform targetTransform = null;
+    System.Action<GameObject> action;
     Camera mainCam = null;  //Main camera in the scene cached
+
+    public void Initialize(Transform _targetTransform, System.Action<GameObject> _action, bool _play)
+    {
+        targetTransform = _targetTransform;
+        action = _action;
+        playAfterClick = _play;
+    }
 
     private void OnEnable()
     {
@@ -52,9 +62,15 @@ public class ObjectClick : MonoBehaviour
 
         if(Physics.Raycast(ray, out RaycastHit hit))
         {
-            if(hit.transform == transform)
+
+            //Transform t = targetTransform != null ? targetTransform : transform;
+
+            if(hit.transform == transform || hit.transform.parent == transform)
             {
-                TimelineController.instance.PlayTimeline();     //If this object is clicked, play timeline
+                action?.Invoke(gameObject);
+
+                if(playAfterClick)
+                    TimelineController.instance.PlayTimeline();     //If this object is clicked, play timeline
 
                 gameObject.executeAction((Outline o) => Destroy(o));     //Destroy outline highlighter
 
@@ -64,5 +80,11 @@ public class ObjectClick : MonoBehaviour
                 Destroy(this);                              //And finally remove this component to not detect touch further
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (addedCollider && col)
+            Destroy(col);
     }
 }

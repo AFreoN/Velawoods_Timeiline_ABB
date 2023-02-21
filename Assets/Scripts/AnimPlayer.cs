@@ -28,6 +28,7 @@ public class AnimPlayer : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] bool debugTracks = false;  //Throws all the timeline clips in the debug on Start call
 
+    [SerializeField]
     List<TimelineAnimationClips> timelineAnimClips = new List<TimelineAnimationClips>();    //List of animation clips with its start and end time in timeline
 
     private void Start()
@@ -78,7 +79,6 @@ public class AnimPlayer : MonoBehaviour
             {
                 if(item.name.Contains("Animation Track") && item.muted == false)
                 {
-
                     foreach (var v in item.GetClips())
                     {
                         bool loop = isLoopingRequired(v);                       
@@ -125,7 +125,7 @@ public class AnimPlayer : MonoBehaviour
         }
     }
 
-    TimelineAnimationClips getCurrentTimelineClip(float time, int id = 0)
+    public TimelineAnimationClips getCurrentTimelineClip(float time, int id = 0)
     {
         foreach(TimelineAnimationClips c in timelineAnimClips)
         {
@@ -139,7 +139,8 @@ public class AnimPlayer : MonoBehaviour
         return null;
     }
 
-    protected class TimelineAnimationClips
+    [System.Serializable]
+    public class TimelineAnimationClips
     {
         public AnimationClip clip;
         public float startTime;

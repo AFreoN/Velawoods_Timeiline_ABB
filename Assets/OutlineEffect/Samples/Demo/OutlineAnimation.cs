@@ -7,6 +7,7 @@ namespace cakeslice
 {
     public class OutlineAnimation : MonoBehaviour
     {
+        [SerializeField] float duration = 1;
         bool pingPong = false;
 
         OutlineEffect effect;
@@ -24,14 +25,14 @@ namespace cakeslice
 
             if(pingPong)
             {
-                c.a += Time.deltaTime;
+                c.a += Time.deltaTime / duration;
 
                 if(c.a >= 1)
                     pingPong = false;
             }
             else
             {
-                c.a -= Time.deltaTime;
+                c.a -= Time.deltaTime / duration;
 
                 if(c.a <= 0)
                     pingPong = true;

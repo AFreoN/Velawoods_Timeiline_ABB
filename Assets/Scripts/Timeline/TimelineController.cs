@@ -18,6 +18,7 @@ public class TimelineController : MonoBehaviour
 
     PlayableDirector playableDirector = null;
     PlayableDirector getPlayableDirector() => playableDirector;
+    public double currentPlayableTime => getPlayableDirector().time;
 
     [SerializeField] TimelineData timelineData = null;
 
@@ -60,12 +61,16 @@ public class TimelineController : MonoBehaviour
         isPlaying = true;
     }
 
-    [ContextMenu("Skip duration")]
-    public void Skip()
+    public void SkipTimeline(double _time, bool _play = true)
     {
         //onTimelineStateChange?.Invoke(true);
-        playableDirector.time = 6.5f;
+        playableDirector.time = _time;
         PlayableInstance.Skip((float)playableDirector.time);
+
+        if (_play && isPlaying == false)
+            PlayTimeline();
+        else if (isPlaying)
+            PauseTimeline();
     }
 
     IEnumerator toggleTimeline(bool pause)

@@ -9,6 +9,20 @@ namespace CustomExtensions
 {
     public static class Extensions
     {
+        #region Transform
+        public static Transform[] GetChildAsArray(this Transform t)
+        {
+            if (t == null) return new Transform[0];
+
+            Transform[] result = new Transform[t.childCount];
+            for(int i = 0; i < t.childCount; i++)
+            {
+                result[0] = t.GetChild(i);
+            }
+            return result;
+        }
+        #endregion
+
         #region Vectors
         public static Vector3 setX(this Vector3 v, float x = 0) => new Vector3(x, v.y, v.z);
 
