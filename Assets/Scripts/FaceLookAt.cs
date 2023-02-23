@@ -129,6 +129,7 @@ public class FaceLookAt : TimelineBehaviour
         }
         else if(!onFreeLook)
         {
+            //If there is no target and on free look, set look weight to zero
             anim.SetLookAtWeight(0);
         }
     }
