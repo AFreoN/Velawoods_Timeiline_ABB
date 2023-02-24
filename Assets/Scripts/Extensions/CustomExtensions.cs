@@ -4,6 +4,9 @@ using UnityEngine.Playables;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor.Animations;
+#endif
 
 namespace CustomExtensions
 {
@@ -211,6 +214,33 @@ namespace CustomExtensions
                 UnityEditor.Timeline.UndoExtensions.RegisterPlayableAsset(asset, undoName);
                 v = e;
             }
+#endif
+        }
+
+        public static AnimationClip getClipFromStateName(this Animator anim, string _name, int layer)
+        {
+#if UNITY_EDITOR
+            AnimationClip result = null;
+            //var n = anim.runtimeAnimatorController as AnimatorController;
+            AnimatorControllerLayer[] layers = (anim.runtimeAnimatorController as AnimatorController).layers;
+
+            for (int i = 0; i < layers.Length; i++)
+            {
+                if (i == layer)
+                {
+                    foreach (ChildAnimatorState j in layers[i].stateMachine.states)
+                    {
+                        //Debug.Log("states name : " + j.state.name);
+                        if (j.state.name == _name)
+                        {
+                            AnimationClip c = j.state.motion as AnimationClip;
+                            //Debug.Log("Result found : " + (result != null ? result.name : "NO clip found"));
+                            return c;
+                        }
+                    }
+                }
+            }
+            return result;
 #endif
         }
     }
