@@ -12,6 +12,8 @@ public class TweenTrack : TrackAsset
 
     static Dictionary<Transform, List<TweenBehaviour>> allClips = new Dictionary<Transform, List<TweenBehaviour>>();
 
+    public const float IGNORE_ROTATION_VALUE = -9999;
+
     public static bool IsEmptyFrame(Transform _t)
     {
         List<TweenBehaviour> tbs = allClips[_t];

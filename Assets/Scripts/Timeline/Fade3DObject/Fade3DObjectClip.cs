@@ -28,7 +28,11 @@ public class Fade3DObjectClip : PlayableAsset, ITimelineClipAsset
         if(fadeObjects != null)
         {
             foreach (var v in fadeObjects)
+            {
                 clone.addFadeObject(v.ExposedReference.Resolve(graph.GetResolver()));
+                //Debug.Log(((TimelineClip)(this)).displayName + " : " + v.ExposedReference.exposedName);
+                Debug.Log(v.ExposedReference.exposedName);
+            }
         }
 
         return playable;

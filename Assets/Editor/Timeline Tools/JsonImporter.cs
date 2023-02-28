@@ -7,6 +7,8 @@ namespace CustomExporter
     public static class JsonImporter
     {
         public const string FILENAME = @"\Exported.txt";
+        public const string FILENAME_LOOKAT = @"\LookAtTrackExported.txt";
+        public const string FILENAME_TWEEN = @"\TweenTrackExported.txt";
 
         public static ListAnimClipData LoadAnimationTrack(string SAVE_FOLDER)
         {
@@ -25,6 +27,42 @@ namespace CustomExporter
             ListAnimClipData result = JsonUtility.FromJson<ListAnimClipData>(LoadedTxt);
             return result;
         }
+
+        public static ListLookAtClipData LoadLookAtTrack(string SAVE_FOLDER)
+        {
+            string path = SAVE_FOLDER + FILENAME_LOOKAT;
+
+            if (!File.Exists(path))
+            {
+                Debug.Log("Save File Not Found on " + path);
+                return null;
+            }
+
+            Debug.Log("Loading file from : " + path);
+
+            string LoadedTxt = File.ReadAllText(path);
+
+            ListLookAtClipData result = JsonUtility.FromJson<ListLookAtClipData>(LoadedTxt);
+            return result;
+        }
+
+        public static ListTweenClipData LoadTweenTrack(string SAVE_FOLDER)
+        {
+            string path = SAVE_FOLDER + FILENAME_TWEEN;
+
+            if (!File.Exists(path))
+            {
+                Debug.Log("Save File Not Found on " + path);
+                return null;
+            }
+
+            Debug.Log("Loading file from : " + path);
+
+            string LoadedTxt = File.ReadAllText(path);
+
+            ListTweenClipData result = JsonUtility.FromJson<ListTweenClipData>(LoadedTxt);
+            return result;
+        }
     }
 
     public class ListAnimClipData
@@ -32,6 +70,27 @@ namespace CustomExporter
         public string targetObject;
         public List<string> stateNames = new List<string>();
         public List<int> layers = new List<int>();
+        public List<double> startTimes = new List<double>();
+        public List<double> durations = new List<double>();
+    }
+
+    public class ListLookAtClipData
+    {
+        public string targetObject;
+        public List<string> targetsToLook = new List<string>();
+        public List<LookType> lookTypes = new List<LookType>();
+        public List<double> startTimes = new List<double>();
+        public List<double> durations = new List<double>();
+    }
+
+    public class ListTweenClipData
+    {
+        public string targetObject;
+        public List<Vector3> startPositions = new List<Vector3>();
+        public List<Vector3> startRotations = new List<Vector3>();
+        public List<Vector3> endPositions = new List<Vector3>();
+        public List<Vector3> endRotations = new List<Vector3>();
+        public List<TweenBehaviour.TranslateType> translateTypes = new List<TweenBehaviour.TranslateType>();
         public List<double> startTimes = new List<double>();
         public List<double> durations = new List<double>();
     }

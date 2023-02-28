@@ -51,7 +51,8 @@ public class TweenBehaviour : PlayableBehaviour
         if(translateType == TranslateType.HoldNewPosition || translateType == TranslateType.Hold)   //For this TranslateType, interpolation is not needed
         {
             t.position = startPosition;
-            t.rotation = Quaternion.Euler(startRotation);
+            if(startRotation.x != TweenTrack.IGNORE_ROTATION_VALUE)
+                t.rotation = Quaternion.Euler(startRotation);
             return;
         }
 

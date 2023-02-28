@@ -219,8 +219,8 @@ namespace CustomExtensions
 
         public static AnimationClip getClipFromStateName(this Animator anim, string _name, int layer)
         {
-#if UNITY_EDITOR
             AnimationClip result = null;
+#if UNITY_EDITOR
             //var n = anim.runtimeAnimatorController as AnimatorController;
             AnimatorControllerLayer[] layers = (anim.runtimeAnimatorController as AnimatorController).layers;
 
@@ -240,8 +240,8 @@ namespace CustomExtensions
                     }
                 }
             }
-            return result;
 #endif
+            return result;
         }
     }
 

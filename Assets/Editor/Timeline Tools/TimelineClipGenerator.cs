@@ -11,6 +11,8 @@ public class TimelineClipGenerator : EditorWindow
     TimelineClip clipType;
     TrackType type = TrackType.Animation;
 
+    Vector2 scrollPos;
+
     #region Style
     static GUIStyle bgStyle;
     static Texture2D texture;
@@ -24,8 +26,9 @@ public class TimelineClipGenerator : EditorWindow
     #endregion
 
     Transform transform;
-    #region Warp Track
+    #region Warp & Tween Track
     List<WarpClipData> warpClipDatas = new List<WarpClipData>();
+    static List<TweenClipData> tweenClipDatas = new List<TweenClipData>();
     #endregion
 
     #region 
@@ -77,6 +80,9 @@ public class TimelineClipGenerator : EditorWindow
 
         if (lookAtClipDatas.Count == 0)
             lookAtClipDatas.Add(new LookAtClipData());
+
+        if (tweenClipDatas.Count == 0)
+            tweenClipDatas.Add(new TweenClipData());
     }
 
     private void OnDisable()
@@ -106,9 +112,14 @@ public class TimelineClipGenerator : EditorWindow
             case TrackType.LookAt:
                 showLookAtTrackGenerator();
                 break;
+
+            case TrackType.Tween:
+                showTweenTrackGenerator();
+                break;
         }
     }
 
+    #region Animation Track
     void OnAnimationTrackLoadClick()
     {
         if (!EditorPrefs.HasKey(DialogManager.KEY_PATH))
@@ -223,9 +234,13 @@ public class TimelineClipGenerator : EditorWindow
             TimelineEditor.inspectedDirector.SetGenericBinding(newTrack, anim);
 
             TimelineEditor.Refresh(RefreshReason.ContentsAddedOrRemoved);
+
+            EditorUtility.DisplayDialog("Timeline Generator", "Animation Track created for " + anim.name, "Ok");
         }
     }
+    #endregion
 
+    #region Warp Track
     void showWarpTrackGenerator()
     {
         EditorGUILayout.Space(10);
@@ -310,13 +325,20 @@ public class TimelineClipGenerator : EditorWindow
             TimelineEditor.Refresh(RefreshReason.ContentsAddedOrRemoved);
         }
     }
+    #endregion
 
+    #region LookAt Track
     void showLookAtTrackGenerator()
     {
         EditorGUILayout.Space(10);
 
+        EditorGUILayout.BeginHorizontal();
         faceLookAt = (FaceLookAt)EditorGUILayout.ObjectField("Face Look At", faceLookAt, typeof(FaceLookAt), true);
-
+        if (GUILayout.Button("Load LookAt Track"))
+        {
+            OnLookAtTrackLoadClick();
+        }
+        EditorGUILayout.EndHorizontal();
         EditorGUILayout.Space(10);
 
         EditorGUILayout.LabelField("Target to Look | Look Type | StartTime | EndTime", boldStyle);
@@ -324,11 +346,16 @@ public class TimelineClipGenerator : EditorWindow
 
         List<LookAtClipData> removableData = new List<LookAtClipData>();
 
-        EditorGUILayout.BeginVertical(bgStyle);
+        //EditorGUILayout.BeginVertical(bgStyle);
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, true, GUI.skin.horizontalScrollbar, GUI.skin.verticalScrollbar, bgStyle);
         foreach (LookAtClipData cData in lookAtClipDatas)
         {
             EditorGUILayout.BeginHorizontal();
             cData.targetToLook = (Transform)EditorGUILayout.ObjectField(cData.targetToLook, typeof(Transform), true);
+            if(cData.targetToLook == null)
+            {
+                EditorGUILayout.LabelField(cData.targetName, errorStyle);
+            }
             GUILayout.FlexibleSpace();
             cData.lookType = (LookType)EditorGUILayout.EnumPopup("Look Type", cData.lookType);
             GUILayout.FlexibleSpace();
@@ -346,7 +373,8 @@ public class TimelineClipGenerator : EditorWindow
             else if (cData.targetToLook.GetComponent<FaceLookAt>() == null && cData.lookType == LookType.Face)
                 EditorGUILayout.LabelField("        Is this character?", errorStyle);
         }
-        EditorGUILayout.EndVertical();
+        EditorGUILayout.EndScrollView();
+        //EditorGUILayout.EndVertical();
 
         foreach (LookAtClipData cData in removableData)
         {
@@ -393,14 +421,191 @@ public class TimelineClipGenerator : EditorWindow
             TimelineEditor.inspectedDirector.SetGenericBinding(newTrack, faceLookAt);
 
             TimelineEditor.Refresh(RefreshReason.ContentsAddedOrRemoved);
+
+            EditorUtility.DisplayDialog("Timeline Generator", "LookAt Track created for " + faceLookAt.name, "Ok");
         }
     }
+
+    void OnLookAtTrackLoadClick()
+    {
+        if (!EditorPrefs.HasKey(DialogManager.KEY_PATH))
+        {
+            Debug.Log("No Path Found to load Animation Track");
+            return;
+        }
+
+        lookAtClipDatas.Clear();
+        ListLookAtClipData clipDatas = JsonImporter.LoadLookAtTrack(EditorPrefs.GetString(DialogManager.KEY_PATH));
+
+        if(clipDatas == null)
+        {
+            Debug.LogError("No File Found to load LookAtTrack");
+            return;
+        }
+
+        GameObject g = GameObject.Find(clipDatas.targetObject);
+        if(g == null)
+        {
+            Debug.LogError("Unable to find the GameObject named " + clipDatas.targetObject);
+            return;
+        }
+
+        faceLookAt = g.GetComponent<FaceLookAt>();
+        if(faceLookAt == null)
+        {
+            Debug.LogError("There is no FaceLookAt attached to the GameObject " + clipDatas.targetObject);
+            return;
+        }
+
+        for(int i = 0; i < clipDatas.targetsToLook.Count; i++)
+        {
+            LookAtClipData clip = new LookAtClipData();
+
+            GameObject targetToLook = GameObject.Find(clipDatas.targetsToLook[i]);
+            if (targetToLook != null)
+                clip.targetToLook = targetToLook.transform;
+            else
+                clip.targetToLook = null;
+
+            clip.lookType = clipDatas.lookTypes[i];
+            clip.startTime = clipDatas.startTimes[i];
+            clip.endTime = clipDatas.durations[i] + clipDatas.startTimes[i];
+            clip.targetName = clipDatas.targetsToLook[i];
+
+            lookAtClipDatas.Add(clip);
+        }
+    }
+    #endregion
+
+    #region Tween Track
+    void OnLoadTweenTrackClick()
+    {
+        if (!EditorPrefs.HasKey(DialogManager.KEY_PATH))
+        {
+            Debug.Log("No Path Found to load Tween Track");
+            return;
+        }
+
+        tweenClipDatas.Clear();
+        ListTweenClipData clipDatas = JsonImporter.LoadTweenTrack(EditorPrefs.GetString(DialogManager.KEY_PATH));
+
+        if (clipDatas == null)
+        {
+            Debug.LogError("No File Found to load Tween Track");
+            return;
+        }
+
+        GameObject g = GameObject.Find(clipDatas.targetObject);
+        if (g == null)
+        {
+            Debug.LogError("Unable to find the GameObject named " + clipDatas.targetObject);
+            return;
+        }
+
+        transform = g.transform;
+        
+        for(int i = 0; i < clipDatas.startTimes.Count; i++)
+        {
+            TweenClipData clip = new TweenClipData();
+
+            clip.translateType = clipDatas.translateTypes[i];
+            clip.startPosition = clipDatas.startPositions[i];
+            clip.startRotation = clipDatas.startRotations[i];
+            clip.startTime = clipDatas.startTimes[i];
+            clip.duration = clipDatas.durations[i];
+
+            tweenClipDatas.Add(clip);
+        }
+    }
+
+    void showTweenTrackGenerator()
+    {
+        EditorGUILayout.Space(10);
+
+        EditorGUILayout.BeginHorizontal();
+        transform = (Transform)EditorGUILayout.ObjectField("Target Transform", transform, typeof(Transform), true);
+        if (GUILayout.Button("Load Tween Track"))
+        {
+            OnLoadTweenTrackClick();
+        }
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.Space(10);
+
+        EditorGUILayout.LabelField("Translate Type | Start Position | Start Rotation | StartTime | Duration", boldStyle);
+        GUILayout.Space(5);
+
+        List<TweenClipData> removableData = new List<TweenClipData>();
+
+        EditorGUILayout.BeginVertical(bgStyle);
+        foreach (TweenClipData cData in tweenClipDatas)
+        {
+            EditorGUILayout.BeginHorizontal();
+            cData.translateType = (TweenBehaviour.TranslateType)EditorGUILayout.EnumPopup(cData.translateType);
+            GUILayout.FlexibleSpace();
+            cData.startPosition = EditorGUILayout.Vector3Field("StartPos", cData.startPosition);
+            cData.startRotation = EditorGUILayout.Vector3Field("StartRot", cData.startRotation);
+            GUILayout.FlexibleSpace();
+            cData.startTime = EditorGUILayout.DoubleField("Start Time", cData.startTime);
+            cData.duration = EditorGUILayout.DoubleField("Duration", cData.duration);
+            GUILayout.FlexibleSpace();
+
+            if (GUILayout.Button("Remove"))
+            {
+                removableData.Add(cData);
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        EditorGUILayout.EndVertical();
+
+        foreach (TweenClipData cData in removableData)
+        {
+            if (tweenClipDatas.Contains(cData))
+                tweenClipDatas.Remove(cData);
+        }
+
+        GUILayout.Space(5);
+        if (GUILayout.Button("Add"))
+            tweenClipDatas.Add(new TweenClipData());
+
+        GUILayout.Space(10);
+
+        TimelineAsset asset = TimelineEditor.inspectedAsset;
+        if (transform != null && tweenClipDatas.Count > 0 && asset != null && GUILayout.Button("Generate Tween Clips"))
+        {
+            string trackName = transform.name + "_Tween";
+
+            TweenTrack newTrack = asset.CreateTrack<TweenTrack>(trackName);
+            UndoExtensions.RegisterTrack(newTrack, "Tween track created");
+
+            for (int i = 0; i < tweenClipDatas.Count; i++)
+            {
+                TweenClipData cd = tweenClipDatas[i];
+
+                TimelineClip tClip = newTrack.CreateClip<TweenAsset>();
+                TweenAsset tweenClip = tClip.asset as TweenAsset;
+                tClip.start = cd.startTime;
+                tClip.duration = cd.duration;
+
+                tweenClip.behaviour.startPosition = cd.startPosition;
+                tweenClip.behaviour.startRotation = cd.startRotation;
+                tweenClip.behaviour.translateType = cd.translateType;
+            }
+
+            TimelineEditor.inspectedDirector.SetGenericBinding(newTrack, transform);
+
+            TimelineEditor.Refresh(RefreshReason.ContentsAddedOrRemoved);
+
+            EditorUtility.DisplayDialog("Timeline Generator", "Tween Track created for " + transform.name, "Ok");
+        }
+    }
+    #endregion
 
     enum TrackType
     {
         Animation,
-        Warp,
-        LookAt
+        Tween,
+        LookAt,
+        Warp
     }
 
     class AnimClipData
@@ -409,6 +614,15 @@ public class TimelineClipGenerator : EditorWindow
         public double startTime;
         public double duration;
         public string stateName;
+    }
+
+    class TweenClipData
+    {
+        public Vector3 startPosition, startRotation;
+        public Vector3 endPosition, endRotation;
+        public TweenBehaviour.TranslateType translateType = TweenBehaviour.TranslateType.HoldNewPosition;
+        public double startTime;
+        public double duration;
     }
 
     class WarpClipData
@@ -425,5 +639,6 @@ public class TimelineClipGenerator : EditorWindow
         public LookType lookType;
         public double startTime;
         public double endTime;
+        public string targetName;
     }
 }
