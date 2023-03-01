@@ -33,9 +33,18 @@ public class FaceLookAt : TimelineBehaviour
         if (defaultLookTarget == null)
         {
             defaultLookTarget = new GameObject("LookTarget:" + name).transform;
+            defaultLookTarget.SetParent(head);
+            defaultLookTarget.localPosition = Vector3.forward;
+
             defaultLookTarget.SetParent(transform);
-            defaultLookTarget.localPosition = head.forward * forwardDirectionMultiplier + head.position;
+            //defaultLookTarget.localPosition = head.forward * forwardDirectionMultiplier + head.position;
         }
+    }
+
+    [ContextMenu("Select default look target")]
+    void selectDefault()
+    {
+        UnityEditor.Selection.activeGameObject = defaultLookTarget.gameObject;
     }
 
     /// <summary>
@@ -71,6 +80,8 @@ public class FaceLookAt : TimelineBehaviour
     public void setFreeLook()   //Set the rotation of the character to be controlled completely by animation
     {
         prevPosition = head.forward * forwardDirectionMultiplier + head.position;
+        prevPosition = currentTargetPosition;
+        //GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = prevPosition;
 
         //StartCoroutine(freeLook());
         target = null;
@@ -104,7 +115,8 @@ public class FaceLookAt : TimelineBehaviour
 
     public void setRootTarget(Transform _target)    //Set the target to the transform sent in parameter
     {
-        prevPosition = head.parent.forward * 5 + head.parent.position;
+        prevPosition = head.forward * 5 + head.position;
+        GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = prevPosition;
 
         target = _target;
         timer = 0;
@@ -118,12 +130,13 @@ public class FaceLookAt : TimelineBehaviour
         {
             //Vector3 eyePosition = target.TransformPoint(new Vector3(0, 0.08493738f, 0.1173861f));
 
-            anim.SetLookAtWeight(Mathf.Clamp(timer, 0, 1));
+            anim.SetLookAtWeight(Mathf.Clamp(easeInOutCubic(timer), 0, 1));
             anim.SetLookAtPosition(currentTargetPosition);
         }
         else if(onFreeLook)
         {
-            float clampedTimer =   ( 1 - Mathf.Clamp(timer, 0, 1));
+            float clampedTimer =   ( 1 - Mathf.Clamp(easeInOutCubic(timer), 0, 1));
+            //float clampedTimer = Mathf.Clamp(easeInOutCubic(timer), 0, 1);
             anim.SetLookAtWeight(clampedTimer);
             anim.SetLookAtPosition(currentTargetPosition);
         }
@@ -140,7 +153,7 @@ public class FaceLookAt : TimelineBehaviour
         {
             if (timer < 1)
             {
-                timer += Time.deltaTime / transtitionDuration;
+                timer +=  Time.deltaTime / transtitionDuration;
                 currentTargetPosition = Vector3.Lerp(prevPosition, target.position, timer);
             }
             else
@@ -149,7 +162,7 @@ public class FaceLookAt : TimelineBehaviour
         else if(onFreeLook)
         {
             timer += Time.deltaTime / transtitionDuration;
-            currentTargetPosition = Vector3.Lerp(prevPosition, defaultLookTarget.position, timer);
+            currentTargetPosition = Vector3.Lerp(prevPosition, transform.forward + head.position, timer);
             if (timer >= 1)
                 onFreeLook = false;
         }
@@ -159,8 +172,13 @@ public class FaceLookAt : TimelineBehaviour
     {
         if (debugTarget && target != null)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(target.position, .2f);
         }
+            //Gizmos.color = Color.red;
+            //Gizmos.DrawSphere(currentTargetPosition, .2f);
+    }
+
+    float easeInOutCubic(float x)
+    {
+        return x < 0.5 ? 4 * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 3) / 2;
     }
 }
