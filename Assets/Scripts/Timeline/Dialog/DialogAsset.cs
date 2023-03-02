@@ -7,7 +7,8 @@ public class DialogAsset : PlayableAsset
 {
     [HideInInspector] public DialogEventManager dialogManager = null;
 
-    [SerializeField] bool isTutorial = false;
+    [SerializeField] public bool isTutorial = false;
+    [SerializeField] public bool isLearner = false;
 
     [SerializeField]
     public ExposedReference<GameObject> character;
@@ -27,7 +28,7 @@ public class DialogAsset : PlayableAsset
     {
         behaviour = new DialogBehaviour();
         characterGo = character.Resolve(graph.GetResolver());
-        behaviour.setProperties(dialogManager, characterGo, animationClipName, audio, subtitle, isTutorial);
+        behaviour.setProperties(dialogManager, characterGo, animationClipName, audio, subtitle,isLearner, isTutorial);
 
         var playable = ScriptPlayable<DialogBehaviour>.Create(graph, behaviour);
 

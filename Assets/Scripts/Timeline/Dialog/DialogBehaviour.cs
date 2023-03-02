@@ -11,15 +11,17 @@ public class DialogBehaviour : PlayableBehaviour
     public string animationClipName;
     public AudioClip audioClip;
     public string subtitle;
+    public bool isLearner;
     public bool isTutorial;
 
-    public void setProperties(DialogEventManager _dialogManager, GameObject _character, string _animationClipName, AudioClip _audioClip, string _subtitle, bool _isTutorial)
+    public void setProperties(DialogEventManager _dialogManager, GameObject _character, string _animationClipName, AudioClip _audioClip, string _subtitle,bool _isLearner, bool _isTutorial)
     {
         dialogManager = _dialogManager;
         character = _character;
         animationClipName = _animationClipName;
         audioClip = _audioClip;
         subtitle = _subtitle;
+        isLearner = _isLearner;
         isTutorial = _isTutorial;
     }
 

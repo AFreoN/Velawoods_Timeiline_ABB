@@ -19,6 +19,7 @@ public class DialogArrow : MonoBehaviour
 
     public void changeTarget(GameObject _target)
     {
+        if (_target == null) return;
         target = _target.transform;
 
         endPos = cam.WorldToScreenPoint(target.position);

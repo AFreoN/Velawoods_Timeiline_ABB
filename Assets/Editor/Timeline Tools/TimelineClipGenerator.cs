@@ -31,6 +31,11 @@ public class TimelineClipGenerator : EditorWindow
     static List<TweenClipData> tweenClipDatas = new List<TweenClipData>();
     #endregion
 
+    #region Dialog track
+    DialogEventManager dialogEventManager;
+    List<DialogClipData> dialogClipDatas = new List<DialogClipData>();
+    #endregion
+
     #region 
     FaceLookAt faceLookAt;
     static List<LookAtClipData> lookAtClipDatas = new List<LookAtClipData>();
@@ -83,6 +88,9 @@ public class TimelineClipGenerator : EditorWindow
 
         if (tweenClipDatas.Count == 0)
             tweenClipDatas.Add(new TweenClipData());
+
+        if (dialogClipDatas.Count == 0)
+            dialogClipDatas.Add(new DialogClipData());
     }
 
     private void OnDisable()
@@ -105,9 +113,9 @@ public class TimelineClipGenerator : EditorWindow
                 showAnimationTrackGenerator();
                 break;
 
-            case TrackType.Warp:
-                showWarpTrackGenerator();
-                break;
+            //case TrackType.Warp:
+            //    showWarpTrackGenerator();
+            //    break;
 
             case TrackType.LookAt:
                 showLookAtTrackGenerator();
@@ -115,6 +123,10 @@ public class TimelineClipGenerator : EditorWindow
 
             case TrackType.Tween:
                 showTweenTrackGenerator();
+                break;
+
+            case TrackType.Dialog:
+                showDialogTrackGenerator();
                 break;
         }
     }
@@ -600,12 +612,197 @@ public class TimelineClipGenerator : EditorWindow
     }
     #endregion
 
+    #region DialogTrack
+    void showDialogTrackGenerator()
+    {
+        EditorGUILayout.Space(10);
+
+        EditorGUILayout.BeginHorizontal();
+        dialogEventManager = (DialogEventManager)EditorGUILayout.ObjectField("Dialog Event Manager", dialogEventManager, typeof(DialogEventManager), true);
+        if (GUILayout.Button("Load Dialog Track"))
+        {
+            OnDialogTrackLoadClick();
+        }
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.Space(10);
+
+        EditorGUILayout.LabelField("Character | Audio Clip | Animation Name | Subtitle| Is Learner | Is Tutorial | Start | Duration", boldStyle);
+        GUILayout.Space(5);
+
+        List<DialogClipData> removableData = new List<DialogClipData>();
+
+        //EditorGUILayout.BeginVertical(bgStyle);
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, true, GUI.skin.horizontalScrollbar, GUI.skin.verticalScrollbar, bgStyle);
+        foreach (DialogClipData cData in dialogClipDatas)
+        {
+            EditorGUILayout.BeginHorizontal();
+            cData.character = (GameObject)EditorGUILayout.ObjectField(cData.character, typeof(GameObject), true);
+            cData.audioClip = (AudioClip)EditorGUILayout.ObjectField(cData.audioClip, typeof(AudioClip), false);
+            cData.animationClipName = EditorGUILayout.TextField("Animation Clip Name",cData.animationClipName);
+            cData.subtitle = EditorGUILayout.TextField("Subtitle", cData.subtitle);
+            GUILayout.FlexibleSpace();
+            cData.isLearner = EditorGUILayout.Toggle("Is Learner", cData.isLearner);
+            cData.isTutorial = EditorGUILayout.Toggle("Is Tutorial", cData.isTutorial);
+
+            cData.startTime = EditorGUILayout.DoubleField(cData.startTime);
+            cData.duration = EditorGUILayout.DoubleField(cData.duration);
+
+            if (GUILayout.Button("Remove"))
+            {
+                removableData.Add(cData);
+            }
+            EditorGUILayout.EndHorizontal();
+            if (cData.character == null && cData.isLearner == false)
+                EditorGUILayout.LabelField("        Character missing!", errorStyle);
+            else if (cData.character != null && cData.character.GetComponent<FaceAnim>() == null)
+                EditorGUILayout.LabelField("        Is this character?", errorStyle);
+        }
+        EditorGUILayout.EndScrollView();
+        //EditorGUILayout.EndVertical();
+
+        foreach (DialogClipData cData in removableData)
+        {
+            if (dialogClipDatas.Contains(cData))
+                dialogClipDatas.Remove(cData);
+        }
+
+        GUILayout.Space(5);
+        if (GUILayout.Button("Add"))
+        {
+            DialogClipData cd = new DialogClipData();
+            if (dialogClipDatas.Count > 0)
+            {
+                cd.startTime = dialogClipDatas[dialogClipDatas.Count - 1].duration;
+            }
+            dialogClipDatas.Add(cd);
+        }
+
+        GUILayout.Space(10);
+
+        TimelineAsset asset = TimelineEditor.inspectedAsset;
+        if (dialogEventManager != null && dialogClipDatas.Count > 0 && asset != null && GUILayout.Button("Generate Clips"))
+        {
+            string trackName = "Conversation Track";
+
+            DialogTrack newTrack = asset.CreateTrack<DialogTrack>(trackName);
+            UndoExtensions.RegisterTrack(newTrack, "Dialog track created");
+
+            for (int i = 0; i < dialogClipDatas.Count; i++)
+            {
+                DialogClipData cd = dialogClipDatas[i];
+
+                TimelineClip tClip = newTrack.CreateClip<DialogAsset>();
+                DialogAsset dialogClip = tClip.asset as DialogAsset;
+                tClip.start = cd.startTime;
+                tClip.duration = cd.duration;
+                tClip.displayName = cd.subtitle;
+
+                dialogClip.character.exposedName = GUID.Generate().ToString();
+                if(cd.character != null)
+                    TimelineEditor.inspectedDirector.SetReferenceValue(dialogClip.character.exposedName, cd.character);
+
+                dialogClip.animationClipName = cd.animationClipName;
+                dialogClip.audio = cd.audioClip;
+                dialogClip.subtitle = cd.subtitle;
+                dialogClip.isLearner = cd.isLearner;
+                dialogClip.isTutorial = cd.isTutorial;
+            }
+
+            TimelineEditor.inspectedDirector.SetGenericBinding(newTrack, dialogEventManager);
+
+            TimelineEditor.Refresh(RefreshReason.ContentsAddedOrRemoved);
+
+            EditorUtility.DisplayDialog("Timeline Generator", "Conversation Track Created", "Ok");
+        }
+    }
+
+    void OnDialogTrackLoadClick()
+    {
+        if (!EditorPrefs.HasKey(DialogManager.KEY_PATH))
+        {
+            Debug.Log("No Path Found to load Dialog Track");
+            return;
+        }
+
+        dialogClipDatas.Clear();
+        ListDialogClipData clipDatas = JsonImporter.LoadDialogTrack(EditorPrefs.GetString(DialogManager.KEY_PATH));
+
+        if (clipDatas == null)
+        {
+            Debug.LogError("No File Found to load Dialog Track");
+            return;
+        }
+
+        //GameObject g = GameObject.Find(clipDatas.targetObject);
+        //if (g == null)
+        //{
+        //    Debug.LogError("Unable to find the GameObject named " + clipDatas.targetObject);
+        //    return;
+        //}
+
+        //faceLookAt = g.GetComponent<FaceLookAt>();
+        //if (faceLookAt == null)
+        //{
+        //    Debug.LogError("There is no FaceLookAt attached to the GameObject " + clipDatas.targetObject);
+        //    return;
+        //}
+
+        string none = "null";
+        for (int i = 0; i < clipDatas.characterNames.Count; i++)
+        {
+            DialogClipData clip = new DialogClipData();
+
+            if(clipDatas.characterNames[i] != none)
+            {
+                GameObject character = GameObject.Find(clipDatas.characterNames[i]);
+                if (character != null)
+                    clip.character = character;
+            }
+
+            if(clipDatas.animationClipNames[i] != none)
+            {
+                clip.animationClipName = clipDatas.animationClipNames[i];
+            }
+
+            if(clipDatas.audioClipGuids[i] != none)
+            {
+                clip.audioClip = AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GUIDToAssetPath(clipDatas.audioClipGuids[i])) as AudioClip;
+            }
+
+            clip.subtitle = clipDatas.subtitles[i];
+            clip.isLearner = clipDatas.isLearners[i];
+            clip.isTutorial = clipDatas.isTutorials[i];
+            clip.startTime = clipDatas.startTimes[i];
+            clip.duration = clipDatas.durations[i];
+
+            dialogClipDatas.Add(clip);
+        }
+    }
+    #endregion
+
+    [MenuItem("Tools/Print AudioClip GUID's")]
+    static void FindAudioClip()
+    {
+        string[] guids = AssetDatabase.FindAssets("t:audioclip", new[] { "Assets/Assets/Missions/Level2/Course1/Scenario1/Mission1/Audio" });
+        Debug.Log("guids length : " + guids.Length);
+        foreach(string guid in guids)
+        {
+            string clipName = "R2S1M1_Lisa_02";
+
+            AudioClip clip = AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GUIDToAssetPath(guid)) as AudioClip;
+            if(clip != null && clipName == clip.name)
+            {
+                Debug.Log("Clip named " + clipName + " found : " + guid);
+            }
+        }
+    }
+
     enum TrackType
     {
         Animation,
         Tween,
         LookAt,
-        Warp
+        Dialog
     }
 
     class AnimClipData
@@ -640,5 +837,17 @@ public class TimelineClipGenerator : EditorWindow
         public double startTime;
         public double endTime;
         public string targetName;
+    }
+
+    class DialogClipData
+    {
+        public bool isTutorial;
+        public bool isLearner;
+        public GameObject character;
+        public string animationClipName;
+        public AudioClip audioClip;
+        public string subtitle;
+        public double startTime;
+        public double duration;
     }
 }

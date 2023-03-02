@@ -9,6 +9,7 @@ namespace CustomExporter
         public const string FILENAME = @"\Exported.txt";
         public const string FILENAME_LOOKAT = @"\LookAtTrackExported.txt";
         public const string FILENAME_TWEEN = @"\TweenTrackExported.txt";
+        public const string FILENAME_DIALOG = @"\DialogTrackExported.txt";
 
         public static ListAnimClipData LoadAnimationTrack(string SAVE_FOLDER)
         {
@@ -63,6 +64,24 @@ namespace CustomExporter
             ListTweenClipData result = JsonUtility.FromJson<ListTweenClipData>(LoadedTxt);
             return result;
         }
+
+        public static ListDialogClipData LoadDialogTrack(string SAVE_FOLDER)
+        {
+            string path = SAVE_FOLDER + FILENAME_DIALOG;
+
+            if (!File.Exists(path))
+            {
+                Debug.Log("Save File Not Found on " + path);
+                return null;
+            }
+
+            Debug.Log("Loading file from : " + path);
+
+            string LoadedTxt = File.ReadAllText(path);
+
+            ListDialogClipData result = JsonUtility.FromJson<ListDialogClipData>(LoadedTxt);
+            return result;
+        }
     }
 
     public class ListAnimClipData
@@ -91,6 +110,19 @@ namespace CustomExporter
         public List<Vector3> endPositions = new List<Vector3>();
         public List<Vector3> endRotations = new List<Vector3>();
         public List<TweenBehaviour.TranslateType> translateTypes = new List<TweenBehaviour.TranslateType>();
+        public List<double> startTimes = new List<double>();
+        public List<double> durations = new List<double>();
+    }
+
+    public class ListDialogClipData
+    {
+        public string targetObject;
+        public List<string> characterNames = new List<string>();
+        public List<string> animationClipNames = new List<string>();
+        public List<string> audioClipGuids = new List<string>();
+        public List<string> subtitles = new List<string>();
+        public List<bool> isTutorials = new List<bool>();
+        public List<bool> isLearners = new List<bool>();
         public List<double> startTimes = new List<double>();
         public List<double> durations = new List<double>();
     }

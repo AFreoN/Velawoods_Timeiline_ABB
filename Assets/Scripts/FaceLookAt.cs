@@ -9,7 +9,7 @@ public class FaceLookAt : TimelineBehaviour
     const float angleLimit = 55;
 
     [SerializeField, Range(0,1)] float lookWeight = 1;
-    LookType lookType;
+    LookType lookType = LookType.FreeLook;
 
     [SerializeField] Transform head = null;
     public Transform Head => head;
@@ -19,9 +19,13 @@ public class FaceLookAt : TimelineBehaviour
     float forwardDirectionMultiplier = 5;
 
     Transform target = null;
-    Vector3 currentTargetPosition = Vector3.zero, prevPosition = Vector3.positiveInfinity;
+    Transform prevTarget = null;
 
-    float transtitionDuration = .5f, timer = 0;
+    float targetTimer = 0;
+    bool lookAtInitialized = false;
+    Vector3 currentTargetPosition = new Vector3(-99,0,0), prevPosition = Vector3.positiveInfinity;
+
+    float transtitionDuration = 1f, timer = 0;
     bool onFreeLook = false;
 
     Transform defaultLookTarget;
@@ -36,7 +40,13 @@ public class FaceLookAt : TimelineBehaviour
             defaultLookTarget.SetParent(head);
             defaultLookTarget.localPosition = Vector3.forward;
 
-            defaultLookTarget.SetParent(transform);
+            foreach(Transform child in GetComponentsInChildren<Transform>())
+            {
+                if(child.gameObject.name == "Character1_Hips")
+                {
+                    defaultLookTarget.SetParent(child);
+                }
+            }
             //defaultLookTarget.localPosition = head.forward * forwardDirectionMultiplier + head.position;
         }
     }
@@ -57,6 +67,13 @@ public class FaceLookAt : TimelineBehaviour
         o.executeAction((LookAtBehaviour lb) =>
         {
             lookType = lb.lookType;
+            prevTarget = target;
+
+            if (lookAtInitialized == false)
+            {
+                currentTargetPosition = defaultLookTarget.position;
+                lookAtInitialized = true;
+            }
 
             if (lb.lookType == LookType.FreeLook)
                 setFreeLook();
@@ -83,19 +100,9 @@ public class FaceLookAt : TimelineBehaviour
         prevPosition = currentTargetPosition;
         //GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = prevPosition;
 
-        //StartCoroutine(freeLook());
-        target = null;
+        //target = null;
         onFreeLook = true;
-        timer = 0;
-    }
-
-    IEnumerator freeLook()
-    {
-        yield return new WaitForEndOfFrame();
-
-
-        //if (lookType == LookType.FreeLook)
-            timer = 0;
+        //timer = 0;
     }
 
     public void setTarget(Transform _target)    //Set the character head a target to look, requires it parent transform as parameter
@@ -104,67 +111,73 @@ public class FaceLookAt : TimelineBehaviour
         {
             if (child.gameObject.name == "Character1_Head")
             {
-                prevPosition = head.forward * 5 + head.position;
+                //prevPosition = head.forward * 5 + head.position;
+                prevPosition = currentTargetPosition;
 
                 target = child;
-                timer = 0;
                 onFreeLook = false;
+                targetTimer = 0;
             }
         }
     }
 
     public void setRootTarget(Transform _target)    //Set the target to the transform sent in parameter
     {
-        prevPosition = head.forward * 5 + head.position;
-        GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = prevPosition;
+        prevPosition = currentTargetPosition;
+        //GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = prevPosition;
 
         target = _target;
-        timer = 0;
+        targetTimer = 0;
         onFreeLook = false;
     }
 
     private void OnAnimatorIK(int layerIndex)
     {
+        float clampedTimer = Mathf.Clamp(ease(timer), 0, 1);
+        anim.SetLookAtWeight(clampedTimer);
+        anim.SetLookAtPosition(currentTargetPosition);
+        //if(!onFreeLook && target != null)
+        return;
         //if (layerIndex != 1) return; 
-        if (target != null)
-        {
-            //Vector3 eyePosition = target.TransformPoint(new Vector3(0, 0.08493738f, 0.1173861f));
-
-            anim.SetLookAtWeight(Mathf.Clamp(easeInOutCubic(timer), 0, 1));
-            anim.SetLookAtPosition(currentTargetPosition);
-        }
-        else if(onFreeLook)
-        {
-            float clampedTimer =   ( 1 - Mathf.Clamp(easeInOutCubic(timer), 0, 1));
-            //float clampedTimer = Mathf.Clamp(easeInOutCubic(timer), 0, 1);
-            anim.SetLookAtWeight(clampedTimer);
-            anim.SetLookAtPosition(currentTargetPosition);
-        }
-        else if(!onFreeLook)
-        {
-            //If there is no target and on free look, set look weight to zero
-            anim.SetLookAtWeight(0);
-        }
     }
 
     private void Update()
     {
-        if (target != null)
+        if  (lookType == LookType.Face || lookType == LookType.Target)// && target != null)
         {
+            Vector3 targetPos = target.position;
+            if (targetTimer < 1)
+            {
+                targetTimer += Time.deltaTime / transtitionDuration;
+                if (prevTarget != null)
+                    targetPos = Vector3.Lerp(prevPosition, target.position, ease(targetTimer));
+            }
+
             if (timer < 1)
             {
                 timer +=  Time.deltaTime / transtitionDuration;
-                currentTargetPosition = Vector3.Lerp(prevPosition, target.position, timer);
+                //Vector3 targetPos = target.position;
+                //if (prevTarget != null)
+                //    targetPos = Vector3.Lerp(prevTarget.position, target.position, ease(timer));
+                currentTargetPosition = Vector3.Lerp(prevPosition, targetPos, ease(timer));
             }
             else
-                currentTargetPosition = target.position;
+            {
+
+                currentTargetPosition = targetPos;
+            }
         }
         else if(onFreeLook)
         {
-            timer += Time.deltaTime / transtitionDuration;
-            currentTargetPosition = Vector3.Lerp(prevPosition, transform.forward + head.position, timer);
-            if (timer >= 1)
+            timer -= Time.deltaTime / transtitionDuration;
+            currentTargetPosition = Vector3.Lerp(defaultLookTarget.position, prevPosition, ease(timer)); //Lerps from 1 to 0
+            //targetTimer = Mathf.Clamp01(timer);
+            if (timer <= 0)
+            {
                 onFreeLook = false;
+                prevTarget = null;
+                targetTimer = 0;
+            }
         }
     }
 
@@ -173,8 +186,17 @@ public class FaceLookAt : TimelineBehaviour
         if (debugTarget && target != null)
         {
         }
-            //Gizmos.color = Color.red;
-            //Gizmos.DrawSphere(currentTargetPosition, .2f);
+        if (debugTarget)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(currentTargetPosition, .2f);
+        }
+    }
+
+    float ease(float _t)
+    {
+        //return _t;
+        return easeInOutCubic(_t);
     }
 
     float easeInOutCubic(float x)

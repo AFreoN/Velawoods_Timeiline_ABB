@@ -11,6 +11,7 @@ public class DialogEventManager : TimelineBehaviour
     //{
     //    instance = this;
     //}
+    AudioSource audioSource = null;
 
     [SerializeField] GameObject subHolder = null;   //Gameobject holding the subtitle text
     [SerializeField] TMP_Text subtitleText = null;  //Subtitle display text
@@ -26,6 +27,9 @@ public class DialogEventManager : TimelineBehaviour
         subHolder.SetActive(true);
 
         dialogOpener = GetComponent<DialogOpener>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     /// <summary>
@@ -34,7 +38,7 @@ public class DialogEventManager : TimelineBehaviour
     /// <param name="o">DialogBehaviour object</param>
     public override void OnClipStart(object o)
     {
-        o.executeAction((DialogBehaviour db) => processDialog(db.character, db.animationClipName, db.subtitle, db.audioClip, db.isTutorial));
+        o.executeAction((DialogBehaviour db) => processDialog(db.character, db.animationClipName, db.subtitle, db.audioClip,db.isLearner, db.isTutorial));
     }
 
     /// <summary>
@@ -54,10 +58,9 @@ public class DialogEventManager : TimelineBehaviour
     /// <param name="subtitle">Write subtitles</param>
     /// <param name="audioClip">Audio clip to play</param>
     /// <param name="isTutorial">Is tutorial coversation or normal conversation</param>
-    public void processDialog(GameObject character, string animationClipName, string subtitle, AudioClip audioClip, bool isTutorial)
+    public void processDialog(GameObject character, string animationClipName, string subtitle, AudioClip audioClip,bool isLearner, bool isTutorial)
     {
         if (Application.isPlaying == false) return;
-        if (character == null || audioClip == null) return;
 
         if (!isTutorial)
         {
@@ -67,7 +70,13 @@ public class DialogEventManager : TimelineBehaviour
         else
             writeTutorialSubtititle(subtitle);
 
-        character.GetComponent<FaceAnim>().playAnimAudio(audioClip, animationClipName);
+        if (!isLearner && character != null && audioClip != null)
+            character.GetComponent<FaceAnim>().playAnimAudio(audioClip, animationClipName);
+        else if(character == null && audioClip != null)
+        {
+            audioSource.clip = audioClip;
+            audioSource.Play();
+        }
     }
 
     public void writeSubtitle(string s)
