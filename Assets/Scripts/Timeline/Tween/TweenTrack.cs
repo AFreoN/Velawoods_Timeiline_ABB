@@ -113,11 +113,14 @@ public class TweenTrack : TrackAsset
             else if(behaviours[i].translateType == TweenBehaviour.TranslateType.Hold)
             {
                 behaviours[i].startPosition = behaviours[i - 1].endPosition;
-                behaviours[i].startRotation = behaviours[i - 1].getEndRotation().eulerAngles;
+                behaviours[i].startRotation = behaviours[i - 1].getEndRotation().eulerAngles + Vector3.down * behaviours[i - 1].rotationOffset;
 
                 behaviours[i].endPosition = behaviours[i].startPosition;
                 behaviours[i].endRotation = behaviours[i].startRotation;
             }
+
+            if(behaviours[i].rotationOffset == 0)
+                behaviours[i].rotationOffset = behaviours[i - 1].rotationOffset;
         }
 
         return ScriptPlayable<TweenBehaviour>.Create(graph, inputCount);

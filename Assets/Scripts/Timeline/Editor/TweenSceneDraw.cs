@@ -61,6 +61,28 @@ public class TweenSceneDraw : Editor
                 TimelineEditor.Refresh(RefreshReason.ContentsModified);
             }
         }
+
+        if(target != null)
+        {
+            Event e = Event.current;
+            switch (e.type)
+            {
+                case EventType.KeyDown:
+                    if (Event.current.keyCode == KeyCode.F)
+                    {
+                        TweenAsset t = (TweenAsset)target;
+                        //Selection.activeTransform = t.targetTransform;
+
+                        Bounds b = new Bounds();
+                        b.center = (t.behaviour.startPosition + t.behaviour.endPosition) / 2;
+                        b.size = Vector3.one * 2;
+                        SceneView.lastActiveSceneView.Frame(b);
+                        //Debug.Log("Target position = " + target.);
+                    }
+                    break;
+            }
+        }
+
     }
 
     void showEnum(Enum e)
@@ -135,7 +157,7 @@ public class TweenSceneDraw : Editor
 
     public override void OnInspectorGUI()
     {
-        if(behaviour.translateType == TweenBehaviour.TranslateType.Hold)
+        if (behaviour.translateType == TweenBehaviour.TranslateType.Hold)
         {
             showEnum(behaviour.translateType);
             return;
@@ -166,6 +188,17 @@ public class TweenSceneDraw : Editor
                 behaviour.useTimeCurve = t2;
             }
             GUILayout.EndHorizontal();
+
+            if (behaviour.useCurveRotation)
+            {
+                float r1 = behaviour.rotationOffset, r2 = behaviour.rotationOffset;
+                r1 = EditorGUILayout.FloatField("Rotation Offset", r1);
+                if (r1 != r2)
+                {
+                    UndoExtensions.RegisterPlayableAsset(asset, "Tween track rotation offset changed");
+                    behaviour.rotationOffset = r1;
+                }
+            }
 
             if (behaviour.useTimeCurve)
             {

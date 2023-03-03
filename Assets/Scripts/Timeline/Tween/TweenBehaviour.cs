@@ -25,6 +25,7 @@ public class TweenBehaviour : PlayableBehaviour
 
     public Vector3 startPosition, startRotation;
     public Vector3 endPosition, endRotation;
+    public float rotationOffset = 0;
 
     public BezierType curveType = BezierType.Linear;    //Type of curve used for this clip
     public Vector3 point1, point2;
@@ -52,7 +53,9 @@ public class TweenBehaviour : PlayableBehaviour
         {
             t.position = startPosition;
             if(startRotation.x != TweenTrack.IGNORE_ROTATION_VALUE)
+            {
                 t.rotation = Quaternion.Euler(startRotation);
+            }
             return;
         }
 
@@ -86,6 +89,7 @@ public class TweenBehaviour : PlayableBehaviour
                 if (useCurveRotation)
                 {
                     Vector3 final = (endPosition - startPosition).setY(0);
+                    final = Quaternion.Euler(Vector3.down * rotationOffset) * final;
                     t.forward = Vector3.Lerp(t.forward, final, lerpSpeed);
                 }
                 break;
@@ -95,6 +99,7 @@ public class TweenBehaviour : PlayableBehaviour
                 if (useCurveRotation)
                 {
                     Vector3 final = Bezier.getQuadraticTangent(startPosition, endPosition, point1, i).setY(0);
+                    final = Quaternion.Euler(Vector3.down * rotationOffset) * final;
                     t.forward = Vector3.Lerp(t.forward, final, lerpSpeed);
                 }
                 break;
@@ -104,6 +109,7 @@ public class TweenBehaviour : PlayableBehaviour
                 if (useCurveRotation)
                 {
                     Vector3 final = Bezier.getCubicTangent(startPosition, endPosition, point1, point2, i).setY(0);
+                    final = Quaternion.Euler(Vector3.down * rotationOffset) * final;
                     t.forward = Vector3.Lerp(t.forward, final, lerpSpeed);
                 }
                 break;
