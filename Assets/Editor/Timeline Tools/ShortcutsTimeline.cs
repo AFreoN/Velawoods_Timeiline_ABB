@@ -10,34 +10,16 @@ using System.Reflection;
 [InitializeOnLoad]
 static class ShortcutsTimeline
 {
-
-    static ShortcutsTimeline()
+    [MenuItem("GameObject/Show in Timeline %T", false,10)]
+    static void ShowInTimeline()
     {
-        SceneView.duringSceneGui += SceneGUI;
-    }
+        if (Selection.activeTransform == null) return;
 
-    static void SceneGUI(SceneView sceneView)
-    {
-        if (Selection.activeGameObject == null) return;
-
-        Event e = Event.current;
-        switch (e.type)
+        Object select = getTimelineClip(Selection.activeTransform.name);
+        if (select)
         {
-            case EventType.KeyDown:
-                if (Event.current.keyCode == KeyCode.T)
-                {
-                    Transform t = Selection.activeTransform;
-
-                    Selection.activeObject = getTimelineClip(t.name);
-                    InvokeInternalFrameTrack();
-                    
-
-                    //Bounds b = new Bounds();
-                    //b.center = t.position;
-                    //b.size = Vector3.one * 2;
-                    //SceneView.lastActiveSceneView.Frame(b);
-                }
-                break;
+            Selection.activeObject = select;
+            InvokeInternalFrameTrack();
         }
     }
 
@@ -74,18 +56,6 @@ static class ShortcutsTimeline
 
         return result;
     }
-
-    [MenuItem("GameObject/Show in Timeline")]
-    static void ShowInTimeline()
-    {
-        if (Selection.activeTransform == null) return;
-
-        Object select = getTimelineClip(Selection.activeTransform.name);
-        if(select)
-            Selection.activeObject = select;
-        InvokeInternalFrameTrack();
-    }
-
     
     static void InvokeInternalFrameTrack()
     {
