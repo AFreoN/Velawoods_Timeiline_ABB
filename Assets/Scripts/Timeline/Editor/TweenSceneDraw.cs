@@ -5,6 +5,7 @@ using UnityEditor.Timeline;
 using UnityEngine.Timeline;
 using System;
 using CustomExtensions;
+using CustomTracks;
 
 [CanEditMultipleObjects]
 [CustomEditor(typeof(TweenAsset))]

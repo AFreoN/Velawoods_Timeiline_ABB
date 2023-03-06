@@ -2,35 +2,38 @@ using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.Playables;
 
-[System.Serializable]
-public class CharacterSwitchBehaviour : PlayableBehaviour
+namespace CustomTracks
 {
-    CharacterSwitch ogCharacter = null;
-
-    public void setProperties(CharacterSwitch _og)
+    [System.Serializable]
+    public class CharacterSwitchBehaviour : PlayableBehaviour
     {
-        ogCharacter = _og;
-    }
+        CharacterSwitch ogCharacter = null;
 
-
-    public override void OnBehaviourPlay(Playable playable, FrameData info)
-    {
-        if (Application.isPlaying == false || ogCharacter == null) return;
-
-        if(ogCharacter != null)
+        public void setProperties(CharacterSwitch _og)
         {
-            ogCharacter.OnClipStart(this);
+            ogCharacter = _og;
         }
-    }
 
-    public override void OnBehaviourPause(Playable playable, FrameData info)
-    {
+
+        public override void OnBehaviourPlay(Playable playable, FrameData info)
+        {
+            if (Application.isPlaying == false || ogCharacter == null) return;
+
+            if (ogCharacter != null)
+            {
+                ogCharacter.OnClipStart(this);
+            }
+        }
+
+        public override void OnBehaviourPause(Playable playable, FrameData info)
+        {
 #if UNITY_EDITOR
-        if (Application.isPlaying == false) return;
+            if (Application.isPlaying == false) return;
 #endif
 
-        if (!ogCharacter) return;
+            if (!ogCharacter) return;
 
-        ogCharacter.OnClipEnd(this);
+            ogCharacter.OnClipEnd(this);
+        }
     }
 }

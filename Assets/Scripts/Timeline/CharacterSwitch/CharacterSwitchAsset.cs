@@ -2,17 +2,20 @@ using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.Playables;
 
-[TrackClipType(typeof(CharacterSwitchBehaviour))]
-public class CharacterSwitchAsset : PlayableAsset
+namespace CustomTracks
 {
-    [SerializeField][HideInInspector] public CharacterSwitch ogCharacter;
-
-    public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+    [TrackClipType(typeof(CharacterSwitchBehaviour))]
+    public class CharacterSwitchAsset : PlayableAsset
     {
-        CharacterSwitchBehaviour behaviour = new CharacterSwitchBehaviour();
-        behaviour.setProperties(ogCharacter);
+        [SerializeField][HideInInspector] public CharacterSwitch ogCharacter;
 
-        var playable = ScriptPlayable<CharacterSwitchBehaviour>.Create(graph, behaviour);
-        return playable;
+        public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+        {
+            CharacterSwitchBehaviour behaviour = new CharacterSwitchBehaviour();
+            behaviour.setProperties(ogCharacter);
+
+            var playable = ScriptPlayable<CharacterSwitchBehaviour>.Create(graph, behaviour);
+            return playable;
+        }
     }
 }

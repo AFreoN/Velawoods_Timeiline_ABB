@@ -3,22 +3,33 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
-[Serializable]
-public class WarpClip : PlayableAsset, ITimelineClipAsset
+namespace CustomTracks
 {
-    public ExposedReference<Transform> objectToWarpTo;
-    public WarpBehaviour behaviour = new WarpBehaviour ();
-
-    public ClipCaps clipCaps
+    [Serializable]
+    public class WarpClip : PlayableAsset, ITimelineClipAsset
     {
-        get { return ClipCaps.ClipIn; }
-    }
+        public ExposedReference<Transform> objectToWarpTo;
+        public WarpBehaviour behaviour = new WarpBehaviour();
 
-    public override Playable CreatePlayable (PlayableGraph graph, GameObject owner)
-    {
-        var playable = ScriptPlayable<WarpBehaviour>.Create (graph, behaviour);
-        WarpBehaviour clone = playable.GetBehaviour ();
-        clone.objectToWarpTo = objectToWarpTo.Resolve (graph.GetResolver ());
-        return playable;
+        public ClipCaps clipCaps
+        {
+            get { return ClipCaps.ClipIn; }
+        }
+
+        public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+        {
+            var playable = ScriptPlayable<WarpBehaviour>.Create(graph, behaviour);
+            WarpBehaviour clone = playable.GetBehaviour();
+            clone.objectToWarpTo = objectToWarpTo.Resolve(graph.GetResolver());
+
+            #if CLIENT_BUILD
+            if (TimelineController.instance)
+            {
+                objectToWarpTo.exposedName = UnityEditor.GUID.Generate().ToString();
+                TimelineController.instance.getPlayableDirector().SetReferenceValue(objectToWarpTo.exposedName, clone.objectToWarpTo);
+            }
+            #endif
+            return playable;
+        }
     }
 }

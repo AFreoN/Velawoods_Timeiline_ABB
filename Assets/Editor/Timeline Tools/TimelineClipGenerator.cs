@@ -5,6 +5,7 @@ using UnityEditor.Timeline;
 using System.Collections.Generic;
 using CustomExporter;
 using CustomExtensions;
+using CustomTracks;
 
 public class TimelineClipGenerator : EditorWindow
 {

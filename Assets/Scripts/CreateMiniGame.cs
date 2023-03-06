@@ -26,7 +26,7 @@ public class CreateMiniGame : TimelineBehaviour
 
     public override void OnClipStart(object o)
     {
-        o.executeAction((CreateMiniGameBehaviour cmg) =>
+        o.executeAction((CustomTracks.CreateMiniGameBehaviour cmg) =>
         {
             ShowMiniGame(cmg.title, cmg.pauseOnFire);
         });

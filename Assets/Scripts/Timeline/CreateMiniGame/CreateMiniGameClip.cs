@@ -3,21 +3,24 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
-[Serializable]
-[TrackClipType(typeof(CreateMiniGameBehaviour))]
-public class CreateMiniGameClip : PlayableAsset, ITimelineClipAsset
+namespace CustomTracks
 {
-    public CreateMiniGameBehaviour behaviour = new CreateMiniGameBehaviour ();
-
-    public ClipCaps clipCaps
+    [Serializable]
+    [TrackClipType(typeof(CreateMiniGameBehaviour))]
+    public class CreateMiniGameClip : PlayableAsset, ITimelineClipAsset
     {
-        get { return ClipCaps.None; }
-    }
+        public CreateMiniGameBehaviour behaviour = new CreateMiniGameBehaviour();
 
-    public override Playable CreatePlayable (PlayableGraph graph, GameObject owner)
-    {
-        var playable = ScriptPlayable<CreateMiniGameBehaviour>.Create (graph, behaviour);
-        CreateMiniGameBehaviour clone = playable.GetBehaviour ();
-        return playable;
+        public ClipCaps clipCaps
+        {
+            get { return ClipCaps.None; }
+        }
+
+        public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+        {
+            var playable = ScriptPlayable<CreateMiniGameBehaviour>.Create(graph, behaviour);
+            CreateMiniGameBehaviour clone = playable.GetBehaviour();
+            return playable;
+        }
     }
 }

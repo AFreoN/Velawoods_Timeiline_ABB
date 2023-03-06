@@ -38,7 +38,7 @@ public class DialogEventManager : TimelineBehaviour
     /// <param name="o">DialogBehaviour object</param>
     public override void OnClipStart(object o)
     {
-        o.executeAction((DialogBehaviour db) => processDialog(db.character, db.animationClipName, db.subtitle, db.audioClip,db.isLearner, db.isTutorial));
+        o.executeAction((CustomTracks.DialogBehaviour db) => processDialog(db.character, db.animationClipName, db.subtitle, db.audioClip,db.isLearner, db.isTutorial));
     }
 
     /// <summary>

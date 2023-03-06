@@ -3,44 +3,47 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
-[Serializable]
-public class WarpBehaviour : PlayableBehaviour
+namespace CustomTracks
 {
-    [HideInInspector] public Transform target;
-    [HideInInspector] public Transform objectToWarpTo;
-    public bool useObjectRotation;
-
-    #region For resetting transform
-    Vector3 resetPosition = Vector3.zero;
-    Quaternion resetRotation = Quaternion.identity;
-    #endregion
-
-    public override void OnBehaviourPlay(Playable playable, FrameData info)
+    [Serializable]
+    public class WarpBehaviour : PlayableBehaviour
     {
-//#if UNITY_EDITOR
-//        if (!Application.isPlaying) return;
-//#endif
+        [HideInInspector] public Transform target;
+        [HideInInspector] public Transform objectToWarpTo;
+        public bool useObjectRotation;
 
-        if (target == null || objectToWarpTo == null)
-            return;
+        #region For resetting transform
+        Vector3 resetPosition = Vector3.zero;
+        Quaternion resetRotation = Quaternion.identity;
+        #endregion
 
-        target.position = objectToWarpTo.position;
+        public override void OnBehaviourPlay(Playable playable, FrameData info)
+        {
+            //#if UNITY_EDITOR
+            //        if (!Application.isPlaying) return;
+            //#endif
 
-        if (useObjectRotation)
-            target.rotation = objectToWarpTo.rotation;
-    }
+            if (target == null || objectToWarpTo == null)
+                return;
 
-    public override void OnGraphStart(Playable playable)
-    {
-        if (target == null) return;
-        resetPosition = target.position;
-        resetRotation = target.rotation;
-    }
+            target.position = objectToWarpTo.position;
 
-    public override void OnGraphStop(Playable playable)
-    {
-        if (target == null) return;
-        target.position = resetPosition;
-        target.rotation = resetRotation;
+            if (useObjectRotation)
+                target.rotation = objectToWarpTo.rotation;
+        }
+
+        public override void OnGraphStart(Playable playable)
+        {
+            if (target == null) return;
+            resetPosition = target.position;
+            resetRotation = target.rotation;
+        }
+
+        public override void OnGraphStop(Playable playable)
+        {
+            if (target == null) return;
+            target.position = resetPosition;
+            target.rotation = resetRotation;
+        }
     }
 }

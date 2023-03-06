@@ -324,6 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 8b24f3d10f86a3541acb868c0afde664
     defaultValue: {fileID: 0}
@@ -336,6 +337,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_04
     audioClip: {fileID: 8300000, guid: c09bf7203e4cd1a4399cccba31a2ca71, type: 3}
     subtitle: Hello. It's Bob.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-8843116580122874269
 MonoBehaviour:
@@ -430,6 +432,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: 0, z: 0}
     endPosition: {x: -10.35565, y: -0.07121891, z: 0.4209211}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -523,6 +526,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 200.55315, z: 0}
     endPosition: {x: -10.10221, y: 0.008192144, z: -0.6236854}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 1
     point1: {x: -10.641958, y: 0.0107421875, z: -0.44909838}
     point2: {x: 0, y: 0, z: 0}
@@ -577,6 +581,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 180.31796, z: 0}
     endPosition: {x: 10.77025, y: -0.03216479, z: 15.58611}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 1
     point1: {x: 13.710964, y: -0.036132812, z: 17.96859}
     point2: {x: 0, y: 0, z: 0}
@@ -642,6 +647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 3072e2f4d607274478d3006686ceffb1
     defaultValue: {fileID: 0}
@@ -654,6 +660,7 @@ MonoBehaviour:
     animationClipName: 
     audioClip: {fileID: 8300000, guid: baf357d8a6aa0f44aa7ac05f9c09a413, type: 3}
     subtitle: It's 07953 54476.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-8554601188023900227
 MonoBehaviour:
@@ -954,6 +961,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 8a4f0e0a19084a34ea5c8801db63ec60
     defaultValue: {fileID: 0}
@@ -966,6 +974,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_08_UK
     audioClip: {fileID: 8300000, guid: 7aeeb2e19b61f154198f8c5199ac1833, type: 3}
     subtitle: What's your mobile number?
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-8057987333548088458
 MonoBehaviour:
@@ -992,6 +1001,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 196.86684, z: 0}
     endPosition: {x: -9.069877, y: -0.08369619, z: 11.88641}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -1046,6 +1056,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: 193.308, z: 0}
     endPosition: {x: -9.901, y: -0.11, z: 0.933}
     endRotation: {x: 0, y: 193.308, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -1089,6 +1100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: fdf8c0bf535ff4b4ca13deec990e1499
     defaultValue: {fileID: 0}
@@ -1101,6 +1113,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Amy_02
     audioClip: {fileID: 8300000, guid: d30a95a1a58ccf242b4cf42b9ccd53fd, type: 3}
     subtitle: How are you?
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-7984860269813783008
 MonoBehaviour:
@@ -1168,9 +1181,10 @@ MonoBehaviour:
     translateType: 3
     useTimeCurve: 0
     startPosition: {x: -7.203191, y: -0.0398497, z: 17.89038}
-    startRotation: {x: -0, y: 110.30657, z: 0}
+    startRotation: {x: 0, y: 110.30657, z: 0}
     endPosition: {x: -7.203191, y: -0.0398497, z: 17.89038}
-    endRotation: {x: -0, y: 110.30657, z: 0}
+    endRotation: {x: 0, y: 110.30657, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -1236,6 +1250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 2da1d9cbd77d2044cb124b47708b562d
     defaultValue: {fileID: 0}
@@ -1248,6 +1263,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Mark_04
     audioClip: {fileID: 8300000, guid: 3c7e8fdc5b1cd6e49913b7e04e7f7b34, type: 3}
     subtitle: Nice to meet you.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-7766362592743651258
 MonoBehaviour:
@@ -1604,6 +1620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 4dcff5353be45dc40aa003457345788a
     defaultValue: {fileID: 0}
@@ -1618,6 +1635,7 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: b294c17c4f522e44bbdc73016eb3380b, type: 3}
     subtitle: One, two, three, four, five, six, seven, eight, nine, ten, eleven,
       twelve, zero.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-7272775420912111257
 MonoBehaviour:
@@ -2318,6 +2336,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 197.00842, z: 0}
     endPosition: {x: -9.147478, y: -0.05683655, z: 11.04482}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -2361,6 +2380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 77d03dc34a799a84b8897052238a9914
     defaultValue: {fileID: 0}
@@ -2373,6 +2393,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Amy_06
     audioClip: {fileID: 8300000, guid: 6a58bc413078e6849a00615ef0e80258, type: 3}
     subtitle: "Hi, my name\u2019s Amy. "
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-6310326056719526875
 MonoBehaviour:
@@ -2388,6 +2409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 51e49afa66462fa4c98c339b95d99058
     defaultValue: {fileID: 0}
@@ -2400,6 +2422,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_16_UK
     audioClip: {fileID: 8300000, guid: 553f79a5d54a4de4d9462f2e6e422f07, type: 3}
     subtitle: It's 07355 01137.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-6265686767153136016
 MonoBehaviour:
@@ -2448,6 +2471,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: 172.19, z: 0}
     endPosition: {x: -10.605, y: -0.085, z: 1.179}
     endRotation: {x: 0, y: 172.19, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -3548,6 +3572,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 176.14075, z: 0}
     endPosition: {x: -5.11236, y: 0, z: -2.345887}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -3754,6 +3779,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 168.53008, z: 0}
     endPosition: {x: -7.104537, y: 0.005385173, z: -1.35727}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 2
     point1: {x: -9.921836, y: 0.009277344, z: -1.0454153}
     point2: {x: -7.712346, y: 0.0078125, z: -1.2291105}
@@ -3875,6 +3901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 8374186f1f50c4b47a1f8a660e8606d1
     defaultValue: {fileID: 0}
@@ -3887,6 +3914,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_12
     audioClip: {fileID: 8300000, guid: 431ab5f38e4bac948ba512ef43e495e2, type: 3}
     subtitle: OK, thank you. Bye!
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-5590055599742927768
 MonoBehaviour:
@@ -4922,6 +4950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: bd9a2236e96576a47996ed0193496c2f
     defaultValue: {fileID: 0}
@@ -4934,6 +4963,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Amy_05
     audioClip: {fileID: 8300000, guid: 3f38d4e9c14e9a9478d6ace11b7a943e, type: 3}
     subtitle: Nice to meet you.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-5283424985837923103
 MonoBehaviour:
@@ -5638,6 +5668,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: -171.035, z: 0}
     endPosition: {x: -9.022004, y: -0.0499999, z: 11.05124}
     endRotation: {x: 0, y: -171.035, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -5841,6 +5872,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 90.137764, z: 0}
     endPosition: {x: -5.945844, y: 0.00199565, z: -1.578695}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 1
     point1: {x: -6.1625404, y: 0.001953125, z: -0.98218554}
     point2: {x: 0, y: 0, z: 0}
@@ -5917,6 +5949,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 23.320995, z: 0}
     endPosition: {x: -5.79675, y: -0.02381009, z: 13.94865}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 2
     point1: {x: -5.627343, y: -0.048828125, z: 11.556322}
     point2: {x: -5.2995987, y: -0.04248047, z: 13.551025}
@@ -6026,6 +6059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 
     defaultValue: {fileID: 0}
@@ -6038,6 +6072,7 @@ MonoBehaviour:
     animationClipName: 
     audioClip: {fileID: 0}
     subtitle: 
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-4455051422027999080
 MonoBehaviour:
@@ -6965,6 +7000,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 230.98663, z: 0}
     endPosition: {x: -1.568171, y: -0.08255384, z: 12.87392}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 2
     point1: {x: 7.8059735, y: -0.044921875, z: 13.383182}
     point2: {x: 3.3285708, y: -0.061523438, z: 12.515887}
@@ -7050,6 +7086,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 186.77608, z: 0}
     endPosition: {x: -9.894824, y: -0.0007787995, z: -0.9881418}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 1
     point1: {x: -10.470236, y: 0.024414062, z: -1.0562893}
     point2: {x: -10.176262, y: 0.019661639, z: -0.25606316}
@@ -7123,9 +7160,10 @@ MonoBehaviour:
     translateType: 3
     useTimeCurve: 0
     startPosition: {x: -5.534, y: 0, z: -2.969}
-    startRotation: {x: -0, y: 161.262, z: 0}
+    startRotation: {x: 0, y: 161.262, z: 0}
     endPosition: {x: -5.534, y: 0, z: -2.969}
-    endRotation: {x: -0, y: 161.262, z: 0}
+    endRotation: {x: 0, y: 161.262, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -7258,6 +7296,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: -169.963, z: 0}
     endPosition: {x: -4.546, y: 0, z: -0.512}
     endRotation: {x: 0, y: -169.963, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -7324,6 +7363,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 107.92433, z: 0}
     endPosition: {x: -6.889924, y: 0.004051562, z: -0.9942976}
     endRotation: {x: 0, y: 101.665, z: 0}
+    rotationOffset: 0
     curveType: 1
     point1: {x: -8.906894, y: 0.005126953, z: -0.989448}
     point2: {x: 0, y: 0, z: 0}
@@ -8037,6 +8077,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 196.93352, z: 0}
     endPosition: {x: -8.312357, y: -0.05709952, z: 14.37138}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -8263,6 +8304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: fd1192a354c97e3418538cf08586d3bb
     defaultValue: {fileID: 0}
@@ -8275,6 +8317,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Amy_04
     audioClip: {fileID: 8300000, guid: 67e1ddccceaac1b48b79f0c7edb6ba45, type: 3}
     subtitle: Hello, my name's Amy. What's your name?
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-2429743439033591472
 MonoBehaviour:
@@ -8901,6 +8944,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: 161.262, z: 0}
     endPosition: {x: -5.534, y: 0, z: -2.969}
     endRotation: {x: 0, y: 161.262, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -9005,6 +9049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: f6e8d31bce0b3e247b47e82a62b88c21
     defaultValue: {fileID: 0}
@@ -9017,6 +9062,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_17
     audioClip: {fileID: 8300000, guid: 042ece523bc3abd4c99e9a7b18c7e40c, type: 3}
     subtitle: Let's go.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-2262988075471753179
 MonoBehaviour:
@@ -9054,6 +9100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 158a26539ae1d234090b43099b26681c
     defaultValue: {fileID: 0}
@@ -9066,6 +9113,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_11_UK
     audioClip: {fileID: 8300000, guid: 933b06a1ffeabab4a846f7e34393af22, type: 3}
     subtitle: 010 7622 379.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-2243246527595992529
 MonoBehaviour:
@@ -9092,6 +9140,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 178.18968, z: 0}
     endPosition: {x: -9.181744, y: -0.04815906, z: 20.17066}
     endRotation: {x: -0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -9802,25 +9851,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -9847,49 +9878,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.49946999999999875
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -9916,49 +9911,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.20655333333333203
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -9985,49 +9944,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.9317365333333356
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -10054,49 +9977,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.5902199999999951
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -10123,25 +10010,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -11071,6 +10940,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: fa8bccbb3a223c641831a45e7665a082
     defaultValue: {fileID: 0}
@@ -11083,6 +10953,7 @@ MonoBehaviour:
     animationClipName: 
     audioClip: {fileID: 8300000, guid: 2b80af3ca6c1a874f921e3982e7ab5b7, type: 3}
     subtitle: No, it's 010 7622 3479.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-1431644508335657859
 MonoBehaviour:
@@ -11366,6 +11237,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 83.245766, z: 0}
     endPosition: {x: -5.235038, y: 0, z: -1.10668}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 2
     point1: {x: -8.917849, y: -0.0026855469, z: -1.0534323}
     point2: {x: -5.3022304, y: -0.0029296875, z: -0.11062675}
@@ -11495,6 +11367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: f1d533f109b7e8b41b0ef4914263ed63
     defaultValue: {fileID: 0}
@@ -11507,6 +11380,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Amy_03
     audioClip: {fileID: 8300000, guid: 7308ab35b906baa49ad6c6ff0500be89, type: 3}
     subtitle: I'm OK, thanks!
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-976463636062588930
 MonoBehaviour:
@@ -11533,6 +11407,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: 0, z: 0}
     endPosition: {x: -9.037579, y: -0.0475, z: 10.20896}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -11587,6 +11462,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: 190.037, z: 0}
     endPosition: {x: -4.546, y: 0, z: -0.512}
     endRotation: {x: 0, y: 190.037, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -11693,6 +11569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 8299c9b9928ee3e4e9726ed2b08287fc
     defaultValue: {fileID: 0}
@@ -11705,6 +11582,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Amy_01
     audioClip: {fileID: 8300000, guid: d7e531b05bb2ec34aad07920fd82a18a, type: 3}
     subtitle: Hello, Lily.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &-930436323662644903
 MonoBehaviour:
@@ -11753,6 +11631,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: 188.965, z: 0}
     endPosition: {x: -6.32458, y: -0.04942219, z: 10.1573}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -11807,6 +11686,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 166.00816, z: 0}
     endPosition: {x: -10.34745, y: 0.0303869, z: 0.2853713}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -11927,6 +11807,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 359.89206, z: -0}
     endPosition: {x: -12.66703, y: -0.05037105, z: 59.86091}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -12105,9 +11986,10 @@ MonoBehaviour:
     translateType: 3
     useTimeCurve: 0
     startPosition: {x: -9.037579, y: -0.0475, z: 10.20896}
-    startRotation: {x: -0, y: 0, z: 0}
+    startRotation: {x: 0, y: 0, z: 0}
     endPosition: {x: -9.037579, y: -0.0475, z: 10.20896}
-    endRotation: {x: -0, y: 0, z: 0}
+    endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -12272,6 +12154,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 178.02666, z: 0}
     endPosition: {x: -7.203191, y: -0.0398497, z: 17.89038}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 1
     point1: {x: -8.743108, y: -0.045898438, z: 18.460215}
     point2: {x: 0, y: 0, z: 0}
@@ -12323,9 +12206,10 @@ MonoBehaviour:
     translateType: 3
     useTimeCurve: 0
     startPosition: {x: -5.11236, y: 0, z: -2.345887}
-    startRotation: {x: -0, y: 174.34631, z: 0}
+    startRotation: {x: 0, y: 174.34631, z: 0}
     endPosition: {x: -5.11236, y: 0, z: -2.345887}
-    endRotation: {x: -0, y: 174.34631, z: 0}
+    endRotation: {x: 0, y: 174.34631, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -12380,6 +12264,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 72.918076, z: 0}
     endPosition: {x: -5.983985, y: -0.05057597, z: 10.67406}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 1
     point1: {x: -6.1592293, y: -0.052734375, z: 10.267557}
     point2: {x: 0, y: 0, z: 0}
@@ -12606,25 +12491,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -12651,49 +12518,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.6296600000000012
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -12720,49 +12551,13 @@ MonoBehaviour:
     m_BlendOutDuration: 1.1763700000000057
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -12789,49 +12584,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.4840899999999948
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -12858,49 +12617,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.3419666666666714
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -12927,49 +12650,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.38958000000000936
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -12996,49 +12683,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.41023333333333767
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -13065,49 +12716,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.1759100000000018
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -13134,49 +12749,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.21495999999999071
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -13203,49 +12782,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.3621400000000108
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -13272,49 +12815,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.451833333333326
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -13341,49 +12848,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.6799899999999894
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -13410,49 +12881,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.49613000000000795
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -13479,49 +12914,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.2298200000000037
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -13548,49 +12947,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.19949999999998624
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -13617,49 +12980,13 @@ MonoBehaviour:
     m_BlendOutDuration: 0.2807300000000055
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -13686,25 +13013,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -14714,6 +14023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 3db29776ac5cae44cbcae126f6cc21a3
     defaultValue: {fileID: 0}
@@ -14726,6 +14036,7 @@ MonoBehaviour:
     animationClipName: 
     audioClip: {fileID: 8300000, guid: 38613abcb13c83b4cbf77d4108ee50bb, type: 3}
     subtitle: It's 010 7622 3479.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &423496394080275682
 MonoBehaviour:
@@ -15002,6 +14313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: e16a082e7eaed6046b8b471ad4e0567c
     defaultValue: {fileID: 0}
@@ -15014,6 +14326,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_05
     audioClip: {fileID: 8300000, guid: d37d5f3483cbda14db9451461a390661, type: 3}
     subtitle: Hi. How are you?
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &684707775065132108
 MonoBehaviour:
@@ -15147,9 +14460,10 @@ MonoBehaviour:
     translateType: 3
     useTimeCurve: 0
     startPosition: {x: -1.568171, y: -0.08255384, z: 12.87392}
-    startRotation: {x: -0, y: 274.18182, z: -0}
+    startRotation: {x: 0, y: 274.18182, z: 0}
     endPosition: {x: -1.568171, y: -0.08255384, z: 12.87392}
-    endRotation: {x: -0, y: 274.18182, z: -0}
+    endRotation: {x: 0, y: 274.18182, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -18533,6 +17847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: beb4c44cc32604142844d450c8c2e23f
     defaultValue: {fileID: 0}
@@ -18545,6 +17860,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_06
     audioClip: {fileID: 8300000, guid: 7bffccf9946a8a441bc19b69861c403c, type: 3}
     subtitle: I'm fine, thanks.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &1150679207077976556
 MonoBehaviour:
@@ -18916,6 +18232,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 160.03525, z: 0}
     endPosition: {x: -5.261633, y: 0.001016431, z: -3.728475}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 1
     point1: {x: -5.4559746, y: 0.0007324219, z: -2.5819416}
     point2: {x: 0, y: 0, z: 0}
@@ -19079,9 +18396,10 @@ MonoBehaviour:
     translateType: 3
     useTimeCurve: 0
     startPosition: {x: -9.147478, y: -0.05683655, z: 11.04482}
-    startRotation: {x: -0, y: 185.26823, z: 0}
+    startRotation: {x: 0, y: 185.26823, z: 0}
     endPosition: {x: -9.147478, y: -0.05683655, z: 11.04482}
-    endRotation: {x: -0, y: 185.26823, z: 0}
+    endRotation: {x: 0, y: 185.26823, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -19136,6 +18454,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 181.5411, z: 0}
     endPosition: {x: 13.581642, y: -0.02271038, z: 25.54958}
     endRotation: {x: -0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -19179,6 +18498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 2c9f146e47b6e3e43989d81c5755a0d7
     defaultValue: {fileID: 0}
@@ -19191,6 +18511,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Amy_07
     audioClip: {fileID: 8300000, guid: bbe2804c7bad73a4fbdc333e4efbd297, type: 3}
     subtitle: Say hello, Lucy.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &2150804331109353529
 MonoBehaviour:
@@ -20216,6 +19537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 67631fe1512574b41ab40b0c947da9d2
     defaultValue: {fileID: 0}
@@ -20228,6 +19550,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Lily_01
     audioClip: {fileID: 8300000, guid: 83434a72ba2c0724d8d62ce73dedd977, type: 3}
     subtitle: Hello, Amy.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &2380909885599155931
 MonoBehaviour:
@@ -20947,6 +20270,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: 175.436, z: 0}
     endPosition: {x: -10.37, y: -0.112, z: 0.878}
     endRotation: {x: 0, y: 175.436, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -21055,6 +20379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 
     defaultValue: {fileID: 0}
@@ -21067,6 +20392,7 @@ MonoBehaviour:
     animationClipName: 
     audioClip: {fileID: 0}
     subtitle: 
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &2707270290575709236
 MonoBehaviour:
@@ -21119,6 +20445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 705fa8104ea0bf4409893cf9f6365897
     defaultValue: {fileID: 0}
@@ -21131,6 +20458,7 @@ MonoBehaviour:
     animationClipName: 
     audioClip: {fileID: 8300000, guid: c75bc2fe2e185e7489b4e41e432f91c3, type: 3}
     subtitle: Yes.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &2807191979728146725
 MonoBehaviour:
@@ -21325,6 +20653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: e5215ea0559caf7419af40cf5227969a
     defaultValue: {fileID: 0}
@@ -21337,6 +20666,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Mark_03
     audioClip: {fileID: 8300000, guid: 64357b662444f8d4594231bb0440ffce, type: 3}
     subtitle: Hello, my name's Mark. What's your name?
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &3021319364431808783
 MonoBehaviour:
@@ -21356,6 +20686,7 @@ MonoBehaviour:
   template:
     targetTransform: {fileID: 0}
     parentObject: {fileID: 0}
+    attachToParent: 1
     WorldPositionStays: 0
     warpPosition: 1
     warpRotation: 1
@@ -21399,6 +20730,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 110.30657, z: 0}
     endPosition: {x: -7.66099, y: -0.1122641, z: 16.38675}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -21459,6 +20791,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 2beae085466c4a6499a04ae0da6582fc
     defaultValue: {fileID: 0}
@@ -21471,6 +20804,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_10
     audioClip: {fileID: 8300000, guid: 41ff6d83ca016554186c1f82c1b211d6, type: 3}
     subtitle: What's your home number?
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &3280260413190454973
 MonoBehaviour:
@@ -21512,25 +20846,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -21557,25 +20873,7 @@ MonoBehaviour:
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -21702,6 +21000,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 197.91081, z: 0}
     endPosition: {x: -8.605549, y: -0.06778929, z: 13.40436}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -24549,6 +23848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 
     defaultValue: {fileID: 0}
@@ -24561,6 +23861,7 @@ MonoBehaviour:
     animationClipName: 
     audioClip: {fileID: 0}
     subtitle: 
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &4150802469267872245
 MonoBehaviour:
@@ -24576,6 +23877,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 02b985353b176f6489c0aa1b32feb1bd
     defaultValue: {fileID: 0}
@@ -24588,6 +23890,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Mark_02
     audioClip: {fileID: 8300000, guid: d8cd9e0aa85bd0742b478cc9cd041d05, type: 3}
     subtitle: Nice to meet you too.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &4182113716826089679
 MonoBehaviour:
@@ -24874,6 +24177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: f2326fefbd2c1da47a93769624572185
     defaultValue: {fileID: 0}
@@ -24886,6 +24190,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_09_UK
     audioClip: {fileID: 8300000, guid: c2e7e621011a8ad49b36d5864cd3345f, type: 3}
     subtitle: 07953 54476.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &4251542611739633032
 MonoBehaviour:
@@ -24901,6 +24206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 37454b7bd7b2ccb4483940ae16591697
     defaultValue: {fileID: 0}
@@ -24913,6 +24219,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Lily_02
     audioClip: {fileID: 8300000, guid: eb44a4b728f738d42aa08bc6393a9130, type: 3}
     subtitle: I'm fine, thanks. And you?
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &4301135944959601061
 MonoBehaviour:
@@ -25132,6 +24439,7 @@ MonoBehaviour:
   template:
     targetTransform: {fileID: 0}
     parentObject: {fileID: 0}
+    attachToParent: 1
     WorldPositionStays: 0
     warpPosition: 1
     warpRotation: 1
@@ -25898,6 +25206,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 101.90669, z: 0}
     endPosition: {x: -6.266589, y: 0.002568742, z: -2.069319}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 1
     point1: {x: -6.4776587, y: 0.00048828125, z: -1.4823768}
     point2: {x: 0, y: 0, z: 0}
@@ -25941,6 +25250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 24561ce00c0bd5642b120e1548a6c8a1
     defaultValue: {fileID: 0}
@@ -25953,6 +25263,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_15_UK
     audioClip: {fileID: 8300000, guid: 9648f37123be8e646811cd94ee0cd3fe, type: 3}
     subtitle: It's 010 7433 6776.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &4907603044495196961
 MonoBehaviour:
@@ -27029,6 +26340,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 108.335464, z: 0}
     endPosition: {x: -3.849402, y: -0.04884437, z: 9.827096}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -27072,6 +26384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 7a4010f2a448d324e87f835c03c44b2b
     defaultValue: {fileID: 0}
@@ -27084,6 +26397,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_01
     audioClip: {fileID: 8300000, guid: f7262103f78ca334cbfd987a0c358d9d, type: 3}
     subtitle: "I\u2019m Bob and this is Lucy. "
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &5024897004408198525
 MonoBehaviour:
@@ -27198,6 +26512,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 274.18182, z: 0}
     endPosition: {x: -14.46459, y: -0.04424286, z: 26.49187}
     endRotation: {x: -0.527, y: -39.641, z: 0}
+    rotationOffset: 0
     curveType: 2
     point1: {x: -8.882944, y: -0.10546875, z: 12.791586}
     point2: {x: -14.359886, y: -0.115234375, z: 20.740572}
@@ -27263,6 +26578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: ce8cdeb2371d5ec419151b7286e02168
     defaultValue: {fileID: 0}
@@ -27275,6 +26591,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_02
     audioClip: {fileID: 8300000, guid: d63193a65cf55db4a9e373aa59b7d67f, type: 3}
     subtitle: Nice to meet you.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &5371578067198689646
 MonoBehaviour:
@@ -27305,6 +26622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 
     defaultValue: {fileID: 0}
@@ -27317,6 +26635,7 @@ MonoBehaviour:
     animationClipName: 
     audioClip: {fileID: 0}
     subtitle: 
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &5497983154405134246
 MonoBehaviour:
@@ -27340,9 +26659,10 @@ MonoBehaviour:
     translateType: 3
     useTimeCurve: 0
     startPosition: {x: -10.605, y: -0.085, z: 1.179}
-    startRotation: {x: -0, y: 172.19, z: 0}
+    startRotation: {x: 0, y: 172.19, z: 0}
     endPosition: {x: -10.605, y: -0.085, z: 1.179}
-    endRotation: {x: -0, y: 172.19, z: 0}
+    endRotation: {x: 0, y: 172.19, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -27397,6 +26717,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 160.7873, z: 0}
     endPosition: {x: -10.23871, y: 0.01078451, z: -0.2505415}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -28198,6 +27519,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 358.95703, z: -0}
     endPosition: {x: -12.54958, y: -0.05818493, z: 38.51759}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 2
     point1: {x: -14.310853, y: -0.111328125, z: 31.014683}
     point2: {x: -12.542111, y: -0.068359375, z: 34.553486}
@@ -28501,9 +27823,10 @@ MonoBehaviour:
     translateType: 3
     useTimeCurve: 0
     startPosition: {x: -10.37, y: -0.112, z: 0.878}
-    startRotation: {x: -0, y: 175.436, z: 0}
+    startRotation: {x: 0, y: 175.436, z: 0}
     endPosition: {x: -10.37, y: -0.112, z: 0.878}
-    endRotation: {x: -0, y: 175.436, z: 0}
+    endRotation: {x: 0, y: 175.436, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -28695,6 +28018,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: -166.692, z: 0}
     endPosition: {x: -9.901, y: -0.11, z: 0.933}
     endRotation: {x: 0, y: -166.692, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -28960,6 +28284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 
     defaultValue: {fileID: 0}
@@ -28972,6 +28297,7 @@ MonoBehaviour:
     animationClipName: 
     audioClip: {fileID: 0}
     subtitle: 
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &6509439544724096238
 MonoBehaviour:
@@ -29969,6 +29295,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 0, z: 0}
     endPosition: {x: -9.364796, y: -0.04567292, z: 25.48343}
     endRotation: {x: -0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -30116,6 +29443,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: 172.19, z: 0}
     endPosition: {x: -10.46984, y: -0.1152176, z: 0.6365761}
     endRotation: {x: 0, y: 158.696, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -30423,6 +29751,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 185.26823, z: 0}
     endPosition: {x: -6.459619, y: -0.05055793, z: 10.14555}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 1
     point1: {x: -7.135951, y: -0.056640625, z: 9.9377165}
     point2: {x: -7.1380854, y: -0.056152344, z: 10.105406}
@@ -30651,7 +29980,25 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -30678,13 +30025,49 @@ MonoBehaviour:
     m_BlendOutDuration: 1.0568400000000011
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -30711,13 +30094,49 @@ MonoBehaviour:
     m_BlendOutDuration: 0.46143666666666405
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -30744,13 +30163,49 @@ MonoBehaviour:
     m_BlendOutDuration: 1.404600000000002
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -30975,13 +30430,49 @@ MonoBehaviour:
     m_BlendOutDuration: 0.528103333333334
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -32088,6 +31579,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: -2.004, z: 0}
     endPosition: {x: -5.215, y: 0, z: -3.869}
     endRotation: {x: 0, y: -2.004, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -32155,6 +31647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 5d2cdafe286d70147bc0ae2160f85618
     defaultValue: {fileID: 0}
@@ -32167,6 +31660,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_03
     audioClip: {fileID: 8300000, guid: e36ce7c60b844a046b123b5f8e682d35, type: 3}
     subtitle: Welcome!
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &7584192386402816865
 MonoBehaviour:
@@ -32182,6 +31676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: 69fdac71b4bd9b14c947bddce44c6792
     defaultValue: {fileID: 0}
@@ -32194,6 +31689,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Mark_01
     audioClip: {fileID: 8300000, guid: b6767a7a75c7d524e85a92e622ad2625, type: 3}
     subtitle: Hello, I'm Mark.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &7603704524079877483
 MonoBehaviour:
@@ -32885,6 +32381,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 178.2018, z: 0}
     endPosition: {x: -10.392596, y: 0.02988186, z: 0.1099761}
     endRotation: {x: -0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -32928,6 +32425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: f7ab825949359de40bbae6635f3ba9f3
     defaultValue: {fileID: 0}
@@ -32940,6 +32438,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_14_UK
     audioClip: {fileID: 8300000, guid: c5348944e0bba1446acf8c40939d8d76, type: 3}
     subtitle: What's your mobile number?
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &8237472056113071018
 MonoBehaviour:
@@ -32988,6 +32487,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 193.308, z: 0}
     endPosition: {x: -10.11315, y: 0.01495059, z: 0.3671809}
     endRotation: {x: 0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -33096,6 +32596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: f0ef30933aba2c44493a3ab325d22f75
     defaultValue: {fileID: 0}
@@ -33108,6 +32609,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_07
     audioClip: {fileID: 8300000, guid: 0e4d4e33c780a294a8460a3c49fc5c40, type: 3}
     subtitle: Yes, that's fine.
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &8383528667093141882
 MonoBehaviour:
@@ -33313,6 +32815,7 @@ MonoBehaviour:
     startRotation: {x: -0, y: 0, z: 0}
     endPosition: {x: 13.681772, y: -0.01325598, z: 43.592598}
     endRotation: {x: -0, y: 0, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -33647,9 +33150,10 @@ MonoBehaviour:
     translateType: 3
     useTimeCurve: 0
     startPosition: {x: -6.459619, y: -0.05055793, z: 10.14555}
-    startRotation: {x: -0, y: 72.918076, z: 0}
+    startRotation: {x: 0, y: 72.918076, z: 0}
     endPosition: {x: -6.459619, y: -0.05055793, z: 10.14555}
-    endRotation: {x: -0, y: 72.918076, z: 0}
+    endRotation: {x: 0, y: 72.918076, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -33721,6 +33225,7 @@ MonoBehaviour:
     startRotation: {x: 0, y: 357.996, z: 0}
     endPosition: {x: -5.215, y: 0, z: -3.869}
     endRotation: {x: 0, y: 357.996, z: 0}
+    rotationOffset: 0
     curveType: 0
     point1: {x: 0, y: 0, z: 0}
     point2: {x: 0, y: 0, z: 0}
@@ -34511,6 +34016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogManager: {fileID: 0}
   isTutorial: 0
+  isLearner: 0
   character:
     exposedName: aed859a55b725274fb13678e613b2e8c
     defaultValue: {fileID: 0}
@@ -34523,6 +34029,7 @@ MonoBehaviour:
     animationClipName: Default_R1S1M1_Bob_13
     audioClip: {fileID: 8300000, guid: f9389856d68d5ec4cab0e5a2928749e7, type: 3}
     subtitle: What's your home number?
+    isLearner: 0
     isTutorial: 0
 --- !u!114 &9099365970164517842
 MonoBehaviour:

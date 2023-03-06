@@ -2,33 +2,45 @@ using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.Playables;
 
-[TrackClipType(typeof(LookAtBehaviour))]
+namespace CustomTracks
+{
+    [TrackClipType(typeof(LookAtBehaviour))]
 #if UNITY_EDITOR
-[UnityEditor.CanEditMultipleObjects]
+    [UnityEditor.CanEditMultipleObjects]
 #endif
-public class LookAtAsset : PlayableAsset, ITimelineClipAsset
-{
-    public ClipCaps clipCaps => ClipCaps.ClipIn;
-
-    [HideInInspector] public FaceLookAt faceLookAt = null; //Set by LookAtTrack.cs while loading
-
-    public LookType type = LookType.Face;
-
-    public ExposedReference<Transform> target;
-
-
-    public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+    public class LookAtAsset : PlayableAsset, ITimelineClipAsset
     {
-        var behaviour = new LookAtBehaviour();
-        behaviour.setProperties(faceLookAt, target.Resolve(graph.GetResolver()), type);
-        var playable = ScriptPlayable<LookAtBehaviour>.Create(graph, behaviour);
-        return playable;
-    }
-}
+        public ClipCaps clipCaps => ClipCaps.ClipIn;
 
-public enum LookType
-{
-    Face,
-    Target,
-    FreeLook
+        [HideInInspector] public FaceLookAt faceLookAt = null; //Set by LookAtTrack.cs while loading
+
+        public LookType type = LookType.Face;
+
+        public ExposedReference<Transform> target;
+
+
+        public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+        {
+            var behaviour = new LookAtBehaviour();
+            Transform t = target.Resolve(graph.GetResolver());
+            behaviour.setProperties(faceLookAt, t, type);
+            var playable = ScriptPlayable<LookAtBehaviour>.Create(graph, behaviour);
+
+#if CLIENT_BUILD
+            if (TimelineController.instance)
+            {
+                target.exposedName = UnityEditor.GUID.Generate().ToString();
+                TimelineController.instance.getPlayableDirector().SetReferenceValue(target.exposedName, t);
+            }
+#endif
+            return playable;
+        }
+    }
+
+    public enum LookType
+    {
+        Face,
+        Target,
+        FreeLook
+    }
 }

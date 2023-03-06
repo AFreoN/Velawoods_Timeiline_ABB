@@ -1,6 +1,7 @@
 using UnityEngine;
 using CustomExtensions;
 using System.Collections;
+using CustomTracks;
 
 [RequireComponent(typeof(Animator))]
 public class FaceLookAt : TimelineBehaviour
@@ -119,10 +120,14 @@ public class FaceLookAt : TimelineBehaviour
                 targetTimer = 0;
             }
         }
+
+        if (target == null)
+            lookType = LookType.FreeLook;
     }
 
     public void setRootTarget(Transform _target)    //Set the target to the transform sent in parameter
     {
+        if (_target == null) return;
         prevPosition = currentTargetPosition;
         //GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = prevPosition;
 

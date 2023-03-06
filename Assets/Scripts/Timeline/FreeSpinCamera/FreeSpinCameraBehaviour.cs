@@ -3,20 +3,23 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
-[Serializable]
-public class FreeSpinCameraBehaviour : PlayableBehaviour
+namespace CustomTracks
 {
-    [HideInInspector] public CameraApartmentController controller = null;
-
-    public override void OnBehaviourPlay(Playable playable, FrameData info)
+    [Serializable]
+    public class FreeSpinCameraBehaviour : PlayableBehaviour
     {
+        [HideInInspector] public CameraApartmentController controller = null;
+
+        public override void OnBehaviourPlay(Playable playable, FrameData info)
+        {
 #if UNITY_EDITOR
-        if (!Application.isPlaying) return;
+            if (!Application.isPlaying) return;
 #endif
 
-        if (controller == null) return;
+            if (controller == null) return;
 
-        controller.FreeSpinActive(null);
-        //TimelineController.instance.PauseTimeline();
+            controller.FreeSpinActive(null);
+            //TimelineController.instance.PauseTimeline();
+        }
     }
 }

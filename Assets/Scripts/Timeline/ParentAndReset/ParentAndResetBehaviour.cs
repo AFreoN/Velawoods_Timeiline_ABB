@@ -4,52 +4,55 @@ using UnityEngine.Playables;
 using UnityEngine.Timeline;
 using CustomExtensions;
 
-[Serializable]
-public class ParentAndResetBehaviour : PlayableBehaviour
+namespace CustomTracks
 {
-    [HideInInspector] public Transform target;
-    [HideInInspector] public Transform parent;
-    public bool resetOnClipEnd = true;
-    public Vector3 Rotation;
-    public Vector3 Offset;
-
-    Transform previousParent = null;
-    Vector2 previousPosition, previousRotation;
-
-    public override void OnBehaviourPlay(Playable playable, FrameData info)
+    [Serializable]
+    public class ParentAndResetBehaviour : PlayableBehaviour
     {
-#if UNITY_EDITOR
-        if (!Application.isPlaying) return;
-#endif
+        [HideInInspector] public Transform target;
+        [HideInInspector] public Transform parent;
+        public bool resetOnClipEnd = true;
+        public Vector3 Rotation;
+        public Vector3 Offset;
 
-        if (parent == null || target == null)
-            return;
+        Transform previousParent = null;
+        Vector2 previousPosition, previousRotation;
 
-        previousParent = target.parent;
-        previousPosition = target.localPosition;
-        previousRotation = target.localRotation.eulerAngles;
-
-        target.parent = parent;
-        target.localPosition = Offset;
-        target.localRotation = Quaternion.Euler(Rotation);
-    }
-
-    public override void OnBehaviourPause(Playable playable, FrameData info)
-    {
-#if UNITY_EDITOR
-        if (!Application.isPlaying) return;
-#endif
-
-        if (resetOnClipEnd == false || parent == null || target == null)
-            return;
-
-        if(playable.isPlayableCompleted(info) && previousParent != null)
+        public override void OnBehaviourPlay(Playable playable, FrameData info)
         {
-            target.SetParent(previousParent);
-            target.localPosition = previousPosition;
-            target.localRotation = Quaternion.Euler(previousRotation);
+#if UNITY_EDITOR
+            if (!Application.isPlaying) return;
+#endif
 
-            previousParent = null;
+            if (parent == null || target == null)
+                return;
+
+            previousParent = target.parent;
+            previousPosition = target.localPosition;
+            previousRotation = target.localRotation.eulerAngles;
+
+            target.parent = parent;
+            target.localPosition = Offset;
+            target.localRotation = Quaternion.Euler(Rotation);
+        }
+
+        public override void OnBehaviourPause(Playable playable, FrameData info)
+        {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) return;
+#endif
+
+            if (resetOnClipEnd == false || parent == null || target == null)
+                return;
+
+            if (playable.isPlayableCompleted(info) && previousParent != null)
+            {
+                target.SetParent(previousParent);
+                target.localPosition = previousPosition;
+                target.localRotation = Quaternion.Euler(previousRotation);
+
+                previousParent = null;
+            }
         }
     }
 }

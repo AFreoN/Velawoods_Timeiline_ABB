@@ -3,20 +3,23 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
-[Serializable]
-public class ParticleEmitterClip : PlayableAsset, ITimelineClipAsset
+namespace CustomTracks
 {
-    public ParticleEmitterBehaviour behaviour = new ParticleEmitterBehaviour ();
-
-    public ClipCaps clipCaps
+    [Serializable]
+    public class ParticleEmitterClip : PlayableAsset, ITimelineClipAsset
     {
-        get { return ClipCaps.ClipIn; }
-    }
+        public ParticleEmitterBehaviour behaviour = new ParticleEmitterBehaviour();
 
-    public override Playable CreatePlayable (PlayableGraph graph, GameObject owner)
-    {
-        var playable = ScriptPlayable<ParticleEmitterBehaviour>.Create (graph, behaviour);
-        ParticleEmitterBehaviour clone = playable.GetBehaviour ();
-        return playable;
+        public ClipCaps clipCaps
+        {
+            get { return ClipCaps.ClipIn; }
+        }
+
+        public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+        {
+            var playable = ScriptPlayable<ParticleEmitterBehaviour>.Create(graph, behaviour);
+            ParticleEmitterBehaviour clone = playable.GetBehaviour();
+            return playable;
+        }
     }
 }

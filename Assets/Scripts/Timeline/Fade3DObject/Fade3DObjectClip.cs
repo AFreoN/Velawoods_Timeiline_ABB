@@ -4,48 +4,59 @@ using UnityEngine.Playables;
 using UnityEngine.Timeline;
 using System.Collections.Generic;
 
-[TrackClipType(typeof(Fade3DObjectBehaviour))][Serializable]
-public class Fade3DObjectClip : PlayableAsset, ITimelineClipAsset
+namespace CustomTracks
 {
-    public ExposedGameObject[] fadeObjects = null;
-
-    public Fade3DObjectBehaviour behaviour = new Fade3DObjectBehaviour ();
-
-    public ClipCaps clipCaps
+    [TrackClipType(typeof(Fade3DObjectBehaviour))]
+    [Serializable]
+    public class Fade3DObjectClip : PlayableAsset, ITimelineClipAsset
     {
-        get { return ClipCaps.ClipIn; }
-    }
+        public ExposedGameObject[] fadeObjects = null;
 
-    public override Playable CreatePlayable (PlayableGraph graph, GameObject owner)
-    {
-        var playable = ScriptPlayable<Fade3DObjectBehaviour>.Create (graph, behaviour);
-        Fade3DObjectBehaviour clone = playable.GetBehaviour ();
+        public Fade3DObjectBehaviour behaviour = new Fade3DObjectBehaviour();
 
-        //for(int i = 0; i < fadeObjects.Length; i++)
-        //{
-        //    clone.addFadeObject(fadeObjects[i].ExposedReference.Resolve(graph.GetResolver()));
-        //}
-        if(fadeObjects != null)
+        public ClipCaps clipCaps
         {
-            foreach (var v in fadeObjects)
-            {
-                clone.addFadeObject(v.ExposedReference.Resolve(graph.GetResolver()));
-                //Debug.Log(((TimelineClip)(this)).displayName + " : " + v.ExposedReference.exposedName);
-                Debug.Log(v.ExposedReference.exposedName);
-            }
+            get { return ClipCaps.ClipIn; }
         }
 
-        return playable;
+        public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+        {
+            var playable = ScriptPlayable<Fade3DObjectBehaviour>.Create(graph, behaviour);
+            Fade3DObjectBehaviour clone = playable.GetBehaviour();
+
+            //for(int i = 0; i < fadeObjects.Length; i++)
+            //{
+            //    clone.addFadeObject(fadeObjects[i].ExposedReference.Resolve(graph.GetResolver()));
+            //}
+            if (fadeObjects != null)
+            {
+                foreach (var v in fadeObjects)
+                {
+                    GameObject g = v.ExposedReference.Resolve(graph.GetResolver());
+                    clone.addFadeObject(g);
+
+#if CLIENT_BUILD
+                    if(TimelineController.instance != null)
+                    {
+                        v.ExposedReference.exposedName = UnityEditor.GUID.Generate().ToString();
+                        TimelineController.instance.getPlayableDirector().SetReferenceValue(v.ExposedReference.exposedName, g);
+                    }
+#endif
+                }
+            }
+
+            return playable;
+        }
+
+        [Serializable]
+        public class ExposedGameObject : ExposedReferenceHolder<GameObject>
+        {
+        }
     }
 
     [Serializable]
-    public class ExposedGameObject : ExposedReferenceHolder<GameObject>
+    public class ExposedReferenceHolder<T> where T : UnityEngine.Object
     {
+        public ExposedReference<T> ExposedReference;
     }
-}
-
-[Serializable]
-public class ExposedReferenceHolder<T> where T : UnityEngine.Object
-{
-    public ExposedReference<T> ExposedReference;
 }

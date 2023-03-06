@@ -5,228 +5,230 @@ using UnityEditor;
 #if UNITY_EDITOR
 using UnityEditor.Timeline;
 #endif
-
-[TrackClipType(typeof(TweenBehaviour))]
-public class TweenAsset : PlayableAsset, ITimelineClipAsset, ITimelineGizmoDrawable
+namespace CustomTracks
 {
-    [HideInInspector] public Transform targetTransform;
-    [HideInInspector] public TimelineAsset asset;
-    public TweenBehaviour behaviour = new TweenBehaviour();
-    public AnimationCurve timeCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
-
-    public ClipCaps clipCaps => ClipCaps.ClipIn;
-
-    public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+    [TrackClipType(typeof(TweenBehaviour))]
+    public class TweenAsset : PlayableAsset, ITimelineClipAsset, ITimelineGizmoDrawable
     {
-        var playable = ScriptPlayable<TweenBehaviour>.Create(graph, behaviour);
-        playable.GetBehaviour().asset = this;
-        return playable;
-    }
+        [HideInInspector] public Transform targetTransform;
+        [HideInInspector] public TimelineAsset asset;
+        public TweenBehaviour behaviour = new TweenBehaviour();
+        public AnimationCurve timeCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 1));
 
-    //For interface ITimelineGizmoDrawable, called from TimelineGizmoDrawHelper.cs OnDrawGizmos() to draw Gizmos while this clip is selected
-    public void OnDrawGizmoSelected()
-    {
+        public ClipCaps clipCaps => ClipCaps.ClipIn;
+
+        public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+        {
+            var playable = ScriptPlayable<TweenBehaviour>.Create(graph, behaviour);
+            playable.GetBehaviour().asset = this;
+            return playable;
+        }
+
+        //For interface ITimelineGizmoDrawable, called from TimelineGizmoDrawHelper.cs OnDrawGizmos() to draw Gizmos while this clip is selected
+        public void OnDrawGizmoSelected()
+        {
 #if UNITY_EDITOR
-        return;
-        Vector3 sPos = behaviour.startPosition;
-        Vector3 ePos = behaviour.endPosition;
+            return;
+            Vector3 sPos = behaviour.startPosition;
+            Vector3 ePos = behaviour.endPosition;
 
-        float radius = .1f;
-        Color startColor = Color.blue;
-        Color endColor = Color.red;
+            float radius = .1f;
+            Color startColor = Color.blue;
+            Color endColor = Color.red;
 
-        if(behaviour.translateType == TweenBehaviour.TranslateType.FromNewPosition)
-        {
-            Gizmos.color = startColor;
-            Gizmos.DrawSphere(sPos, radius);
-            DrawArrow.ForGizmo(sPos, Quaternion.Euler(behaviour.startRotation) * Vector3.forward * .5f , startColor, 2.5f, .15f, 30);
+            if (behaviour.translateType == TweenBehaviour.TranslateType.FromNewPosition)
+            {
+                Gizmos.color = startColor;
+                Gizmos.DrawSphere(sPos, radius);
+                DrawArrow.ForGizmo(sPos, Quaternion.Euler(behaviour.startRotation) * Vector3.forward * .5f, startColor, 2.5f, .15f, 30);
 
-            Gizmos.color = endColor;
-            Gizmos.DrawSphere(ePos, radius);
-            DrawArrow.ForGizmo(ePos, Quaternion.Euler(behaviour.endRotation) * Vector3.forward * .5f, endColor, 2.5f, .15f, 30);
-        }
-        else if(behaviour.translateType == TweenBehaviour.TranslateType.HoldNewPosition)
-        {
-            Gizmos.color = startColor;
-            Gizmos.DrawSphere(sPos, radius);
+                Gizmos.color = endColor;
+                Gizmos.DrawSphere(ePos, radius);
+                DrawArrow.ForGizmo(ePos, Quaternion.Euler(behaviour.endRotation) * Vector3.forward * .5f, endColor, 2.5f, .15f, 30);
+            }
+            else if (behaviour.translateType == TweenBehaviour.TranslateType.HoldNewPosition)
+            {
+                Gizmos.color = startColor;
+                Gizmos.DrawSphere(sPos, radius);
 
-            DrawArrow.ForGizmo(sPos, Quaternion.Euler(behaviour.startRotation) * Vector3.forward * .5f, startColor, 2.5f, .15f, 30);
-        }
-        else if(behaviour.translateType == TweenBehaviour.TranslateType.FromPreviousClip)
-        {
-            Gizmos.color = endColor;
-            Gizmos.DrawSphere(ePos, radius);
+                DrawArrow.ForGizmo(sPos, Quaternion.Euler(behaviour.startRotation) * Vector3.forward * .5f, startColor, 2.5f, .15f, 30);
+            }
+            else if (behaviour.translateType == TweenBehaviour.TranslateType.FromPreviousClip)
+            {
+                Gizmos.color = endColor;
+                Gizmos.DrawSphere(ePos, radius);
 
-            DrawArrow.ForGizmo(ePos, Quaternion.Euler(behaviour.endRotation) * Vector3.forward * .5f, endColor, 2.5f, .15f, 30);
-        }
+                DrawArrow.ForGizmo(ePos, Quaternion.Euler(behaviour.endRotation) * Vector3.forward * .5f, endColor, 2.5f, .15f, 30);
+            }
 
-        //Handles.PositionHandle(sPos, Quaternion.Euler( behaviour.startRotation));
-        //Handles.DrawAAPolyLine(new Vector3[] { behaviour.startPosition, behaviour.endPosition });
+            //Handles.PositionHandle(sPos, Quaternion.Euler( behaviour.startRotation));
+            //Handles.DrawAAPolyLine(new Vector3[] { behaviour.startPosition, behaviour.endPosition });
 
-        if(Vector3.Distance(sPos, ePos) >= .1f)
-            DrawArrow.ForGizmoMiddle(behaviour.startPosition, behaviour.endPosition - behaviour.startPosition, Color.white);
+            if (Vector3.Distance(sPos, ePos) >= .1f)
+                DrawArrow.ForGizmoMiddle(behaviour.startPosition, behaviour.endPosition - behaviour.startPosition, Color.white);
 
 #endif
-    }
-
-
-    //For interace ITimelineGizmoDrawable, called from TimelineGizmoDrawHelper.cs OnSceneGUI() to draw Handles as well as Gizmos while this clip is selected
-#if UNITY_EDITOR
-    public bool OnSceneSelected(bool showHandles)
-    {
-        bool requireRepaint = false;
-
-        Vector3 sPos = behaviour.startPosition;
-        Vector3 ePos = behaviour.endPosition;
-        Vector3 sEuler = behaviour.startRotation, eEuler = behaviour.endRotation;
-
-        float radius = .1f;
-        Color startColor = Color.blue;
-        Color endColor = Color.red;
-
-        Vector3 scale = Vector3.zero;
-
-        Quaternion sRot = Quaternion.Euler(sEuler), eRot = Quaternion.Euler(eEuler);
-
-        switch (behaviour.curveType)
-        {
-            case TweenBehaviour.BezierType.Quadratic:
-                requireRepaint = showQuadraticHandles();
-                break;
-
-            case TweenBehaviour.BezierType.Cubic:
-                requireRepaint = showCubicHandles();
-                break;
         }
 
-        if (showHandles)
+
+        //For interace ITimelineGizmoDrawable, called from TimelineGizmoDrawHelper.cs OnSceneGUI() to draw Handles as well as Gizmos while this clip is selected
+#if UNITY_EDITOR
+        public bool OnSceneSelected(bool showHandles)
         {
-            switch (behaviour.translateType)
+            bool requireRepaint = false;
+
+            Vector3 sPos = behaviour.startPosition;
+            Vector3 ePos = behaviour.endPosition;
+            Vector3 sEuler = behaviour.startRotation, eEuler = behaviour.endRotation;
+
+            float radius = .1f;
+            Color startColor = Color.blue;
+            Color endColor = Color.red;
+
+            Vector3 scale = Vector3.zero;
+
+            Quaternion sRot = Quaternion.Euler(sEuler), eRot = Quaternion.Euler(eEuler);
+
+            switch (behaviour.curveType)
             {
-                case TweenBehaviour.TranslateType.FromNewPosition:
-                    //Drawing rotation arrows
-                    DrawArrow.ForGizmo(sPos, Quaternion.Euler(sEuler) * Vector3.forward * .5f, startColor, 2.5f, .15f, 30);
-                    DrawArrow.ForGizmo(ePos, Quaternion.Euler(eEuler) * Vector3.forward * .5f, endColor, 2.5f, .15f, 30);
-
-                    Vector3 p1 = sPos, p2 = ePos;
-                    Quaternion r1 = sRot, r2 = eRot;
-
-                    //Drawing transform handles to move and rotate the points
-                    Handles.TransformHandle(ref p1, ref r1);
-                    Handles.TransformHandle(ref p2, ref r2);
-
-                    //If position or rotation changed, record it in undo
-                    if (p1 != sPos || r1 != sRot || p2 != ePos || r2 != eRot)
-                    {
-                        //Undo.RecordObject(this, "Tween asset start position changed");
-                        UndoExtensions.RegisterPlayableAsset(this, "Tween asset start (or) end position changed");
-                        behaviour.startPosition = p1;
-                        behaviour.startRotation = r1.eulerAngles;
-
-                        behaviour.endPosition = p2;
-                        behaviour.endRotation = r2.eulerAngles;
-                        requireRepaint = true;
-                    }
+                case TweenBehaviour.BezierType.Quadratic:
+                    requireRepaint = showQuadraticHandles();
                     break;
 
-                case TweenBehaviour.TranslateType.HoldNewPosition:
-                    DrawArrow.ForGizmo(sPos, Quaternion.Euler(behaviour.startRotation) * Vector3.forward * .5f, startColor, 2.5f, .15f, 30);
-
-                    Vector3 p = sPos;
-                    Quaternion r = sRot;
-                    Handles.TransformHandle(ref p, ref r);
-
-                    if (p != sPos || r != sRot)
-                    {
-                        UndoExtensions.RegisterPlayableAsset(this, "Tween asset start position changed");
-                        behaviour.startPosition = p;
-                        behaviour.startRotation = r.eulerAngles;
-                        requireRepaint = true;
-                    }
-                    break;
-
-                case TweenBehaviour.TranslateType.FromPreviousClip:
-                    DrawArrow.ForGizmo(ePos, Quaternion.Euler(behaviour.endRotation) * Vector3.forward * .5f, endColor, 2.5f, .15f, 30);
-
-                    p = ePos;
-                    r = eRot;
-                    Handles.TransformHandle(ref p, ref r);
-
-                    if (p != ePos || r != eRot)
-                    {
-                        UndoExtensions.RegisterPlayableAsset(this, "Tween asset end position changed");
-                        behaviour.endPosition = p;
-                        behaviour.endRotation = r.eulerAngles;
-                        requireRepaint = true;
-                    }
+                case TweenBehaviour.BezierType.Cubic:
+                    requireRepaint = showCubicHandles();
                     break;
             }
-        }
 
-        //Handles.PositionHandle(sPos, Quaternion.Euler( behaviour.startRotation));
-        //Handles.DrawAAPolyLine(new Vector3[] { behaviour.startPosition, behaviour.endPosition });
+            if (showHandles)
+            {
+                switch (behaviour.translateType)
+                {
+                    case TweenBehaviour.TranslateType.FromNewPosition:
+                        //Drawing rotation arrows
+                        DrawArrow.ForGizmo(sPos, Quaternion.Euler(sEuler) * Vector3.forward * .5f, startColor, 2.5f, .15f, 30);
+                        DrawArrow.ForGizmo(ePos, Quaternion.Euler(eEuler) * Vector3.forward * .5f, endColor, 2.5f, .15f, 30);
 
-        switch (behaviour.curveType)
-        {
-            case TweenBehaviour.BezierType.Linear:
-                if (Vector3.Distance(sPos, ePos) >= .1f && behaviour.translateType != TweenBehaviour.TranslateType.HoldNewPosition)
-                    DrawArrow.ForGizmoMiddle(behaviour.startPosition, behaviour.endPosition - behaviour.startPosition, Color.white);
-                break;
+                        Vector3 p1 = sPos, p2 = ePos;
+                        Quaternion r1 = sRot, r2 = eRot;
 
-            case TweenBehaviour.BezierType.Quadratic:
-                if (Vector3.Distance(sPos, ePos) >= .1f && behaviour.translateType != TweenBehaviour.TranslateType.HoldNewPosition)
-                    DrawArrow.ForQuadraticBezierMiddle(behaviour.startPosition, behaviour.endPosition, behaviour.point1, Color.white);
+                        //Drawing transform handles to move and rotate the points
+                        Handles.TransformHandle(ref p1, ref r1);
+                        Handles.TransformHandle(ref p2, ref r2);
+
+                        //If position or rotation changed, record it in undo
+                        if (p1 != sPos || r1 != sRot || p2 != ePos || r2 != eRot)
+                        {
+                            //Undo.RecordObject(this, "Tween asset start position changed");
+                            UndoExtensions.RegisterPlayableAsset(this, "Tween asset start (or) end position changed");
+                            behaviour.startPosition = p1;
+                            behaviour.startRotation = r1.eulerAngles;
+
+                            behaviour.endPosition = p2;
+                            behaviour.endRotation = r2.eulerAngles;
+                            requireRepaint = true;
+                        }
+                        break;
+
+                    case TweenBehaviour.TranslateType.HoldNewPosition:
+                        DrawArrow.ForGizmo(sPos, Quaternion.Euler(behaviour.startRotation) * Vector3.forward * .5f, startColor, 2.5f, .15f, 30);
+
+                        Vector3 p = sPos;
+                        Quaternion r = sRot;
+                        Handles.TransformHandle(ref p, ref r);
+
+                        if (p != sPos || r != sRot)
+                        {
+                            UndoExtensions.RegisterPlayableAsset(this, "Tween asset start position changed");
+                            behaviour.startPosition = p;
+                            behaviour.startRotation = r.eulerAngles;
+                            requireRepaint = true;
+                        }
+                        break;
+
+                    case TweenBehaviour.TranslateType.FromPreviousClip:
+                        DrawArrow.ForGizmo(ePos, Quaternion.Euler(behaviour.endRotation) * Vector3.forward * .5f, endColor, 2.5f, .15f, 30);
+
+                        p = ePos;
+                        r = eRot;
+                        Handles.TransformHandle(ref p, ref r);
+
+                        if (p != ePos || r != eRot)
+                        {
+                            UndoExtensions.RegisterPlayableAsset(this, "Tween asset end position changed");
+                            behaviour.endPosition = p;
+                            behaviour.endRotation = r.eulerAngles;
+                            requireRepaint = true;
+                        }
+                        break;
+                }
+            }
+
+            //Handles.PositionHandle(sPos, Quaternion.Euler( behaviour.startRotation));
+            //Handles.DrawAAPolyLine(new Vector3[] { behaviour.startPosition, behaviour.endPosition });
+
+            switch (behaviour.curveType)
+            {
+                case TweenBehaviour.BezierType.Linear:
+                    if (Vector3.Distance(sPos, ePos) >= .1f && behaviour.translateType != TweenBehaviour.TranslateType.HoldNewPosition)
+                        DrawArrow.ForGizmoMiddle(behaviour.startPosition, behaviour.endPosition - behaviour.startPosition, Color.white);
+                    break;
+
+                case TweenBehaviour.BezierType.Quadratic:
+                    if (Vector3.Distance(sPos, ePos) >= .1f && behaviour.translateType != TweenBehaviour.TranslateType.HoldNewPosition)
+                        DrawArrow.ForQuadraticBezierMiddle(behaviour.startPosition, behaviour.endPosition, behaviour.point1, Color.white);
                     //DrawArrow.DrawCubicBezier(behaviour.startPosition, behaviour.endPosition, behaviour.point1, Color.white, 5);
-                break;
+                    break;
 
-            case TweenBehaviour.BezierType.Cubic:
-                if (Vector3.Distance(sPos, ePos) >= .1f && behaviour.translateType != TweenBehaviour.TranslateType.HoldNewPosition)
-                    DrawArrow.ForCubicBezierMiddle(behaviour.startPosition, behaviour.endPosition, behaviour.point1, behaviour.point2, Color.white);
-                break;
+                case TweenBehaviour.BezierType.Cubic:
+                    if (Vector3.Distance(sPos, ePos) >= .1f && behaviour.translateType != TweenBehaviour.TranslateType.HoldNewPosition)
+                        DrawArrow.ForCubicBezierMiddle(behaviour.startPosition, behaviour.endPosition, behaviour.point1, behaviour.point2, Color.white);
+                    break;
+            }
+
+            return requireRepaint;
         }
-
-        return requireRepaint;
-    }
 #endif
 
 #if UNITY_EDITOR
-    bool showQuadraticHandles()
-    {
-        Vector3 p1 = behaviour.point1;
-
-        Handles.color = Color.yellow;
-        p1 = Handles.FreeMoveHandle(p1, Quaternion.identity, .25f, Vector3.zero, Handles.SphereHandleCap);
-
-        if (behaviour.point1 != p1)
+        bool showQuadraticHandles()
         {
-            UndoExtensions.RegisterPlayableAsset(this, "Tween asset point 1 changed");
-            behaviour.point1 = p1;
-            return true;
+            Vector3 p1 = behaviour.point1;
+
+            Handles.color = Color.yellow;
+            p1 = Handles.FreeMoveHandle(p1, Quaternion.identity, .25f, Vector3.zero, Handles.SphereHandleCap);
+
+            if (behaviour.point1 != p1)
+            {
+                UndoExtensions.RegisterPlayableAsset(this, "Tween asset point 1 changed");
+                behaviour.point1 = p1;
+                return true;
+            }
+            return false;
         }
-        return false;
-    }
 #endif
 
 #if UNITY_EDITOR
-    bool showCubicHandles()
-    {
-        bool r1 = showQuadraticHandles();
-        bool r2 = false;
-
-        Vector3 p2 = behaviour.point2;
-        Handles.color = Color.green;
-
-        p2 = Handles.FreeMoveHandle(p2, Quaternion.identity, .25f, Vector3.zero, Handles.SphereHandleCap);
-
-        if(behaviour.point2 != p2)
+        bool showCubicHandles()
         {
-            UndoExtensions.RegisterPlayableAsset(this, "Tween asset point 2 changed");
-            behaviour.point2 = p2;
-            r2 = true;
-        }
+            bool r1 = showQuadraticHandles();
+            bool r2 = false;
 
-        return r1 || r2;
-    }
+            Vector3 p2 = behaviour.point2;
+            Handles.color = Color.green;
+
+            p2 = Handles.FreeMoveHandle(p2, Quaternion.identity, .25f, Vector3.zero, Handles.SphereHandleCap);
+
+            if (behaviour.point2 != p2)
+            {
+                UndoExtensions.RegisterPlayableAsset(this, "Tween asset point 2 changed");
+                behaviour.point2 = p2;
+                r2 = true;
+            }
+
+            return r1 || r2;
+        }
 #endif
 
+    }
 }

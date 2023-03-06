@@ -3,22 +3,33 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
-[Serializable]
-public class FlashObjectClip : PlayableAsset, ITimelineClipAsset
+namespace CustomTracks
 {
-    public FlashObjectBehaviour behaviour = new FlashObjectBehaviour ();
-    public ExposedReference<GameObject> flashObject;
-
-    public ClipCaps clipCaps
+    [Serializable]
+    public class FlashObjectClip : PlayableAsset, ITimelineClipAsset
     {
-        get { return ClipCaps.ClipIn; }
-    }
+        public FlashObjectBehaviour behaviour = new FlashObjectBehaviour();
+        public ExposedReference<GameObject> flashObject;
 
-    public override Playable CreatePlayable (PlayableGraph graph, GameObject owner)
-    {
-        var playable = ScriptPlayable<FlashObjectBehaviour>.Create (graph, behaviour);
-        FlashObjectBehaviour clone = playable.GetBehaviour ();
-        clone.flashObject = flashObject.Resolve (graph.GetResolver ());
-        return playable;
+        public ClipCaps clipCaps
+        {
+            get { return ClipCaps.ClipIn; }
+        }
+
+        public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+        {
+            var playable = ScriptPlayable<FlashObjectBehaviour>.Create(graph, behaviour);
+            FlashObjectBehaviour clone = playable.GetBehaviour();
+            clone.flashObject = flashObject.Resolve(graph.GetResolver());
+
+#if CLIENT_BUILD
+            if (TimelineController.instance)
+            {
+                flashObject.exposedName = UnityEditor.GUID.Generate().ToString();
+                TimelineController.instance.getPlayableDirector().SetReferenceValue(flashObject.exposedName, clone.flashObject);
+            }
+#endif
+            return playable;
+        }
     }
 }

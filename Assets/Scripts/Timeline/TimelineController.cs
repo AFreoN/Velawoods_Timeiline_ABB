@@ -17,7 +17,7 @@ public class TimelineController : MonoBehaviour
     public static event OnTimelineStateChange onTimelineStateChange;
 
     PlayableDirector playableDirector = null;
-    PlayableDirector getPlayableDirector() => playableDirector;
+    public PlayableDirector getPlayableDirector() => playableDirector;
     public double currentPlayableTime => getPlayableDirector().time;
 
     [SerializeField] TimelineData timelineData = null;
