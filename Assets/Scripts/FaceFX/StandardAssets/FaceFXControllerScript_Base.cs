@@ -98,10 +98,12 @@ public class FaceFXControllerScript_Base : MonoBehaviour
 				AUDIO_SYNC,
 				POST_AUDIO}
 		;
+		private play_state_enum prev_play_state;
 		private play_state_enum play_state;
-	
-		// We don't want to evaluate animations beyond their end time, so we use this to cache the animation evaluation time.
-		private float anim_eval_time;
+		private play_state_enum onpause_play_state;
+
+	// We don't want to evaluate animations beyond their end time, so we use this to cache the animation evaluation time.
+	private float anim_eval_time;
 	
 		// an inverse_hermite curve is computed and cached because of the way bone poses need to be driven within unity's animation system.
 		private static AnimationCurve inverse_hermite;
@@ -363,7 +365,36 @@ public class FaceFXControllerScript_Base : MonoBehaviour
 				StartCoroutine (PlayAnimCoroutine (animName, animAudio));
 		}
 
-		public void Update ()
+		public void PauseAnim()
+		{
+			if (audioComponent != null)
+			{
+				audioComponent.Pause();
+			}
+
+			if (animationComponent != null)
+			{
+				animationComponent[animation_name].enabled = false;
+				onpause_play_state = play_state;
+				play_state = play_state_enum.READY;
+			}
+		}
+
+		public void ResumeAnim()
+		{
+			if (audioComponent != null)
+			{
+				audioComponent.UnPause();
+			}
+
+			if (animationComponent != null)
+			{
+				animationComponent[animation_name].enabled = true;
+				play_state = onpause_play_state;
+			}
+		}
+
+	public void Update ()
 		{
 				if (play_state > 0) {
 						AnimationState animState = animationComponent [animation_name];

@@ -7,7 +7,7 @@ using System;
 public class TimelineController : MonoBehaviour
 {
     public static TimelineController instance { get; private set; }
-    bool isPlaying = true;
+    public static bool isPlaying { get; private set; }
 
     /// <summary>
     /// Delegate to handle timeline pause and play state change events

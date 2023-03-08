@@ -3,48 +3,51 @@ using TMPro;
 using UnityEngine.UI;
 using CustomExtensions;
 
-public class CreateMiniGame : TimelineBehaviour
+namespace CustomTracks
 {
-    [SerializeField] GameObject miniGamePanel = null;
-    [SerializeField] TMP_Text titleText = null;
-    [SerializeField] Button skipButton = null;
-
-    private void Start()
+    public class CreateMiniGame : TimelineBehaviour
     {
-        miniGamePanel.SetActive(false);
-    }
+        [SerializeField] GameObject miniGamePanel = null;
+        [SerializeField] TMP_Text titleText = null;
+        [SerializeField] Button skipButton = null;
 
-    private void OnEnable()
-    {
-        skipButton.onClick.AddListener(playTimeline);
-    }
-
-    private void OnDisable()
-    {
-        skipButton.onClick.RemoveListener(playTimeline);
-    }
-
-    public override void OnClipStart(object o)
-    {
-        o.executeAction((CustomTracks.CreateMiniGameBehaviour cmg) =>
+        private void Start()
         {
-            ShowMiniGame(cmg.title, cmg.pauseOnFire);
-        });
-    }
+            miniGamePanel.SetActive(false);
+        }
 
-    void ShowMiniGame(string title, bool pause)
-    {
-        Debug.Log("Showing minigame : " + title);
-        titleText.text = title;
-        miniGamePanel.SetActive(true);
+        private void OnEnable()
+        {
+            skipButton.onClick.AddListener(playTimeline);
+        }
 
-        if (pause)
-            TimelineController.instance.PauseTimeline();
-    }
+        private void OnDisable()
+        {
+            skipButton.onClick.RemoveListener(playTimeline);
+        }
 
-    void playTimeline()
-    {
-        TimelineController.instance.PlayTimeline();
-        miniGamePanel.SetActive(false);
+        public override void OnClipStart(object o)
+        {
+            o.executeAction((CustomTracks.CreateMiniGameBehaviour cmg) =>
+            {
+                ShowMiniGame(cmg.title, cmg.pauseOnFire);
+            });
+        }
+
+        void ShowMiniGame(string title, bool pause)
+        {
+            Debug.Log("Showing minigame : " + title);
+            titleText.text = title;
+            miniGamePanel.SetActive(true);
+
+            if (pause)
+                TimelineController.instance.PauseTimeline();
+        }
+
+        void playTimeline()
+        {
+            TimelineController.instance.PlayTimeline();
+            miniGamePanel.SetActive(false);
+        }
     }
 }

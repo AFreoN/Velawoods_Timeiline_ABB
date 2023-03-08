@@ -1,0 +1,481 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Timeline;
+using UnityEngine.Playables;
+
+namespace CoreLib
+{
+    public class SequenceManager : MonoSingleton<SequenceManager>
+    {
+        private PlayableDirector _mainSequence;
+		private bool _previousStateWasPlaying;
+
+		public PlayableDirector MainSequence 
+		{
+			get
+			{ 
+				if(_mainSequence == null)
+				{
+					_mainSequence = GetMainSequence();
+
+					return _mainSequence;
+				}
+
+				return _mainSequence; 
+			}
+		}
+
+        protected override void Init()
+        {
+            _mainSequence = GetMainSequence();
+
+			// Add a listener to handle the back button being pressed
+			CoreEventSystem.Instance.AddListener (CoreEventTypes.ACTIVITY_SKIP, SkipToNextActivity );
+			CoreEventSystem.Instance.AddListener (CoreEventTypes.ACTIVITY_REVERSE, SkipToPreviousActivity );
+#if CLIENT_BUILD
+            CoreEventSystem.Instance.AddListener (MainMenu.Messages.MENU_SHOWING, MenuActive );
+			CoreEventSystem.Instance.AddListener (MainMenu.Messages.MENU_HIDING, MenuInactive );
+#endif
+            CoreEventSystem.Instance.AddListener (CoreEventTypes.LEVEL_CHANGE, LockOutPlay );
+        }
+
+		protected override void Dispose ()
+		{
+			CoreEventSystem.Instance.RemoveListener (CoreEventTypes.ACTIVITY_SKIP, SkipToNextActivity );
+			CoreEventSystem.Instance.RemoveListener (CoreEventTypes.ACTIVITY_REVERSE, SkipToPreviousActivity );
+#if CLIENT_BUILD
+            CoreEventSystem.Instance.RemoveListener (MainMenu.Messages.MENU_SHOWING, MenuActive );
+			CoreEventSystem.Instance.RemoveListener (MainMenu.Messages.MENU_HIDING, MenuInactive );
+#endif
+            CoreEventSystem.Instance.RemoveListener (CoreEventTypes.LEVEL_CHANGE, LockOutPlay );
+			base.Dispose ();
+		}
+
+		private void MenuActive(object menuParams)
+		{
+			_previousStateWasPlaying = IsPlaying;
+			Pause ();
+		}
+		
+		private void MenuInactive(object menuParams = null)
+		{
+			bool resumeSequence = true;
+			if(menuParams != null)
+				resumeSequence = (bool)menuParams;
+
+			if(_previousStateWasPlaying && resumeSequence)
+			{
+				Play();
+			}
+			else
+			{
+				//Was already paused when menu activated. Dont start playing.
+			}
+		}
+
+		//Level changing so don't allow sequence to be played.
+		private void LockOutPlay(object menuParams)
+		{
+			_previousStateWasPlaying = false;
+		}
+
+        public void Pause()
+        {
+			if(MainSequence != null)
+				MainSequence.Pause();
+        }
+
+        public void Play()
+        {
+			if(MainSequence != null)
+				MainSequence.Play();
+        }
+
+        public bool IsPlaying
+        {
+            get {
+				if(MainSequence != null)
+					return MainSequence.playableGraph.IsPlaying();
+					else
+						return false;
+				}
+        }
+
+		public void MissionSetUpCallback(object obj)
+		{
+			_mainSequence = GetMainSequence();
+		}
+
+        private PlayableDirector GetMainSequence()
+        {
+			GameObject sequence_obj = null;
+
+			if(Core.Instance._sequence == null)
+				sequence_obj = GameObject.Find (Core.Instance._activityTracker.SequenceString);
+			else
+				sequence_obj = Core.Instance._sequence;
+
+			//Last ditch resort. Look for any sequence at all in the scene.
+			if (sequence_obj == null)
+			{
+				PlayableDirector sequenceScript = GameObject.FindObjectOfType<PlayableDirector>();
+				if(sequenceScript != null)
+				{
+					sequence_obj = sequenceScript.gameObject;
+				}
+			}
+
+			//Failed in finding a sequence. Return.
+			if(sequence_obj == null)
+			{
+				return null;
+			}
+
+            PlayableDirector main_sequence = sequence_obj.GetComponent<PlayableDirector>();
+            
+            if(main_sequence != null)
+            {
+                return main_sequence;
+            }
+            
+            Debug.LogError("SequenceManager: No Main Sequence Found");
+            return null;
+        }
+
+
+
+		public void SkipToBlueSequencer( object param )
+		{
+			// Close any current minigames.
+			if (MiniGameManager.Instance.CurrentGame != null) 
+			{
+				MiniGameManager.Instance.CurrentGame.GetComponent<MiniGameBase> ().SendSkip ( null );
+				MiniGameManager.Instance.CompletedMinigameEndTransition();
+			}
+			
+			// Clear any queued events.
+			//MainSequence.ClearAllActiveEvents();
+			
+			// Stop all sounds when skipping
+			AudioManager.Instance.StopAudio(CoreLib.AudioType.Dialogue);
+			AudioManager.Instance.StopAudio(CoreLib.AudioType.Music);
+			AudioManager.Instance.StopAudio(CoreLib.AudioType.SFX);
+
+			// Stop all current facefx animations.
+			foreach (Bones_FaceFXControllerScript_Setup controlScript in Object.FindObjectsOfType<Bones_FaceFXControllerScript_Setup>())
+			{
+				controlScript.StopAnim();
+			}
+			
+			MainSequence.time = 0.0f;
+			
+			if(!MainSequence.playableGraph.IsPlaying())
+			{
+				//MainSequence.Play ();
+				TimelineController.instance.PlayTimeline();
+			}
+		}
+
+
+		/* Note: Skipping backwards then forwards within the same frame will cause the timeline to skip to activity 2 within the current mission.
+		 * This is because running time is set instantly in skip backwards then it is flagged that USSequencer needs to skip next frame.
+		 * Then skipping forwards reads a running time of 0 and jumps to activity 2. As USSequencer runs skip on a couroutine only once per frame
+		 * and skipping back then forwards is impossible to a user it is left as is.
+		 */
+
+        public bool SkipToNextActity(bool getMinigameEvent)
+        {
+            // Only allow skip timeline if no minigame active - otherwise just skip the minigame
+            if (MiniGameManager.Instance.CurrentGame != null)
+            {
+                MiniGameManager.Instance.CurrentGame.GetComponent<MiniGameBase>().SendSkip(null);
+                MiniGameManager.Instance.CompletedMinigameEndTransition();
+
+                // Hug: This should skip to the next activity and not just hide the mini game.
+                //return;
+            }
+
+            // Stop all sounds when skipping
+            AudioManager.Instance.StopAudio(CoreLib.AudioType.Dialogue);
+            AudioManager.Instance.StopAudio(CoreLib.AudioType.Music);
+            AudioManager.Instance.StopAudio(CoreLib.AudioType.SFX);
+
+            foreach (Bones_FaceFXControllerScript_Setup controlScript in Object.FindObjectsOfType<Bones_FaceFXControllerScript_Setup>())
+            {
+                controlScript.StopAnim();
+            }
+
+            PlayableAsset next;
+
+     //       if (getMinigameEvent)
+     //       {
+     //           next = GetMiniGameLaunchEventAfter((float)MainSequence.time);
+     //       }
+     //       else
+     //       {
+     //           next = _GetNextActivityEventAfter((float)MainSequence.time);
+     //       }
+
+     //       if (next != null)
+     //       {
+     //           SkipTo(MainSequence, next.FireTime, false);
+
+     //           if (!TimelineController.isPlaying)
+     //           {
+					//TimelineController.instance.PlayTimeline();
+     //           }
+
+     //           return true;
+     //       }
+
+            return false;
+        }
+
+		
+		public void SkipToNextActivity( object param )
+		{
+            SkipToNextActity(false);
+		}
+	
+		public void SkipToPreviousActivity( object param )
+        {    
+			// Only allow skip timeline if no minigame active - otherwise just skip the minigame
+			if (MiniGameManager.Instance.CurrentGame != null) {
+				MiniGameManager.Instance.CurrentGame.GetComponent<MiniGameBase> ().SendSkip ( null );
+				MiniGameManager.Instance.CompletedMinigameEndTransition();
+				// Hug: This should skip to the previous activity and not just hide the mini game.
+				//return;
+			}
+            
+			float currentRunningTime = (float)MainSequence.time;
+
+			float skipToTime = 0.0f;
+
+            // First get the current activity by searching backwards from now
+			//USEventBase currentActivity = _GetLastActivityEventBefore (currentRunningTime);
+
+			//if (currentActivity) {
+			//	skipToTime = currentActivity.FireTime;
+			//}
+		
+			// Stop all sounds when skipping
+			AudioManager.Instance.StopAudio(CoreLib.AudioType.Dialogue);
+			AudioManager.Instance.StopAudio(CoreLib.AudioType.Music);
+			AudioManager.Instance.StopAudio(CoreLib.AudioType.SFX);
+
+			//foreach (Bones_FaceFXControllerScript_Setup controlScript in Object.FindObjectsOfType<Bones_FaceFXControllerScript_Setup>())
+			//{
+			//	controlScript.StopAnim();
+			//}
+            
+   //         SkipTo(MainSequence, skipToTime, false);
+
+   //         if ( !MainSequence.IsPlaying ) MainSequence.Play();
+
+		}
+
+		//public void SkipToTask (float skipTaskID)
+		//{
+		//	float skipTime = GetTimeTaskStarts (skipTaskID);
+  //          SkipTo(MainSequence, skipTime, false);
+
+		//	if(!TimelineController.isPlaying)
+		//	{
+		//		TimelineController.instance.PlayTimeline ();
+		//	}
+		//}
+
+        public void SkipToActivity(float skipTaskID, float activityID)
+        {
+            //float skipTime = GetTimeTaskStarts(skipTaskID, activityID);
+            //SkipTo(MainSequence, skipTime, false);
+
+            //if (!TimelineController.isPlaying)
+            //{
+            //    MainSequence.Play();
+            //}
+        }
+
+        private float GetTimeTaskStarts(float skipTaskID, float skipActivityID = 1.0f)
+		{
+			//Create a list of all activity change events and sort them by fire time.
+			//USEventBase[] activityChangeEvents = MainSequence.GetComponentsInChildren< ActivityChangeEvent > ();
+			//USEventBase[] activityChangeMGEvents = MainSequence.GetComponentsInChildren< ActivityChangeTriggerMG > ();
+			//USEventBase[] allActivityChangeEvents = new USEventBase[activityChangeEvents.Length + activityChangeMGEvents.Length];
+			//activityChangeEvents.CopyTo (allActivityChangeEvents, 0);
+			//activityChangeMGEvents.CopyTo (allActivityChangeEvents, activityChangeEvents.Length);
+			//System.Array.Sort(allActivityChangeEvents, delegate(USEventBase a, USEventBase b) { return a.FireTime.CompareTo(b.FireTime); });
+
+			////As these activities are sorted by fire time we return the first case where the task of an activityChange is equal to what we want.
+			//foreach(USEventBase activityChange in allActivityChangeEvents)
+			//{
+			//	float taskID = 0.0f;
+   //             float activityID = 0.0f;
+
+			//	if(activityChange is ActivityChangeEvent)
+			//	{
+			//		taskID = (activityChange as ActivityChangeEvent).GetProgressData()[1];
+   //                 activityID = (activityChange as ActivityChangeEvent).GetProgressData()[0];
+			//	}
+			//	else if(activityChange is ActivityChangeTriggerMG)
+			//	{
+			//		taskID = (activityChange as ActivityChangeTriggerMG).GetProgressData()[1];
+   //                 activityID = (activityChange as ActivityChangeTriggerMG).GetProgressData()[0];
+			//	}
+
+   //             if (taskID == skipTaskID && activityID == skipActivityID)
+			//	{
+			//		return activityChange.FireTime;
+			//	}
+			//}
+
+			return 0;
+		}
+
+		private TimelineClip _GetLastActivityEventBefore( float time ) {
+
+			TimelineClip lastActivity = null;
+
+			//foreach (ActivityChangeEvent mg in MainSequence.GetComponentsInChildren< ActivityChangeEvent >()) {
+			//	if(!CheckIfAlreadyAtThisTask(ActivityTracker.Instance.Progress,mg.GetProgressData()))
+			//	{
+			//	if ( mg.FireTime < time && (lastActivity == null || mg.FireTime > lastActivity.FireTime) ) lastActivity = mg;
+			//	}
+			//}
+			
+			//// also check the change events which trigger minigames
+			//foreach (ActivityChangeTriggerMG mg in MainSequence.GetComponentsInChildren< ActivityChangeTriggerMG >()) {
+			//	if(!CheckIfAlreadyAtThisTask(ActivityTracker.Instance.Progress,mg.GetProgressData()))
+			//	{
+			//	if ( mg.FireTime < time && (lastActivity == null || mg.FireTime > lastActivity.FireTime) ) lastActivity = mg;
+			//	}
+			//}
+
+			return lastActivity;
+
+		}
+
+
+		private bool CheckIfAlreadyAtThisTask(float[] first, float[] second)
+		{
+			return first[0] == second[5] && first[1] == second[4] && first[2] == second[3] && first[3] == second[2] && 
+				first[4] == second[1] && first[5] == second[0];
+		}
+
+        private TimelineClip GetMiniGameLaunchEventAfter(float time)
+        {
+            TimelineClip nextActivity = null;
+            // also check the change events which trigger minigames
+            //foreach (ActivityChangeTriggerMG mg in MainSequence.GetComponentsInChildren<ActivityChangeTriggerMG>())
+            //{
+            //    if (!CheckIfAlreadyAtThisTask(ActivityTracker.Instance.Progress, mg.GetProgressData()))
+            //    {
+            //        if (mg.FireTime > time && (nextActivity == null || mg.FireTime < nextActivity.FireTime)) nextActivity = mg;
+            //    }
+            //}
+
+            //foreach (CreateMiniGame mg in MainSequence.GetComponentsInChildren<CreateMiniGame>())
+            //{
+            //    if (mg.FireTime > time && (nextActivity == null || mg.FireTime < nextActivity.FireTime)) nextActivity = mg;
+            //}
+
+            return nextActivity;
+        }
+
+		private TimelineClip _GetNextActivityEventAfter( float time ) {
+			
+			TimelineClip nextActivity = null;
+			
+			//foreach (ActivityChangeEvent mg in MainSequence.GetComponentsInChildren< ActivityChangeEvent >()) 
+			//{
+			//	if(!CheckIfAlreadyAtThisTask(ActivityTracker.Instance.Progress,mg.GetProgressData()))
+			//	{
+			//		if ( mg.FireTime > time && (nextActivity == null || mg.FireTime < nextActivity.FireTime) ) nextActivity = mg;
+			//	}
+			//}
+			
+			//// also check the change events which trigger minigames
+			//foreach (ActivityChangeTriggerMG mg in MainSequence.GetComponentsInChildren< ActivityChangeTriggerMG >()) 
+			//{
+			//	if(!CheckIfAlreadyAtThisTask(ActivityTracker.Instance.Progress,mg.GetProgressData()))
+			//	{
+			//		if ( mg.FireTime > time && (nextActivity == null || mg.FireTime < nextActivity.FireTime) ) nextActivity = mg;
+			//	}
+			//}
+
+			//foreach (MissionEndSequence mg in MainSequence.GetComponentsInChildren< MissionEndSequence >()) 
+			//{
+			//	if ( mg.FireTime > time && (nextActivity == null || mg.FireTime < nextActivity.FireTime) ) nextActivity = mg;
+			//}
+			
+			return nextActivity;
+			
+		}
+
+        public void SkipTo(PlayableDirector sequence, float skipTime, bool forceProcessEvents)
+        {
+            // Find all animator and store the current culling modes and set it to always animate.
+            Dictionary<Animator, AnimatorCullingMode> animatorCullingModes = new Dictionary<Animator, AnimatorCullingMode>();
+            foreach (Animator animator in GameObject.FindObjectsOfType<Animator>())
+            {
+                animatorCullingModes.Add(animator, animator.cullingMode);
+                animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+            }
+
+            /*bool shouldResetScene = sequence == _mainSequence;
+
+            // Reset all the events that have happened in the time line.
+            sequence.ResetAllEvents();
+
+            // Restore the state of each object. 
+            if (shouldResetScene && ObjectStateManager.Instance.HasBeenCached())
+            {
+                ObjectStateManager.Instance.RestoreGameObjects();
+            }
+
+            // Clear any events that have been queued up to fire.
+            sequence.ClearAllActiveEvents();
+
+            sequence.SetDirectRunningTime(0.0f);
+
+            // Skip to before the dialogue event.
+            sequence.SkipTimelineTo(skipTime);
+
+            // Process the timeline to find all the events that have fired this frame.
+            sequence.UpdateSequencer(0.0f);
+
+            if(forceProcessEvents)
+            {
+                // Process all of the events.
+                sequence.ForceProcessEvents();
+            }
+
+            if (shouldResetScene)
+            {
+                // Cause the animators to update so that the last target is set in the IK script. 
+                foreach (Animator a in GameObject.FindObjectsOfType<Animator>())
+                {
+                    a.Update(0.01f);
+                }
+
+                AmbientSoundManager soundManager = GameObject.FindObjectOfType<AmbientSoundManager>();
+
+                if (soundManager)
+                {
+                    soundManager.Reset();
+                }
+            }
+
+            // Revert animator culling modes.
+            foreach (KeyValuePair<Animator, AnimatorCullingMode> animatorCullingMode in animatorCullingModes)
+            {
+                // Check if it is still present
+                if (animatorCullingMode.Key != null)
+                {
+                    animatorCullingMode.Key.cullingMode = animatorCullingMode.Value;
+                }
+            }*/
+        }
+    }
+}

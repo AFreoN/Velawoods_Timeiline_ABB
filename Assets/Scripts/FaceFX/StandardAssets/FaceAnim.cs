@@ -12,6 +12,7 @@ public class FaceAnim : MonoBehaviour
 
 	Transform footStepTransform = null;
 	AudioSource footAudioSource = null;
+	[HideInInspector] public AudioClip _FootStepSound;
 
 	void Start () {
 

@@ -34,6 +34,11 @@ public abstract class TimelineBehaviour : MonoBehaviour
     {
 
     }
+
+    public virtual void OnReset()
+    {
+
+    }
 }
 
 public interface ITimelineBehaviour
@@ -41,5 +46,10 @@ public interface ITimelineBehaviour
     public double startTime { get; set; }
     public double endTime { get; set; }
 
-    public abstract void OnSkip();
+    public void OnSkip();
+
+    public virtual void OnReset()
+    {
+
+    }
 }
