@@ -431,6 +431,11 @@ public class DialogueEvent : TimelineBehaviour
 	// WARNING : Don't modify inspector (public) values here unless you really need to and the mission-building guys are ok with it
 	public void Update()
 	{
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+			Debug.Log("Dialogue event input received");
+			OnClipStart(this);
+        }
 		// grab the Dialogue Event Data component, and if it's not there, bail out
 		/*if (Data == null) 
 			return;
