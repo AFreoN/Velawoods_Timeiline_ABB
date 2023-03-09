@@ -35,6 +35,7 @@ public class TimelineClipGenerator : EditorWindow
     #region Dialog track
     DialogEventManager dialogEventManager;
     List<DialogClipData> dialogClipDatas = new List<DialogClipData>();
+    ListDialogueClipData dialogueClipDatas;
     #endregion
 
     #region 
@@ -127,7 +128,7 @@ public class TimelineClipGenerator : EditorWindow
                 break;
 
             case TrackType.Dialog:
-                showDialogTrackGenerator();
+                showDialogueTrackGenerator();
                 break;
         }
     }
@@ -610,6 +611,111 @@ public class TimelineClipGenerator : EditorWindow
 
             EditorUtility.DisplayDialog("Timeline Generator", "Tween Track created for " + transform.name, "Ok");
         }
+    }
+    #endregion
+
+    #region DialogueTrack
+    void showDialogueTrackGenerator()
+    {
+        EditorGUILayout.Space(10);
+
+        if (GUILayout.Button("Load Dialogue Track"))
+        {
+            OnDialogueTrackLoadClick();
+        }
+
+        GUILayout.Space(10);
+
+        TimelineAsset asset = TimelineEditor.inspectedAsset;
+        bool allow = dialogueClipDatas != null && dialogueClipDatas.eventDatas.Count > 0;
+        if (allow && asset != null && GUILayout.Button("Generate Dialogue Clips"))
+        {
+            string trackName = "Conversation Track";
+
+            DialogueTrack newTrack = asset.CreateTrack<DialogueTrack>(trackName);
+            UndoExtensions.RegisterTrack(newTrack, "Dialogue track created");
+
+            FaceAnim[] faceAnims = GameObject.FindObjectsOfType<FaceAnim>(true);
+
+            for (int i = 0; i < dialogueClipDatas.eventDatas.Count; i++)
+            {
+                DialogueEventData.DialogueData dd = dialogueClipDatas.eventDatas[i];
+
+                TimelineClip tClip = newTrack.CreateClip<DialogueClip>();
+                DialogueClip dialogClip = tClip.asset as DialogueClip;
+                tClip.start = dialogueClipDatas.startTime[i];
+                tClip.duration = dialogueClipDatas.duration[i];
+                tClip.displayName = dd.dialogueText[0].text;
+
+                GameObject character = null;
+                foreach (FaceAnim fa in faceAnims)
+                {
+                    if (fa.name == dialogueClipDatas.characterNames[i])
+                    {
+                        character = fa.gameObject;
+                        //Debug.Log("Found character : " + data.character.name);
+                        break;
+                    }
+                }
+
+                dialogClip.characterExposed.exposedName = GUID.Generate().ToString();
+                if (dd.character != null)
+                {
+                    Debug.Log(dd.dialogueID + " : " + character.name);
+                }
+                TimelineEditor.inspectedDirector.SetReferenceValue(dialogClip.characterExposed.exposedName, character);
+
+
+                DialogueEventData ed = new DialogueEventData();
+                ed.dialogueData = dd;
+                dialogClip.behaviour.eventData = ed;
+                //dialogClip.behaviour.dialogueEvent.Data = ed;
+            }
+
+            //TimelineEditor.inspectedDirector.SetGenericBinding(newTrack, dialogEventManager);
+
+            TimelineEditor.Refresh(RefreshReason.ContentsAddedOrRemoved);
+
+            EditorUtility.DisplayDialog("Timeline Generator", "Conversation Track Created", "Ok");
+        }
+    }
+
+    void OnDialogueTrackLoadClick()
+    {
+        if (!EditorPrefs.HasKey(DialogManager.KEY_PATH))
+        {
+            Debug.Log("No Path Found to load Dialogue Track");
+            return;
+        }
+
+        dialogueClipDatas = JsonImporter.LoadDialogueTrack(EditorPrefs.GetString(DialogManager.KEY_PATH));
+
+        if (dialogueClipDatas == null)
+        {
+            Debug.LogError("No File Found to load Dialogue Track");
+            return;
+        }
+
+        FaceAnim[]  faceAnims = GameObject.FindObjectsOfType<FaceAnim>(true);
+
+        for (int i = 0; i < dialogueClipDatas.eventDatas.Count; i++)
+        {
+            DialogueEventData.DialogueData data = dialogueClipDatas.eventDatas[i];
+            //data.character = GameObject.Find(dialogueClipDatas.characterNames[i]);
+
+            data.character = null;
+            foreach(FaceAnim fa in faceAnims)
+            {
+                if (fa.name == dialogueClipDatas.characterNames[i])
+                {
+                    data.character = fa.gameObject;
+                    //Debug.Log("Found character : " + data.character.name);
+                    break;
+                }
+            }
+        }
+
+        Debug.Log("Dialogue data loaded");
     }
     #endregion
 

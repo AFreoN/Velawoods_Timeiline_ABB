@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class DialogueEventData :  MonoBehaviour {
+[System.Serializable]
+public class DialogueEventData  {
 	
 	// Main data box
 	[System.Serializable]

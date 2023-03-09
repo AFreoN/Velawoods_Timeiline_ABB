@@ -11,6 +11,7 @@ namespace CustomExporter
         public const string FILENAME_LOOKAT = @"\LookAtTrackExported.txt";
         public const string FILENAME_TWEEN = @"\TweenTrackExported.txt";
         public const string FILENAME_DIALOG = @"\DialogTrackExported.txt";
+        public const string FILENAME_DIALOGUE = @"\DialogueTrackExported.txt";
 
         public static ListAnimClipData LoadAnimationTrack(string SAVE_FOLDER)
         {
@@ -83,6 +84,24 @@ namespace CustomExporter
             ListDialogClipData result = JsonUtility.FromJson<ListDialogClipData>(LoadedTxt);
             return result;
         }
+
+        public static ListDialogueClipData LoadDialogueTrack(string SAVE_FOLDER)
+        {
+            string path = SAVE_FOLDER + FILENAME_DIALOGUE;
+
+            if (!File.Exists(path))
+            {
+                Debug.Log("Save File Not Found on " + path);
+                return null;
+            }
+
+            Debug.Log("Loading file from : " + path);
+
+            string LoadedTxt = File.ReadAllText(path);
+
+            ListDialogueClipData result = JsonUtility.FromJson<ListDialogueClipData>(LoadedTxt);
+            return result;
+        }
     }
 
     public class ListAnimClipData
@@ -126,5 +145,13 @@ namespace CustomExporter
         public List<bool> isLearners = new List<bool>();
         public List<double> startTimes = new List<double>();
         public List<double> durations = new List<double>();
+    }
+
+    public class ListDialogueClipData
+    {
+        public List<DialogueEventData.DialogueData> eventDatas = new List<DialogueEventData.DialogueData>();
+        public List<float> startTime = new List<float>();
+        public List<float> duration = new List<float>();
+        public List<string> characterNames = new List<string>();
     }
 }

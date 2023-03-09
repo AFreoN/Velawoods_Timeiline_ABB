@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 public class DialogueEvent : TimelineBehaviour
 {
 	// Event properties
-	protected DialogueEventData _data;
+	/*protected DialogueEventData _data;
 	public DialogueEventData Data {
 		get {
 			if (_data == null)
@@ -22,7 +22,9 @@ public class DialogueEvent : TimelineBehaviour
 				Debug.LogError ("DialogueEvent: No Dialogue Data!");
 			return _data;
 		} }
-	
+*/
+
+	public DialogueEventData Data;
 	// Relevant character FX data
 	public enum FaceFXAudioCommand { Play, Pause, Stop, Resume }
 	protected enum CharacterDataState { Stopped, Playing, Paused }
@@ -95,10 +97,13 @@ public class DialogueEvent : TimelineBehaviour
 	{
 		//if(!AffectedObject)
 		//	return;
+		Debug.Log("End event called");
 		
 		if (Data.dialogueData.type != DialogueEventData.DialogueType.None)
 		{
-			if(Data) {
+			Debug.Log("Dialogue type is not none");
+			if(Data != null) {
+				Debug.Log("Data is not none");
 				// if not a carnegie bubble
 				if (! Data.dialogueData.isLearner)
 				{
@@ -431,11 +436,11 @@ public class DialogueEvent : TimelineBehaviour
 	// WARNING : Don't modify inspector (public) values here unless you really need to and the mission-building guys are ok with it
 	public void Update()
 	{
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-			Debug.Log("Dialogue event input received");
-			OnClipStart(this);
-        }
+   //     if (Input.GetKeyUp(KeyCode.S))
+   //     {
+			//Debug.Log("Dialogue event input received");
+			//OnClipStart(this);
+   //     }
 		// grab the Dialogue Event Data component, and if it's not there, bail out
 		/*if (Data == null) 
 			return;
@@ -539,7 +544,7 @@ public class DialogueEvent : TimelineBehaviour
 	public const float _replayDelay = 0.0f;
 	
 	public enum TimerState { Stopped, Paused, Playing }
-	public TimerState _timerState = TimerState.Stopped;
+	[HideInInspector] public TimerState _timerState = TimerState.Stopped;
 
     private Coroutine _timerRoutine;
 
