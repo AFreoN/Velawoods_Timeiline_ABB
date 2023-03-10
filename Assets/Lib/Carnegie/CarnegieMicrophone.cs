@@ -127,7 +127,7 @@ public class CarnegieMicrophone : MonoBehaviour {
 	private void OnEncodeComplete (bool success)
 	{	
 		if (Debug.isDebugBuild)
-			Debug.Log ("Ogg encoder: Complete!"); 
+			Debug.Log ("Ogg encoder Complete : " + success); 
 			
 		if (success)
 		{
@@ -194,6 +194,7 @@ public class CarnegieMicrophone : MonoBehaviour {
 	{
 		if (Debug.isDebugBuild)
 		Debug.Log ("Ogg encoder: Starting...");
+		Debug.Log("Mic clip : " + _micClip.length);
 		ove = new OggVorbisEnc(Application.persistentDataPath + "/test.ogg", _micClip, 1.0f, OnEncodeComplete);
 		ove.encode();
 		
@@ -204,8 +205,10 @@ public class CarnegieMicrophone : MonoBehaviour {
 		while (currentTime < _encodeTimeout) 
 		{
 			currentTime += Time.deltaTime;
-			if(ove != null && ove.update()) 
+			if(ove != null && ove.update())
+            {
 				yield break; // done!
+            }
 			yield return null;
 		}
 		OnEncodeComplete (false); // timed out

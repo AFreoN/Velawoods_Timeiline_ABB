@@ -8,7 +8,7 @@ public class RemoveDeadComponents
     [MenuItem("GameObject/Remove Missing Components")]
     public static void RemoveComps()
     {
-        GameObject[] allObjects = Object.FindObjectsOfType<GameObject>();
+        GameObject[] allObjects = Object.FindObjectsOfType<GameObject>(true);
 
         int objCount = 0, scriptCount = 0;
 
@@ -22,6 +22,45 @@ public class RemoveDeadComponents
                 GameObjectUtility.RemoveMonoBehavioursWithMissingScript(g);
             }
         }
+        Debug.Log("Removed " + scriptCount + " missing scripts on " + objCount + " objects");
+    }
+
+    [MenuItem("Assets/Remove Missing Components")]
+    public static void RemoveMissingCompsInPrefabs()
+    {
+        Object[] selections = Selection.objects;
+
+        int objCount = 0, scriptCount = 0;
+
+        foreach (Object o in selections)
+        {
+            GameObject g = o as GameObject;
+
+            if (g == null) continue;
+
+            int thisCount = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(g);
+
+            if(thisCount > 0)
+            {
+                objCount++;
+                scriptCount += thisCount;
+                GameObjectUtility.RemoveMonoBehavioursWithMissingScript(g);
+            }
+
+            foreach(Transform t in g.transform.GetComponentsInChildren<Transform>(true))
+            {
+                thisCount = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(t.gameObject);
+
+                if(thisCount > 0)
+                {
+                    objCount++;
+                    scriptCount += thisCount;
+                    GameObjectUtility.RemoveMonoBehavioursWithMissingScript(t.gameObject);
+                }
+            }
+        }
+
+        Debug.Log("Total object selected : " + selections.Length);
         Debug.Log("Removed " + scriptCount + " missing scripts on " + objCount + " objects");
     }
 

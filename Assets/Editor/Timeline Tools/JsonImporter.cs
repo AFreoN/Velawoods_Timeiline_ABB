@@ -152,6 +152,24 @@ namespace CustomExporter
         public List<DialogueEventData.DialogueData> eventDatas = new List<DialogueEventData.DialogueData>();
         public List<float> startTime = new List<float>();
         public List<float> duration = new List<float>();
+
         public List<string> characterNames = new List<string>();
+
+        public List<string> animationClipGuids = new List<string>();
+        public List<string> audioClipGuids = new List<string>();
+        public List<string> angelAudioClipGuids = new List<string>();
+        public List<string> jackAudioClipGuids = new List<string>();
+
+        //public List<List<string>> femaleClipGuids = new List<List<string>>();
+        //public List<List<string>> maleClipGuids = new List<List<string>>();
+
+        public List<TutClips> tutClipGuids = new List<TutClips>();
+    }
+
+    [System.Serializable]
+    public class TutClips
+    {
+        public List<string> maleClips = new List<string>();
+        public List<string> femaleClips = new List<string>();
     }
 }

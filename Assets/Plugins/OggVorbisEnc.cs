@@ -89,6 +89,7 @@ namespace r1g.plugins
 #else
             OggVorbis.WriteVorbisData(_filename, _frequency, _quality, _sampleData, _samples, _channels);
 #endif
+            retval = 0;
             _isDone = true;
 
             //Debug.Log("setting done to true");

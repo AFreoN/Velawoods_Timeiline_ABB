@@ -9,6 +9,8 @@ using CustomTracks;
 
 public class TimelineClipGenerator : EditorWindow
 {
+    const string NONE = "null";
+
     TimelineClip clipType;
     TrackType type = TrackType.Animation;
 
@@ -635,7 +637,7 @@ public class TimelineClipGenerator : EditorWindow
             DialogueTrack newTrack = asset.CreateTrack<DialogueTrack>(trackName);
             UndoExtensions.RegisterTrack(newTrack, "Dialogue track created");
 
-            FaceAnim[] faceAnims = GameObject.FindObjectsOfType<FaceAnim>(true);
+            FaceLookAt[] faceLookAts = GameObject.FindObjectsOfType<FaceLookAt>(true);
 
             for (int i = 0; i < dialogueClipDatas.eventDatas.Count; i++)
             {
@@ -648,7 +650,7 @@ public class TimelineClipGenerator : EditorWindow
                 tClip.displayName = dd.dialogueText[0].text;
 
                 GameObject character = null;
-                foreach (FaceAnim fa in faceAnims)
+                foreach (FaceLookAt fa in faceLookAts)
                 {
                     if (fa.name == dialogueClipDatas.characterNames[i])
                     {
@@ -664,6 +666,20 @@ public class TimelineClipGenerator : EditorWindow
                     Debug.Log(dd.dialogueID + " : " + character.name);
                 }
                 TimelineEditor.inspectedDirector.SetReferenceValue(dialogClip.characterExposed.exposedName, character);
+
+                dd.animationClip = getAsset<AnimationClip>(dialogueClipDatas.animationClipGuids[i]);
+                dd.audioClip = getAsset<AudioClip>(dialogueClipDatas.audioClipGuids[i]);
+                dd.tutorAudioClips.angela = getAsset<AudioClip>(dialogueClipDatas.angelAudioClipGuids[i]);
+                dd.tutorAudioClips.jack = getAsset<AudioClip>(dialogueClipDatas.jackAudioClipGuids[i]);
+
+                for (int j = 0; j < dd.dialogueText.Count; j++)
+                {
+
+                    DialogueEventData.DialogueText dt = dd.dialogueText[j];
+                    dt.tutorAudioClips.male = getAsset<AudioClip>(dialogueClipDatas.tutClipGuids[i].maleClips[j]);
+                    dt.tutorAudioClips.female = getAsset <AudioClip>(dialogueClipDatas.tutClipGuids[i].femaleClips[j]);
+                    dd.dialogueText[j] = dt;
+                }
 
 
                 DialogueEventData ed = new DialogueEventData();
@@ -696,24 +712,24 @@ public class TimelineClipGenerator : EditorWindow
             return;
         }
 
-        FaceAnim[]  faceAnims = GameObject.FindObjectsOfType<FaceAnim>(true);
+        //FaceAnim[]  faceAnims = GameObject.FindObjectsOfType<FaceAnim>(true);
 
-        for (int i = 0; i < dialogueClipDatas.eventDatas.Count; i++)
-        {
-            DialogueEventData.DialogueData data = dialogueClipDatas.eventDatas[i];
-            //data.character = GameObject.Find(dialogueClipDatas.characterNames[i]);
+        //for (int i = 0; i < dialogueClipDatas.eventDatas.Count; i++)
+        //{
+        //    DialogueEventData.DialogueData data = dialogueClipDatas.eventDatas[i];
+        //    //data.character = GameObject.Find(dialogueClipDatas.characterNames[i]);
 
-            data.character = null;
-            foreach(FaceAnim fa in faceAnims)
-            {
-                if (fa.name == dialogueClipDatas.characterNames[i])
-                {
-                    data.character = fa.gameObject;
-                    //Debug.Log("Found character : " + data.character.name);
-                    break;
-                }
-            }
-        }
+        //    data.character = null;
+        //    foreach(FaceAnim fa in faceAnims)
+        //    {
+        //        if (fa.name == dialogueClipDatas.characterNames[i])
+        //        {
+        //            data.character = fa.gameObject;
+        //            //Debug.Log("Found character : " + data.character.name);
+        //            break;
+        //        }
+        //    }
+        //}
 
         Debug.Log("Dialogue data loaded");
     }
@@ -886,6 +902,13 @@ public class TimelineClipGenerator : EditorWindow
         }
     }
     #endregion
+
+
+    static T getAsset<T>(string guid) where T : Object
+    {
+        if (guid == NONE) return null;
+        return AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GUIDToAssetPath(guid)) as T;
+    }
 
     [MenuItem("Tools/Print AudioClip GUID's")]
     static void FindAudioClip()

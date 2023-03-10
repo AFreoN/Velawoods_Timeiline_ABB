@@ -52,11 +52,11 @@ public class FaceLookAt : TimelineBehaviour
         }
     }
 
-    [ContextMenu("Select default look target")]
-    void selectDefault()
-    {
-        UnityEditor.Selection.activeGameObject = defaultLookTarget.gameObject;
-    }
+    //[ContextMenu("Select default look target")]
+    //void selectDefault()
+    //{
+    //    UnityEditor.Selection.activeGameObject = defaultLookTarget.gameObject;
+    //}
 
     /// <summary>
     /// Called when the LookAtTrack clip starts in the timeline

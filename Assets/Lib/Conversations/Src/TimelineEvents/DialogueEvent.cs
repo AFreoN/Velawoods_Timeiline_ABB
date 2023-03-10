@@ -12,19 +12,22 @@ using System.Text.RegularExpressions;
 /// </summary>
 public class DialogueEvent : TimelineBehaviour
 {
-	// Event properties
-	/*protected DialogueEventData _data;
-	public DialogueEventData Data {
-		get {
-			if (_data == null)
-				_data = GetComponent<DialogueEventData> ();
-			if (_data == null)
-				Debug.LogError ("DialogueEvent: No Dialogue Data!");
-			return _data;
-		} }
-*/
+    // Event properties
+/*    protected DialogueEventData _data;
+    public DialogueEventData Data
+    {
+        get
+        {
+            if (_data == null)
+                _data = GetComponent<DialogueEventData>();
+            if (_data == null)
+                Debug.LogError("DialogueEvent: No Dialogue Data!");
+            return _data;
+        }
+    }*/
 
-	public DialogueEventData Data;
+
+    public DialogueEventData Data;
 	// Relevant character FX data
 	public enum FaceFXAudioCommand { Play, Pause, Stop, Resume }
 	protected enum CharacterDataState { Stopped, Playing, Paused }
@@ -58,6 +61,8 @@ public class DialogueEvent : TimelineBehaviour
 
     public override void OnClipStart(object o)
     {
+		string s = Data.dialogueData.character ? Data.dialogueData.character.name : "Null";
+		Debug.Log("Showing dialogue for : " + s);
 		FireEvent();
     }
 
@@ -97,13 +102,10 @@ public class DialogueEvent : TimelineBehaviour
 	{
 		//if(!AffectedObject)
 		//	return;
-		Debug.Log("End event called");
 		
 		if (Data.dialogueData.type != DialogueEventData.DialogueType.None)
 		{
-			Debug.Log("Dialogue type is not none");
 			if(Data != null) {
-				Debug.Log("Data is not none");
 				// if not a carnegie bubble
 				if (! Data.dialogueData.isLearner)
 				{

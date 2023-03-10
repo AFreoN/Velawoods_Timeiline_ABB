@@ -2,10 +2,12 @@ using System;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
+using UnityEditor;
 
 namespace CustomTracks
 {
     [Serializable]
+    [TrackClipType(typeof(DialogueBehaviour))]
     public class DialogueClip : PlayableAsset, ITimelineClipAsset
     {
         public ExposedReference<GameObject> characterExposed;
@@ -14,7 +16,8 @@ namespace CustomTracks
 
         [HideInInspector] public float startTime, endTime;
 
-        [HideInInspector] public ExposedReference<GameObject> holderExposed;
+        [HideInInspector]
+        public ExposedReference<GameObject> holderExposed;
 
         public ClipCaps clipCaps
         {
@@ -41,7 +44,7 @@ namespace CustomTracks
 
 
                     owner.GetComponent<PlayableDirector>().ClearReferenceValue(holderExposed.exposedName);
-                    holderExposed.exposedName = UnityEditor.GUID.Generate().ToString();
+                    holderExposed.exposedName = GUID.Generate().ToString();
                     owner.GetComponent<PlayableDirector>().SetReferenceValue(holderExposed.exposedName, holder);
 
                     clone.dialogueEvent = holder.AddComponent<DialogueEvent>();
