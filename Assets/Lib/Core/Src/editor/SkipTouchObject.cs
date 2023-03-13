@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
-using CoreLib;
+using CoreSystem;
 
 public class SkipTouchObject {
 

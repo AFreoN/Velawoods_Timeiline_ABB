@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-namespace CoreLib
+namespace CoreSystem
 {
 	public class VerticalLayout : UIListBase, IUIList {
 

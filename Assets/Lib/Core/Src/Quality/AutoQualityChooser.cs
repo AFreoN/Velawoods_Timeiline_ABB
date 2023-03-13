@@ -3,7 +3,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace CoreLib
+namespace CoreSystem
 {
 	public class AutoQualityChooser : MonoBehaviour
 	{

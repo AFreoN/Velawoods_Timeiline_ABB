@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using CoreLib;
+using CoreSystem;
 using HighlightingSystem;
 
 public class FlashColourFadeOut : TouchSystemBaseCommand {

@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 
-using CoreLib;
+using CoreSystem;
 
 [RequireComponent (typeof (CarnegieMicrophone))]
 public class GenericButton_Record : GenericObject {
@@ -469,7 +469,7 @@ public class GenericButton_Record : GenericObject {
 		_background.GetComponent<GenericButton_Record_ColorPulse> ().ToColor (_feedbackReactionTime / 2.0f, true);
 		
 		// Stop analysing sound if still playing
-		AudioManager.Instance.StopAudio (CoreLib.AudioType.SFX);
+		AudioManager.Instance.StopAudio (CoreSystem.AudioType.SFX);
 		
 		// Check success
 		bool success;

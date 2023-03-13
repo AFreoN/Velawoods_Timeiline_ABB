@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-namespace CoreLib
+namespace CoreSystem
 {
 #if DEBUG_SINGLETON
     public class SingletonDebug

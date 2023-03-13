@@ -4,7 +4,7 @@ using UnityEditor;
 using System;
 using System.Collections.Generic;
 
-namespace Route1Games
+namespace RouteGames
 {
     public class InspectorList : EditorWindow
     {
@@ -113,7 +113,7 @@ namespace Route1Games
 
                 if (null == InspectorData)
                 {
-                    CoreLib.Core coreScript = FindObjectOfType<CoreLib.Core>();
+                    CoreSystem.Core coreScript = FindObjectOfType<CoreSystem.Core>();
 
                     if (coreScript && coreScript.gameObject)
                     {
@@ -156,7 +156,7 @@ namespace Route1Games
                     NewListSize = tempListSize;
                 }
 
-                CoreLib.CoreHelper.ResizeList<InspectorItem>(CurrentListSize, InspectorData.DataItems);
+                CoreSystem.CoreHelper.ResizeList<InspectorItem>(CurrentListSize, InspectorData.DataItems);
                 DrawControls(InspectorData.DataItems);
             }
 
@@ -178,7 +178,7 @@ namespace Route1Games
                     TempNewListSize  = tempListSize;
                 }
 
-                CoreLib.CoreHelper.ResizeList<InspectorItem>(TempCurrentListSize, tempDataItems);
+                CoreSystem.CoreHelper.ResizeList<InspectorItem>(TempCurrentListSize, tempDataItems);
                 DrawControls(tempDataItems);
                 
             }

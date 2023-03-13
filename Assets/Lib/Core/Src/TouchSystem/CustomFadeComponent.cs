@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using CoreLib;
+using CoreSystem;
 
 public class CustomFadeComponent : MonoBehaviour
 {

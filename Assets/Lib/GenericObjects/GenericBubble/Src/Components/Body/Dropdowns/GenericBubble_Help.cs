@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-using CoreLib;
+using CoreSystem;
 
 public class GenericBubble_Help : GenericBubble_DropdownBase {
 
@@ -41,12 +41,12 @@ public class GenericBubble_Help : GenericBubble_DropdownBase {
 		if (_audioClip)
 		{
 			if (AudioManager.Instance != null)
-				AudioManager.Instance.PlayAudio (_audioClip, CoreLib.AudioType.Dialogue);
+				AudioManager.Instance.PlayAudio (_audioClip, CoreSystem.AudioType.Dialogue);
 		}
 		else if (List_AudioClips.Count > 0){
 			float auDelay = 0f;
 			for (int i = 0; i < List_AudioClips.Count; i++) {
-				CoreHelper.PlayAudioClip (List_AudioClips[i], CoreLib.AudioType.Dialogue, 1f, auDelay);
+				CoreHelper.PlayAudioClip (List_AudioClips[i], CoreSystem.AudioType.Dialogue, 1f, auDelay);
 				auDelay += List_AudioClips[i].length + 0.25f;
 			}
 		}else

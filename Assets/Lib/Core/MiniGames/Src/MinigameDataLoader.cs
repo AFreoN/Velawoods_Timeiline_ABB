@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CoreLib
+namespace CoreSystem
 {
 	public class MinigameDataLoader
 	{

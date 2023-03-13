@@ -10,7 +10,7 @@ using System.Text;
 using WebSocketSharp;
 
 
-namespace CoreLib {
+namespace CoreSystem {
 	public class SocketConnector : MonoSingleton<SocketConnector>
 	{
         public EventHandler OnConnected = delegate { };

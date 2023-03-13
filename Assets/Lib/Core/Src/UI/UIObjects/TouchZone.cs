@@ -1,7 +1,7 @@
 ﻿using UnityEngine.EventSystems;
 using UnityEngine;
 using System.Collections;
-using CoreLib;
+using CoreSystem;
 
 public class TouchZone : BaseListener
 {
@@ -43,7 +43,7 @@ public class TouchZone : BaseListener
 	
 	protected virtual void Update()
 	{
-		if (!_isEnabled || Route1Games.PauseManager.Instance.IsMenuPaused) return;
+		if (!_isEnabled || RouteGames.PauseManager.Instance.IsMenuPaused) return;
 	
 		if(_autoResizeCollider) ResizeCollider(Vector2.zero);
 		

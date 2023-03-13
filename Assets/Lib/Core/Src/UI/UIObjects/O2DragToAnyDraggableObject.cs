@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using UnityEngine.UI;
-using CoreLib;
+using CoreSystem;
 
 public class O2DragToAnyDraggableObject : TouchZone
 {
@@ -112,7 +112,7 @@ public class O2DragToAnyDraggableObject : TouchZone
 
     protected override void Update()
     {
-        if (false == TouchZone._isEnabled || Route1Games.PauseManager.Instance.IsMenuPaused)
+        if (false == TouchZone._isEnabled || RouteGames.PauseManager.Instance.IsMenuPaused)
         {
             return;
         }

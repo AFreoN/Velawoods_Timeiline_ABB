@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using CoreLib;
+using CoreSystem;
 using System.Text.RegularExpressions;
 
 public class ConversationManager : MonoSingleton<ConversationManager> {

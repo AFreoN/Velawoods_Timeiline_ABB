@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using CoreLib;
+using CoreSystem;
 using System.Collections;
 using UnityEngine.UI;
 using System.Net.Mail;
@@ -1406,7 +1406,7 @@ public class Bundlemanager : EditorWindow
 					Debug.Log (scenePath);
 					EditorSceneManager.OpenScene(scenePath, UnityEditor.SceneManagement.OpenSceneMode.Single);
 
-                    if(OptimiseAnimations) Route1Games.AnimationUtility.OptimiseAnimationController(scenePath);
+                    if(OptimiseAnimations) RouteGames.AnimationUtility.OptimiseAnimationController(scenePath);
                     if(OptimiseFaceFX) UtilityUtility.OptimiseFaceFX();
 
                     /*USSequencer sequencer = FindObjectOfType<USSequencer>();

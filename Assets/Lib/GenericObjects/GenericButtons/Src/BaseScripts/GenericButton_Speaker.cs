@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-using CoreLib;
+using CoreSystem;
 
 public class GenericButton_Speaker : GenericObject {
 	[Header ("Speaker Button")]
@@ -10,7 +10,7 @@ public class GenericButton_Speaker : GenericObject {
 	public AudioClip _audioClip;
 
 	[HideInInspector]
-	public const CoreLib.AudioType _audioLayer = CoreLib.AudioType.Dialogue;
+	public const CoreSystem.AudioType _audioLayer = CoreSystem.AudioType.Dialogue;
 	
 	public override void Show (object[] paramList)
 	{

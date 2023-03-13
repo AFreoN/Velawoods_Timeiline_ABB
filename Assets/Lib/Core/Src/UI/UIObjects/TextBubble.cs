@@ -3,7 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine.UI;
 
-namespace CoreLib
+namespace CoreSystem
 {
 	public class TextBubble : MonoBehaviour, IComponent
 	{

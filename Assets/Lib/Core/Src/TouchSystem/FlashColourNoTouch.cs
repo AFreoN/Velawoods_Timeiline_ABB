@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using HighlightingSystem;
 
-namespace CoreLib
+namespace CoreSystem
 {
 	public class FlashColourNoTouch : MonoBehaviour 
 	{

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-namespace CoreLib
+namespace CoreSystem
 {
 	public enum AudioType
 	{
@@ -88,7 +88,7 @@ namespace CoreLib
 				_audioPlayerMusic.volume = volume;
 				_musicVolume = volume;
 				break;
-			case CoreLib.AudioType.Dialogue:
+			case CoreSystem.AudioType.Dialogue:
 				_audioPlayerDialogue.volume = volume;
 				_dialogueVolume = volume;
 				break;

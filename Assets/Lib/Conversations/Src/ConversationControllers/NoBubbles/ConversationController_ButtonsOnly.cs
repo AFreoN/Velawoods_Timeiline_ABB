@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using CoreLib;
+using CoreSystem;
 
 public class ConversationController_ButtonsOnly : ConversationController {
 	[Header ("No Bubbles Controller")] [Space(10)]

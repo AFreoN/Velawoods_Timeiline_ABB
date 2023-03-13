@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using CoreLib;
+using CoreSystem;
 
 public class ConvoButtons_test : MonoBehaviour {
 

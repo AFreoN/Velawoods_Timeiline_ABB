@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace CoreLib
+namespace CoreSystem
 {
 	public class Core : MonoBehaviour
 	{
@@ -18,7 +18,7 @@ namespace CoreLib
 		public AudioManager _audioManager; //plays audio
 		public SocketConnector _socketConnector; // Connects to the server
 		public ContentManager _contentManager; // Manages content and localisation - get your strings from here
-        public Route1Games.PauseManager _pauseManager; // Manages the games global pause state
+        public RouteGames.PauseManager _pauseManager; // Manages the games global pause state
 
 		public GameObject _entryPointObject; //used for game specific init stuff
 		public GameObject _sequence; //do you wish to have a sequence that you choose
@@ -69,7 +69,7 @@ namespace CoreLib
 					_instance._audioManager = AudioManager.Instance;
 					_instance._socketConnector = SocketConnector.Instance;
 					_instance._contentManager = ContentManager.Instance;
-                    _instance._pauseManager = Route1Games.PauseManager.Instance;
+                    _instance._pauseManager = RouteGames.PauseManager.Instance;
 
                     CoreEventSystem.Instance.AddListener(CoreEventTypes.MISSION_SETUP, SequenceManager.Instance.MissionSetUpCallback);
 
@@ -252,7 +252,7 @@ namespace CoreLib
             // CoreEventSystem
             MiniGameManager.Instance.Reset();
 
-            Route1Games.PauseManager.Instance.Reset();
+            RouteGames.PauseManager.Instance.Reset();
 
             // SocketConnector CoreEventSystem
 #if CLIENT_BUILD

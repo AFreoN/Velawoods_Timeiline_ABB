@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using CoreLib;
+using CoreSystem;
 
 public class HorizontalZigZagLayout : UIListBase, IUIList
 {

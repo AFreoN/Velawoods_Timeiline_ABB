@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using CoreLib;
+using CoreSystem;
 
 public class MiniGameManager : MonoSingleton<MiniGameManager> 
 {

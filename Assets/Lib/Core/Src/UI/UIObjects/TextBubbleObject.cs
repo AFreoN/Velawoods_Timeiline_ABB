@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-namespace CoreLib
+namespace CoreSystem
 {
 	public class TextBubbleObject : MonoBehaviour {
 

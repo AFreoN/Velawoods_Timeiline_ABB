@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using CoreLib;
+using CoreSystem;
 
 public class Tutorial_Static : Tutorial_Base {
 
@@ -176,7 +176,7 @@ public class Tutorial_Static : Tutorial_Base {
 
 	private void PlayAudio (string audioPath, float waitTime = 0)
 	{
-		AudioManager.Instance.PlayAudio (audioPath, CoreLib.AudioType.SFX, 1, waitTime);
+		AudioManager.Instance.PlayAudio (audioPath, CoreSystem.AudioType.SFX, 1, waitTime);
 	}
 
 	

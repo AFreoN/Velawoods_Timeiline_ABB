@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using WellFired;
-using CoreLib;
+using CoreSystem;
 using UnityEngine.UI;
 
 [ExecuteInEditMode()]

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-using CoreLib;
+using CoreSystem;
 using TMPro;
 
 public class GenericBubble : GenericBubble_BaseData {
@@ -585,7 +585,7 @@ public class GenericBubble : GenericBubble_BaseData {
 		}
 	}
 	
-	protected void PlayAudio (string audioPath, float volumeScale = 0.5f, CoreLib.AudioType type = CoreLib.AudioType.SFX)
+	protected void PlayAudio (string audioPath, float volumeScale = 0.5f, CoreSystem.AudioType type = CoreSystem.AudioType.SFX)
 	{
 		AudioManager.Instance.PlayAudio (audioPath, type, volumeScale);
 	}

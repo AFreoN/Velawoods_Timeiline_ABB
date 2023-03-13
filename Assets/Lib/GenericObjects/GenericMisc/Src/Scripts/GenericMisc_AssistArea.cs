@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using CoreLib;
+using CoreSystem;
 using System.Collections;
 
 public class GenericMisc_AssistArea : MonoBehaviour

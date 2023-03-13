@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-using CoreLib;
+using CoreSystem;
 
 public class DatabaseSpritesTools : EditorWindow {
 

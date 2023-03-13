@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 
-namespace Route1Games
+namespace RouteGames
 {
     [Serializable()]
     public class InspectorItem

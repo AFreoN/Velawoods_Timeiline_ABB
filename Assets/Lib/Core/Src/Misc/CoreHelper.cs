@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using UnityEditor;
 #endif
 
-namespace CoreLib
+namespace CoreSystem
 {
     public class CoreHelper : MonoBehaviour
     {
@@ -693,10 +693,10 @@ namespace CoreLib
 
 		public static void PlayAudio (string audioName, float volumeScale = 1.0f, float delay = 0f){
 			if (AudioManager.Instance != null) 
-				AudioManager.Instance.PlayAudio ("Audio/" + audioName, CoreLib.AudioType.SFX, volumeScale, delay);
+				AudioManager.Instance.PlayAudio ("Audio/" + audioName, CoreSystem.AudioType.SFX, volumeScale, delay);
 		}
 
-		public static void PlayAudioClip (AudioClip au, CoreLib.AudioType type, float volumeScale = 1f, float delay = 0f){
+		public static void PlayAudioClip (AudioClip au, CoreSystem.AudioType type, float volumeScale = 1f, float delay = 0f){
 			if (AudioManager.Instance != null)
 				AudioManager.Instance.PlayAudio (au, type, volumeScale, delay);
 		}

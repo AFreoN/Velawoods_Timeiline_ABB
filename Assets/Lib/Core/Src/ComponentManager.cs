@@ -1,5 +1,5 @@
 using UnityEngine;
-using CoreLib;
+using CoreSystem;
 using System.Collections.Generic;
 
 public class ComponentManager : MonoSingleton<ComponentManager>

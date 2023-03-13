@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace CoreLib{
+namespace CoreSystem{
 	public class WiggleImage : BaseListener {
 
 	    public float _honzStrength = 1f;

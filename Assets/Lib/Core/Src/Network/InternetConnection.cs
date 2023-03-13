@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace CoreLib {
+namespace CoreSystem {
 	public class InternetConnection : MonoBehaviour {
 	
 		public delegate void Callback(bool success);

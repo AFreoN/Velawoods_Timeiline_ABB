@@ -1,4 +1,4 @@
-namespace Route1Games
+namespace RouteGames
 {
     public interface IPausable
     {

@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
-using CoreLib;
+using CoreSystem;
 
 public class GenericButton_Record_Notifications : MonoBehaviour {
 	

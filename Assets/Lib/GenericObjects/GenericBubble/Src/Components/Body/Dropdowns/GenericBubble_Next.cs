@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using CoreLib;
+using CoreSystem;
 
 public class GenericBubble_Next : GenericBubble_DropdownBase {
 	
@@ -37,7 +37,7 @@ public class GenericBubble_Next : GenericBubble_DropdownBase {
 				
 				_interactable = false;
 				
-				AudioManager.Instance.StopAudio (CoreLib.AudioType.Dialogue);
+				AudioManager.Instance.StopAudio (CoreSystem.AudioType.Dialogue);
 			
 				bubbleScript.HideAllDropdowns ();
 				bubbleScript.NextDropdownPressed();

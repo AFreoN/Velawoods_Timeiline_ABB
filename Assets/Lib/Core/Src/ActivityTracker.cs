@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace CoreLib
+namespace CoreSystem
 {
 	public class ActivityTracker : MonoSingleton<ActivityTracker> 
 	{

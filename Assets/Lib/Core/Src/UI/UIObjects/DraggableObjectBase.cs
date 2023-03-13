@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using UnityEngine.UI;
-using CoreLib;
+using CoreSystem;
 
 public class DraggableObjectBase : TouchZone
 {
@@ -219,7 +219,7 @@ public class DraggableObjectBase : TouchZone
 	// Update is called once per frame
 	protected override void Update ()
 	{
-		if (!TouchZone._isEnabled || Route1Games.PauseManager.Instance.IsMenuPaused) return;
+		if (!TouchZone._isEnabled || RouteGames.PauseManager.Instance.IsMenuPaused) return;
 	
 		if(_autoResizeCollider) ResizeCollider(Vector2.zero);
 		

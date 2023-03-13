@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 
-namespace CoreLib
+namespace CoreSystem
 {
 	public class EncryptionManager : MonoSingleton<EncryptionManager>
 	{

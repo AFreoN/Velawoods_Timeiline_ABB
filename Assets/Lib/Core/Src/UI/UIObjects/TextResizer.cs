@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TMPro;
-using CoreLib;
+using CoreSystem;
 
 [RequireComponent(typeof(RectTransform))]
 public class TextResizer : BaseListener {

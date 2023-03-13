@@ -215,7 +215,7 @@ public class UtilityUtility : MonoBehaviour
     [MenuItem("VELA/Scene/Animations/CreateAnimationController")]
     public static void CreateAnimationControllerForScene()
     {
-        Route1Games.AnimationUtility.OptimiseAnimationController(EditorApplication.currentScene);
+        RouteGames.AnimationUtility.OptimiseAnimationController(EditorApplication.currentScene);
     }
 
     /*[MenuItem("VELA/DialogueTest")]

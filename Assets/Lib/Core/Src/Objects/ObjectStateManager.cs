@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 using WellFired;
-using CoreLib;
+using CoreSystem;
 
 /*
  * Gore: Restoring the state of affected mission objects. This class could be moved to another file if it is needed elsewhere.

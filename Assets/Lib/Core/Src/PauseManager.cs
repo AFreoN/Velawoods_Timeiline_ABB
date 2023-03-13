@@ -1,8 +1,8 @@
-using CoreLib;
+using CoreSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Route1Games
+namespace RouteGames
 {
     public class PauseManager : MonoSingleton<PauseManager>
     {
@@ -187,7 +187,7 @@ namespace Route1Games
                 }
             }
 
-            AudioManager.Instance.PauseAudio(CoreLib.AudioType.Dialogue);
+            AudioManager.Instance.PauseAudio(CoreSystem.AudioType.Dialogue);
             AudioManager.Instance.CustomAudioSource.Pause();
         }
 
@@ -201,7 +201,7 @@ namespace Route1Games
 
             m_pausedAudioSources.Clear();
 
-            AudioManager.Instance.ResumeAudio(CoreLib.AudioType.Dialogue);
+            AudioManager.Instance.ResumeAudio(CoreSystem.AudioType.Dialogue);
             AudioManager.Instance.CustomAudioSource.UnPause();
         }
     }

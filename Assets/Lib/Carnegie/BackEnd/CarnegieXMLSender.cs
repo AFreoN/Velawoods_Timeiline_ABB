@@ -12,7 +12,7 @@ using UnityEngine;
 using System.Collections;
 
 using TMPro;
-using CoreLib;
+using CoreSystem;
 
 public class CarnegieXMLSender : MonoBehaviour
 {

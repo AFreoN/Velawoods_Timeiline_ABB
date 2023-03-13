@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.Timeline;
 using UnityEngine.Playables;
 
-namespace CoreLib
+namespace CoreSystem
 {
     public class SequenceManager : MonoSingleton<SequenceManager>
     {
@@ -158,9 +158,9 @@ namespace CoreLib
 			//MainSequence.ClearAllActiveEvents();
 			
 			// Stop all sounds when skipping
-			AudioManager.Instance.StopAudio(CoreLib.AudioType.Dialogue);
-			AudioManager.Instance.StopAudio(CoreLib.AudioType.Music);
-			AudioManager.Instance.StopAudio(CoreLib.AudioType.SFX);
+			AudioManager.Instance.StopAudio(CoreSystem.AudioType.Dialogue);
+			AudioManager.Instance.StopAudio(CoreSystem.AudioType.Music);
+			AudioManager.Instance.StopAudio(CoreSystem.AudioType.SFX);
 
 			// Stop all current facefx animations.
 			foreach (Bones_FaceFXControllerScript_Setup controlScript in Object.FindObjectsOfType<Bones_FaceFXControllerScript_Setup>())
@@ -197,9 +197,9 @@ namespace CoreLib
             }
 
             // Stop all sounds when skipping
-            AudioManager.Instance.StopAudio(CoreLib.AudioType.Dialogue);
-            AudioManager.Instance.StopAudio(CoreLib.AudioType.Music);
-            AudioManager.Instance.StopAudio(CoreLib.AudioType.SFX);
+            AudioManager.Instance.StopAudio(CoreSystem.AudioType.Dialogue);
+            AudioManager.Instance.StopAudio(CoreSystem.AudioType.Music);
+            AudioManager.Instance.StopAudio(CoreSystem.AudioType.SFX);
 
             foreach (Bones_FaceFXControllerScript_Setup controlScript in Object.FindObjectsOfType<Bones_FaceFXControllerScript_Setup>())
             {
@@ -260,9 +260,9 @@ namespace CoreLib
 			//}
 		
 			// Stop all sounds when skipping
-			AudioManager.Instance.StopAudio(CoreLib.AudioType.Dialogue);
-			AudioManager.Instance.StopAudio(CoreLib.AudioType.Music);
-			AudioManager.Instance.StopAudio(CoreLib.AudioType.SFX);
+			AudioManager.Instance.StopAudio(CoreSystem.AudioType.Dialogue);
+			AudioManager.Instance.StopAudio(CoreSystem.AudioType.Music);
+			AudioManager.Instance.StopAudio(CoreSystem.AudioType.SFX);
 
 			//foreach (Bones_FaceFXControllerScript_Setup controlScript in Object.FindObjectsOfType<Bones_FaceFXControllerScript_Setup>())
 			//{

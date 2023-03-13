@@ -2,12 +2,12 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using CoreLib;
+using CoreSystem;
 
 using TMPro;
 using System;
 
-public class GenericMisc_AudioPlayer : MonoBehaviour, Route1Games.IPausable
+public class GenericMisc_AudioPlayer : MonoBehaviour, RouteGames.IPausable
 {
 
 	/*
@@ -121,7 +121,7 @@ public class GenericMisc_AudioPlayer : MonoBehaviour, Route1Games.IPausable
 	public void Start ()
 	{
 		Reset ();
-        Route1Games.PauseManager.Instance.Register(this);
+        RouteGames.PauseManager.Instance.Register(this);
         CoreEventSystem.Instance.AddListener(CoreEventTypes.ACTIVITY_REVERSE, OnActivityChange);
         CoreEventSystem.Instance.AddListener(CoreEventTypes.ACTIVITY_SKIP, OnActivityChange);
 	}
@@ -161,7 +161,7 @@ public class GenericMisc_AudioPlayer : MonoBehaviour, Route1Games.IPausable
 	public void OnDestroy ()
 	{
 		StopAllCoroutines ();
-        Route1Games.PauseManager.Instance.Unregister(this);
+        RouteGames.PauseManager.Instance.Unregister(this);
     }
 
 //-Buttons---------------------------------------------------------------------------

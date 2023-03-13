@@ -44,7 +44,7 @@ namespace CustomTracks
 
 
                     owner.GetComponent<PlayableDirector>().ClearReferenceValue(holderExposed.exposedName);
-                    holderExposed.exposedName = GUID.Generate().ToString();
+                    //holderExposed.exposedName = GUID.Generate().ToString();
                     owner.GetComponent<PlayableDirector>().SetReferenceValue(holderExposed.exposedName, holder);
 
                     clone.dialogueEvent = holder.AddComponent<DialogueEvent>();

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-using CoreLib;
+using CoreSystem;
 
 [RequireComponent (typeof (CarnegieXMLSender))]
 public class CarnegieXMLInterpreter : CarnegieXMLParser {

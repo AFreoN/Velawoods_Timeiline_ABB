@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using CoreLib;
+using CoreSystem;
 
 
 public abstract class Tutorial_Base : MonoBehaviour {
@@ -19,7 +19,7 @@ public abstract class Tutorial_Base : MonoBehaviour {
 		CoreEventSystem.Instance.SendEvent (TutorialsManager.Messages.TUTORIAL_STARTED_PLAYING, _myType);
 
         // Pause the game
-        Route1Games.PauseManager.Instance.MenuPause();
+        RouteGames.PauseManager.Instance.MenuPause();
     }
 	
 	public void DestroyMe ()
@@ -30,13 +30,13 @@ public abstract class Tutorial_Base : MonoBehaviour {
     public void OnDestroy()
     {
         // Unpause game
-        Route1Games.PauseManager.Instance.MenuResume();
+        RouteGames.PauseManager.Instance.MenuResume();
     }
 
     public void OnDisable()
     {
         // Unpause game
-        Route1Games.PauseManager.Instance.MenuResume();
+        RouteGames.PauseManager.Instance.MenuResume();
     }
 }
 

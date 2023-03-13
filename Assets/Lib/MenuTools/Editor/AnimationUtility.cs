@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 using WellFired;
 
-namespace Route1Games
+namespace RouteGames
 {
     public class AnimationUtility : MonoBehaviour
     {
@@ -34,7 +34,7 @@ namespace Route1Games
 
                 if (CheckIfStringContainsMissionString(sceneName, ref missionString))
                 {
-                    float[] missionIDs = CoreLib.ActivityTracker.ConvertIDIntoIndividualIDs(missionString);
+                    float[] missionIDs = CoreSystem.ActivityTracker.ConvertIDIntoIndividualIDs(missionString);
                     string outputPath = BuildOutputPath(missionIDs);
 
                     if (CreateDirectory(outputPath))

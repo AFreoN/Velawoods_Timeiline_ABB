@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-namespace CoreLib
+namespace CoreSystem
 {
 	public abstract class TouchSystemBaseCommand : MonoBehaviour
 	{

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using WellFired;
 using UnityEngine.UI;
 
-using CoreLib;
+using CoreSystem;
 using System.Text.RegularExpressions;
 
 /// <summary>
@@ -410,10 +410,10 @@ public class DialogueEvent : TimelineBehaviour
 		else {
 			if (animData.audioClip) {
 				switch (command) {
-					case FaceFXAudioCommand.Play:   AudioManager.Instance.PlayAudio   (animData.audioClip, CoreLib.AudioType.Dialogue); break;
-					case FaceFXAudioCommand.Pause:  AudioManager.Instance.PauseAudio  (CoreLib.AudioType.Dialogue); break;
-					case FaceFXAudioCommand.Resume: AudioManager.Instance.ResumeAudio (CoreLib.AudioType.Dialogue); break;
-					case FaceFXAudioCommand.Stop:   AudioManager.Instance.StopAudio   (CoreLib.AudioType.Dialogue); break;
+					case FaceFXAudioCommand.Play:   AudioManager.Instance.PlayAudio   (animData.audioClip, CoreSystem.AudioType.Dialogue); break;
+					case FaceFXAudioCommand.Pause:  AudioManager.Instance.PauseAudio  (CoreSystem.AudioType.Dialogue); break;
+					case FaceFXAudioCommand.Resume: AudioManager.Instance.ResumeAudio (CoreSystem.AudioType.Dialogue); break;
+					case FaceFXAudioCommand.Stop:   AudioManager.Instance.StopAudio   (CoreSystem.AudioType.Dialogue); break;
 				}
 			}
 		}	

@@ -1,6 +1,6 @@
 //#define CORE_EVENT_LOG
 
-using CoreLib;
+using CoreSystem;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

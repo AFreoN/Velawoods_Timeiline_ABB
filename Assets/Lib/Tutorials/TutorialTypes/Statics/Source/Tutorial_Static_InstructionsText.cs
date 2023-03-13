@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
-using CoreLib;
+using CoreSystem;
 
 /// <summary> Grabbing text from the content.xml file. Set this object in the editor to hold the content tag. ex: LOC_101 / See the other tutorial prefabs </summary>
 public class Tutorial_Static_InstructionsText : MonoBehaviour {

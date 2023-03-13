@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 using TMPro;
-using CoreLib;
+using CoreSystem;
 
 /// <summary>
 /// Base class for generic objects. Contains widely used methods for generic UI objects.
@@ -71,7 +71,7 @@ public class GenericObject : MonoBehaviour {
 	public virtual void PlayAudio (string audioFilePath, float volumeScale = 1.0f)
 	{
 		if (AudioManager.Instance != null)
-			AudioManager.Instance.PlayAudio (audioFilePath, CoreLib.AudioType.SFX, volumeScale);
+			AudioManager.Instance.PlayAudio (audioFilePath, CoreSystem.AudioType.SFX, volumeScale);
 	}
 }
 

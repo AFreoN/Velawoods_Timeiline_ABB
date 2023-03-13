@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
-using CoreLib;
+using CoreSystem;
 
 public class FadeNoTouch : TouchSystemBaseCommand {
 

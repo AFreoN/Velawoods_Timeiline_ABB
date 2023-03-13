@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using CoreLib;
+using CoreSystem;
 
 public class GenericBubble_ReplaySelfAssessment : GenericBubble_DropdownBase {
 
@@ -21,7 +21,7 @@ public class GenericBubble_ReplaySelfAssessment : GenericBubble_DropdownBase {
 		if (_audioClip)
 		{
 			if (AudioManager.Instance != null)
-				AudioManager.Instance.PlayAudio (_audioClip, CoreLib.AudioType.Dialogue);
+				AudioManager.Instance.PlayAudio (_audioClip, CoreSystem.AudioType.Dialogue);
 		}
 		else
 			Debug.Log ("Replay Self Assessment Button: AudioClip missing.");

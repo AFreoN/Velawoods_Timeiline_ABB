@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-using CoreLib;
+using CoreSystem;
 
 public class HTMLTextEntities : MonoSingleton<HTMLTextEntities>
 {

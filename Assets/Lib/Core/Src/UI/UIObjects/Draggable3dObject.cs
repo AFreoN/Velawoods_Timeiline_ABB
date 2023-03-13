@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using UnityEngine.UI;
-using CoreLib;
+using CoreSystem;
 
 [RequireComponent (typeof (BoxCollider))]
 public class Draggable3dObject : DraggableObjectBase

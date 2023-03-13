@@ -14,7 +14,7 @@ using UnityEngine;
 using ArabicSupport;
 using System.Text.RegularExpressions;
 
-namespace CoreLib
+namespace CoreSystem
 {
 	public class ContentManager : MonoSingleton<ContentManager>
 	{

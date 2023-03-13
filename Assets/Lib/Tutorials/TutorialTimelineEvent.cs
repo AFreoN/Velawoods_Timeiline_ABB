@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using WellFired;
-using CoreLib;
+using CoreSystem;
 using TMPro;
 
 public class TutorialTimelineEvent : TimelineBehaviour {
