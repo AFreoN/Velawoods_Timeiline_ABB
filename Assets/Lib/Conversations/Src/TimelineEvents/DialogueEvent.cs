@@ -61,8 +61,8 @@ public class DialogueEvent : TimelineBehaviour
 
     public override void OnClipStart(object o)
     {
-		string s = Data.dialogueData.character ? Data.dialogueData.character.name : "Null";
-		Debug.Log("Showing dialogue for : " + s);
+		//string s = Data.dialogueData.character ? Data.dialogueData.character.name : "Null";
+		//Debug.Log("Showing dialogue for : " + s);
 		FireEvent();
     }
 

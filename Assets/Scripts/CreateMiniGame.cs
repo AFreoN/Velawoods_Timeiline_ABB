@@ -28,10 +28,10 @@ namespace CustomTracks
 
         public override void OnClipStart(object o)
         {
-            o.executeAction((CustomTracks.CreateMiniGameBehaviour cmg) =>
+            /*o.executeAction((CustomTracks.CreateMiniGameBehaviour cmg) =>
             {
                 ShowMiniGame(cmg.title, cmg.pauseOnFire);
-            });
+            });*/
         }
 
         void ShowMiniGame(string title, bool pause)
