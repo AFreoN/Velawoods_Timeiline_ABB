@@ -49,10 +49,10 @@ namespace CustomTracks
         public bool BackgroundPersistPrevious = false;
         public Color BackgroundColor = Color.white;
         public bool UseDefaultColors = true;
-        public Color _color1;
-        public Color _color2;
-        public Color _color3;
-        public Color _UIcolor1;
+        public Color _color1 = new Color(0,0,0,1);
+        public Color _color2 = new Color32(15,158,15,255);
+        public Color _color3 = new Color32(222,7,7,255);
+        public Color _UIcolor1 = new Color(1,1,1,1);
         public bool _forcedAnchorPositions = false;
         public bool _useDefaultForceDimensions = true;
         public float _xMin = Mathf.Clamp(XMINDEFAULT, 0.0f, 1.0f);

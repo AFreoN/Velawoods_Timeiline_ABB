@@ -56,6 +56,8 @@ namespace CustomTracks
 
                     //string n = clone.dialogueEvent.Data.dialogueData.dialogueText.Count > 0 ? clone.dialogueEvent.Data.dialogueData.dialogueText[0].text : "No Dialogue";
                     holder.name = "DD"; //"Dialogue " + UnityEngine.Random.Range(01, 4);//holder.GetInstanceID().ToString();
+                    if(clone.dialogueEvent.Data.dialogueData.dialogueText.Count > 0)
+                        holder.name = clone.dialogueEvent.Data.dialogueData.dialogueText[0].text;
                 }
             }
 
