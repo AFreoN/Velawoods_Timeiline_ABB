@@ -15,13 +15,13 @@ public class CameraApartmentController : MonoBehaviour {
 
 	void Awake()
 	{
-		//CoreEventSystem.Instance.AddListener (MOVE_OBJECT_TOUCHED, ObjectTouched);
-		//CoreEventSystem.Instance.AddListener (FREE_SPIN_ACTIVE, FreeSpinActive);
+		CoreEventSystem.Instance.AddListener (MOVE_OBJECT_TOUCHED, ObjectTouched);
+		CoreEventSystem.Instance.AddListener (FREE_SPIN_ACTIVE, FreeSpinActive);
 #if CLIENT_BUILD
         CoreEventSystem.Instance.AddListener (MainMenu.Messages.MENU_SHOWING, MenuActive);	
 		CoreEventSystem.Instance.AddListener (MainMenu.Messages.MENU_HIDING, MenuInactive);
 #endif
-		//CoreEventSystem.Instance.AddListener (CoreEventTypes.LEVEL_CHANGE, SceneChanged);
+		CoreEventSystem.Instance.AddListener (CoreEventTypes.LEVEL_CHANGE, SceneChanged);
 
 		mainCamera = Camera.main.gameObject;
 		//Snap to position of camera for first frame.
@@ -32,13 +32,13 @@ public class CameraApartmentController : MonoBehaviour {
 
 	void OnDestroy()
 	{
-		//CoreEventSystem.Instance.RemoveListener (MOVE_OBJECT_TOUCHED, ObjectTouched);
-		//CoreEventSystem.Instance.RemoveListener (FREE_SPIN_ACTIVE, FreeSpinActive);
+		CoreEventSystem.Instance.RemoveListener (MOVE_OBJECT_TOUCHED, ObjectTouched);
+		CoreEventSystem.Instance.RemoveListener (FREE_SPIN_ACTIVE, FreeSpinActive);
 #if CLIENT_BUILD
         CoreEventSystem.Instance.RemoveListener (MainMenu.Messages.MENU_SHOWING, MenuActive);	
 		CoreEventSystem.Instance.RemoveListener (MainMenu.Messages.MENU_HIDING, MenuInactive);
 #endif
-        //CoreEventSystem.Instance.RemoveListener (CoreEventTypes.LEVEL_CHANGE, SceneChanged);
+        CoreEventSystem.Instance.RemoveListener (CoreEventTypes.LEVEL_CHANGE, SceneChanged);
 	}
 
 	void Start () 
@@ -52,14 +52,14 @@ public class CameraApartmentController : MonoBehaviour {
 
 	private void SceneChanged(object sceneChangedTo)
 	{
-        //MissionStateData newScene = (MissionStateData)sceneChangedTo;
+        MissionStateData newScene = (MissionStateData)sceneChangedTo;
 
-        ////If we are switching scene and not moving to the apartment scene then lock out command changes and just pan until new scene is loaded
-        //if (newScene.sceneName != MissionStateData.APARTMENT_SCENE)
-        //{
-        //    ChangeState(new CameraPanComponent());
-        //    _exitingApartment = true;
-        //}
+        //If we are switching scene and not moving to the apartment scene then lock out command changes and just pan until new scene is loaded
+        if (newScene.sceneName != MissionStateData.APARTMENT_SCENE)
+        {
+            ChangeState(new CameraPanComponent());
+            _exitingApartment = true;
+        }
     }
 
 	public void ObjectTouched(object touchParams)
@@ -120,7 +120,7 @@ public class CameraApartmentController : MonoBehaviour {
 		//Pause sequence if menu becomes active half way through moving
 		if(_currentCameraAction is BlendToAnimComponent)
 		{
-			//SequenceManager.Instance.Pause();
+			TimelineController.instance.PauseTimeline();
 		}
 	}
 
@@ -138,7 +138,7 @@ public class CameraApartmentController : MonoBehaviour {
 			//Resume sequence if the previous state was a camera anim
 			if (_currentCameraAction is BlendToAnimComponent)
 			{
-				//SequenceManager.Instance.Play();
+				TimelineController.instance.PlayTimeline();
 			}
 			//On restore make sure free look is recreated so we start rotating from the current pos(which may have been changed by pan)
 			else if (_currentCameraAction is FreeLookComponent)

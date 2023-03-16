@@ -26,7 +26,7 @@ namespace CustomTracks
                 foreach (var v in touchables)
                 {
                     GameObject g = v.ExposedReference.Resolve(graph.GetResolver());
-                    TouchableData td = new TouchableData(g, v.shouldFlash, v.skipTo);
+                    TouchableData td = new TouchableData(g, v.jumpToPrefabNames, v.shouldFlash, v.skipTo);
                     clone.touchables.Add(td);
 
                     #if CLIENT_BUILD
@@ -45,8 +45,9 @@ namespace CustomTracks
         [Serializable]
         public class ExposedTouchAndJump : ExposedReferenceHolder<GameObject>, ISerializationCallbackReceiver
         {
-            public bool shouldFlash = true;
             public float skipTo = -1f;
+            public string jumpToPrefabNames;
+            public bool shouldFlash = true;
 
             [HideInInspector] public bool serialized = false;
 
@@ -75,14 +76,16 @@ namespace CustomTracks
         public class TouchableData
         {
             public GameObject touchObject;
-            public bool shouldFlash;
             public float skipTo;
+            public string jumpToPrefabNames;
+            public bool shouldFlash;
 
-            public TouchableData(GameObject _g, bool _flash, float _skip = -1f)
+            public TouchableData(GameObject _g, string _jumpToPrefabNames, bool _flash, float _skip = -1f)
             {
                 touchObject = _g;
                 shouldFlash = _flash;
                 skipTo = _skip;
+                jumpToPrefabNames = _jumpToPrefabNames;
             }
         }
     }

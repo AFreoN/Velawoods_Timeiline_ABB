@@ -3,6 +3,7 @@ using UnityEngine.Playables;
 using UnityEngine.Timeline;
 using CoreSystem;
 using System.Collections.Generic;
+using HighlightingSystem;
 
 namespace CustomTracks
 {
@@ -80,28 +81,24 @@ namespace CustomTracks
 					SequenceManager.Instance.SkipToActivity(taskBeforeResetID, activityBeforeResetID);
 				}
 
-				//Inject glow material scripts onto camera
-				//if ((Camera.main.GetComponent<HighlightingRenderer>()) == null)
-				//{
-				//	Camera.main.gameObject.AddComponent<HighlightingRenderer>();
-				//}
-				//if ((Camera.main.GetComponent<HighlightingBlitter>()) == null)
-				//{
-				//	Camera.main.gameObject.AddComponent<HighlightingBlitter>();
-				//}
+                //Inject glow material scripts onto camera
+                if ((Camera.main.GetComponent<HighlightingRenderer>()) == null)
+                {
+                    Camera.main.gameObject.AddComponent<HighlightingRenderer>();
+                }
 
-				//HighlightingRenderer renderer = Camera.main.gameObject.GetComponent<HighlightingRenderer>();
-				//Vector2 idealSize = new Vector2(2048, 1536);
-				//Vector2 currentSize = new Vector2(Screen.width, Screen.height);
-				//float widthRatio = currentSize.x / idealSize.x;
-				//float heightRatio = currentSize.y / idealSize.y;
-				//float ratio = Mathf.Max(widthRatio, heightRatio);
+                HighlightingRenderer renderer = Camera.main.gameObject.GetComponent<HighlightingRenderer>();
+                Vector2 idealSize = new Vector2(2048, 1536);
+                Vector2 currentSize = new Vector2(Screen.width, Screen.height);
+                float widthRatio = currentSize.x / idealSize.x;
+                float heightRatio = currentSize.y / idealSize.y;
+                float ratio = Mathf.Max(widthRatio, heightRatio);
 
-				//renderer.iterations = 2;
-				//renderer.blurMinSpread = 0.75f * ratio;
-				//renderer.blurSpread = 1.3f * ratio;
-				//renderer._blurIntensity = 0.3f * ratio;
-			}
+                renderer.iterations = 2;
+                renderer.blurMinSpread = 0.75f * ratio;
+                renderer.blurSpread = 1.3f * ratio;
+                renderer._blurIntensity = 0.3f * ratio;
+            }
 		}
 
 		private void SetUpActivityChangeEvents(float[] map_values)

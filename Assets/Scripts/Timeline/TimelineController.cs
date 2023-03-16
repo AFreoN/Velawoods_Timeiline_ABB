@@ -67,10 +67,12 @@ public class TimelineController : MonoBehaviour
         PlayableInstance.Skip((float)_time);
         playableDirector.time = _time;
 
-        if (_play && isPlaying == false)
-            StartCoroutine(toggleTimeline(false));
-        else if (isPlaying)
-            StartCoroutine(toggleTimeline(true));
+        if (_play)
+            PlayTimeline();
+        else
+            PauseTimeline();
+
+        //Debug.Log("Timeline skipped with time : " + _time + ", play : " + _play);
     }
 
     IEnumerator toggleTimeline(bool pause)
