@@ -11623,7 +11623,6 @@ GameObject:
   - component: {fileID: 528758849}
   - component: {fileID: 528758848}
   - component: {fileID: 528758846}
-  - component: {fileID: 528758850}
   m_Layer: 0
   m_Name: Nav_Marker_TV
   m_TagString: Untagged
@@ -11640,7 +11639,7 @@ Transform:
   m_GameObject: {fileID: 528758843}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -22.75634, y: -0.8614311, z: 8.920471}
-  m_LocalScale: {x: 0.7, y: 0.05, z: 0.7}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 663394245}
@@ -11724,19 +11723,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528758843}
   m_Mesh: {fileID: 4300000, guid: d5e4ddf151aecf84dbea2e59f2c8ca47, type: 3}
---- !u!65 &528758850
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 528758843}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.6641377, y: 0.3, z: 0.66413784}
-  m_Center: {x: 0.0000009834766, y: -0.059215263, z: 0.0000004172325}
 --- !u!1 &529769523
 GameObject:
   m_ObjectHideFlags: 0

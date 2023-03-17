@@ -21,8 +21,8 @@ namespace CustomTracks
                 ((DialogueClip)(c.asset)).endTime = (float)c.duration + (float)c.start;
             }
 
-            if (Application.isPlaying)
-                ConversationManager.Instance._skipLearnerDialogue = skipLearnerDialogue;
+            //if (Application.isPlaying)
+            //    ConversationManager.Instance._skipLearnerDialogue = skipLearnerDialogue;
 
             return ScriptPlayable<DialogueBehaviour>.Create(graph, inputCount);
         }

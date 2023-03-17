@@ -112,8 +112,8 @@ namespace CustomTracks
 
         public override void OnGraphStop(Playable playable)
         {
-            if (touchables != null)
-                touchables.Clear();
+            //if (touchables != null)
+            //    touchables.Clear();
         }
 
         void FireEvent()

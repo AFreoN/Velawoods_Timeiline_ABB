@@ -26,12 +26,22 @@ public class TouchComponent : MonoBehaviour
 		Collider existingCollider = touchObject.GetComponent<Collider> ();
 		MeshRenderer renderer = touchObject.GetComponent<MeshRenderer>();
 
+        if (existingCollider)
+        {
+			Destroy(existingCollider);
+            if (renderer)
+            {
+				BoxCollider bc = touchObject.AddComponent<BoxCollider>();
+				bc.center = new Vector3(0, 0, 0);
+			}
+        }
+
 		if(existingCollider)
 		{
 			// Add touch script
 			TouchZone touchScript = touchObject.AddComponent<TouchZone>();
 			touchScript.AddStringListener(gameObject);
-          //  Debug.LogError("I am here");
+			//  Debug.LogError("I am here");
 		}
 		else
 		{
@@ -67,7 +77,7 @@ public class TouchComponent : MonoBehaviour
 		foreach(GameObject touchObject in touchObjects)
 		{
 		if(touchObject.GetComponent<Draggable3dObject>() == null){
-                Debug.Log("I am here 2");
+                //Debug.Log("I am here 2");
 			GameObject.Destroy(touchObject.GetComponent<BoxCollider>());
 			}
 			GameObject.Destroy(touchObject.GetComponent<TouchZone>());

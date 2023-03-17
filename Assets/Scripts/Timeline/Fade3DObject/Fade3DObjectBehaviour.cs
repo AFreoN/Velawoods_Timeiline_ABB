@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
@@ -7,13 +6,17 @@ using CustomExtensions;
 
 namespace CustomTracks
 {
-    [Serializable]
+    [System.Serializable]
     public class Fade3DObjectBehaviour : PlayableBehaviour, ITimelineBehaviour
     {
         [HideInInspector] public List<GameObject> fadeObjects = new List<GameObject>();
 
         public double startTime { get; set; }
         public double endTime { get; set; }
+
+        public float fadeTime = 0.5f;
+        bool isTriggered = false;
+
 
         public void addFadeObject(GameObject g)
         {
@@ -28,14 +31,26 @@ namespace CustomTracks
             if (!Application.isPlaying) return;
 #endif
 
-            if (fadeObjects == null || fadeObjects.Count == 0) return;
+            if (isTriggered || fadeObjects == null || fadeObjects.Count == 0) return;
 
             foreach (GameObject g in fadeObjects)
             {
-                g.SetActive(true);
+                //g.SetActive(true);
+
+                FadeNoTouch fadeNoTouch = g.GetComponent<FadeNoTouch>();
+
+                if(fadeNoTouch != null)
+                {
+                    Object.DestroyImmediate(fadeNoTouch);
+                }
+
+                fadeNoTouch = g.AddComponent<FadeNoTouch>();
+
+                fadeNoTouch.FadeObjectIn(fadeTime);
             }
 
             PlayableInstance.AddPlayable(this);
+            isTriggered = true;
         }
 
         public override void OnBehaviourPause(Playable playable, FrameData info)
@@ -49,7 +64,21 @@ namespace CustomTracks
             if (playable.isPlayableCompleted(info))
             {
                 foreach (GameObject g in fadeObjects)
-                    g.SetActive(false);
+                {
+                    //g.SetActive(false);
+
+                    FadeNoTouch fadeNoTouch = g.GetComponent<FadeNoTouch>();
+
+                    if (fadeNoTouch != null)
+                    {
+                        Object.DestroyImmediate(fadeNoTouch);
+                    }
+
+                    fadeNoTouch = g.AddComponent<FadeNoTouch>();
+
+                    fadeNoTouch.FadeObjectOut(fadeTime);
+                }
+                isTriggered = false;
             }
 
             PlayableInstance.RemovePlayable(this);
@@ -57,16 +86,8 @@ namespace CustomTracks
 
         public override void OnGraphStop(Playable playable)
         {
-            //#if UNITY_EDITOR
-            //        if (!Application.isPlaying) return;
-            //#endif
-
-            if (fadeObjects == null) return;
-
-            //foreach (GameObject g in fadeObjects)
-            //    g.SetActive(false);
-
-            fadeObjects.Clear();
+            //if (fadeObjects == null) return;
+            //fadeObjects.Clear();
         }
 
         public void OnSkip()
@@ -75,6 +96,8 @@ namespace CustomTracks
 
             foreach (GameObject g in fadeObjects)
                 g.SetActive(false);
+
+            isTriggered = false;
         }
     }
 }
