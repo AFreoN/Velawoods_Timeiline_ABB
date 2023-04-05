@@ -10,7 +10,7 @@ public class CreateAssetBundles
     {
         string assetBundleDirectory = "Assets/StreamingAssets/Windows";
 
-        string sceneName = SceneManager.GetActiveScene().name + "_Windowsbundle";
+        string sceneName = SceneManager.GetActiveScene().name + "_Windows";
 
         string path = Path.Combine(assetBundleDirectory, sceneName);
 
@@ -26,7 +26,7 @@ public class CreateAssetBundles
     {
         string assetBundleDirectory = "Assets/StreamingAssets/Mac";
 
-        string sceneName = SceneManager.GetActiveScene().name + "_MacBundle";
+        string sceneName = SceneManager.GetActiveScene().name + "_Mac";
 
         string path = Path.Combine(assetBundleDirectory, sceneName);
 

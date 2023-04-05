@@ -17,5 +17,15 @@ public class PlayableInstance : MonoBehaviour
 
     public static void RemovePlayable(ITimelineBehaviour behaviour) => playable.Remove(behaviour);
 
-    public static void Skip(float duration) => playable.Skip(duration);
+    public static void Skip(float duration)
+    {
+        if (playable != null)
+            playable.Skip(duration);
+    }
+
+    public static void ResetAll()
+    {
+        if (playable != null)
+            playable.Reset();
+    }
 }

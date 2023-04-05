@@ -138,6 +138,8 @@ public class FaceLookAt : TimelineBehaviour
 
     private void OnAnimatorIK(int layerIndex)
     {
+        if (!anim) return;
+
         float clampedTimer = Mathf.Clamp(ease(timer), 0, 1);
         anim.SetLookAtWeight(clampedTimer);
         anim.SetLookAtPosition(currentTargetPosition);

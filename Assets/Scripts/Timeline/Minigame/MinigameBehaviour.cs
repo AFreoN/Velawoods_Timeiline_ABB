@@ -78,6 +78,7 @@ namespace CustomTracks
 
             if (!initialized || isTriggered) return;
 
+            PlayableInstance.AddPlayable(this);
             FireEvent();
         }
 
@@ -90,7 +91,10 @@ namespace CustomTracks
             if (!initialized) return;
 
             if (playable.isPlayableCompleted(info))
+            {
+                PlayableInstance.RemovePlayable(this);
                 isTriggered = false;
+            }
         }
 
         void FireEvent()

@@ -80,19 +80,19 @@ namespace CoreSystem
 			_previousStateWasPlaying = false;
 		}
 
-        public void Pause()
-        {
-			if(MainSequence != null)
-				MainSequence.Pause();
-        }
+		public void Pause()
+		{
+			if (TimelineController.instance)
+				TimelineController.instance.PauseTimeline();
+		}
 
-        public void Play()
-        {
-			if(MainSequence != null)
-				MainSequence.Play();
-        }
+		public void Play()
+		{
+			if (TimelineController.instance)
+				TimelineController.instance.PlayTimeline();
+		}
 
-        public bool IsPlaying
+		public bool IsPlaying
         {
             get {
 				if(MainSequence != null)
@@ -170,9 +170,8 @@ namespace CoreSystem
 			
 			MainSequence.time = 0.0f;
 			
-			if(!MainSequence.playableGraph.IsPlaying())
+			if(TimelineController.instance)
 			{
-				//MainSequence.Play ();
 				TimelineController.instance.PlayTimeline();
 			}
 		}
@@ -206,28 +205,28 @@ namespace CoreSystem
                 controlScript.StopAnim();
             }
 
-            PlayableAsset next;
+			float next;
 
-     //       if (getMinigameEvent)
-     //       {
-     //           next = GetMiniGameLaunchEventAfter((float)MainSequence.time);
-     //       }
-     //       else
-     //       {
-     //           next = _GetNextActivityEventAfter((float)MainSequence.time);
-     //       }
+            if (getMinigameEvent)
+            {
+                next = TimelineController.getNextMinigameTime((float)MainSequence.time);
+            }
+            else
+            {
+                next = TimelineController.getNextActivityTime((float)MainSequence.time);
+            }
 
-     //       if (next != null)
-     //       {
-     //           SkipTo(MainSequence, next.FireTime, false);
+            if (next != -1)
+            {
+                SkipTo(MainSequence, next, false);
 
-     //           if (!TimelineController.isPlaying)
-     //           {
-					//TimelineController.instance.PlayTimeline();
-     //           }
+                if (TimelineController.instance)
+                {
+                    TimelineController.instance.PlayTimeline();
+                }
 
-     //           return true;
-     //       }
+                return true;
+            }
 
             return false;
         }
@@ -250,167 +249,67 @@ namespace CoreSystem
             
 			float currentRunningTime = (float)MainSequence.time;
 
-			float skipToTime = 0.0f;
+			float skipToTime = TimelineController.getPreviousActivityTime(currentRunningTime);
 
-            // First get the current activity by searching backwards from now
-			//USEventBase currentActivity = _GetLastActivityEventBefore (currentRunningTime);
-
-			//if (currentActivity) {
-			//	skipToTime = currentActivity.FireTime;
-			//}
-		
-			// Stop all sounds when skipping
-			AudioManager.Instance.StopAudio(CoreSystem.AudioType.Dialogue);
+            // Stop all sounds when skipping
+            AudioManager.Instance.StopAudio(CoreSystem.AudioType.Dialogue);
 			AudioManager.Instance.StopAudio(CoreSystem.AudioType.Music);
 			AudioManager.Instance.StopAudio(CoreSystem.AudioType.SFX);
 
-			//foreach (Bones_FaceFXControllerScript_Setup controlScript in Object.FindObjectsOfType<Bones_FaceFXControllerScript_Setup>())
-			//{
-			//	controlScript.StopAnim();
-			//}
-            
-   //         SkipTo(MainSequence, skipToTime, false);
+            foreach (Bones_FaceFXControllerScript_Setup controlScript in Object.FindObjectsOfType<Bones_FaceFXControllerScript_Setup>())
+            {
+                controlScript.StopAnim();
+            }
 
-   //         if ( !MainSequence.IsPlaying ) MainSequence.Play();
+            SkipTo(MainSequence, skipToTime, false);
 
-		}
+            if (TimelineController.instance)
+				TimelineController.instance.PlayTimeline();
 
-		//public void SkipToTask (float skipTaskID)
-		//{
-		//	float skipTime = GetTimeTaskStarts (skipTaskID);
-  //          SkipTo(MainSequence, skipTime, false);
+        }
 
-		//	if(!TimelineController.isPlaying)
-		//	{
-		//		TimelineController.instance.PlayTimeline ();
-		//	}
-		//}
+        public void SkipToTask(float skipTaskID)
+        {
+            float skipTime = GetTimeTaskStarts(skipTaskID);
+            SkipTo(MainSequence, skipTime, false);
+
+            if (TimelineController.instance)
+            {
+                TimelineController.instance.PlayTimeline();
+            }
+        }
 
         public void SkipToActivity(float skipTaskID, float activityID)
         {
-            //float skipTime = GetTimeTaskStarts(skipTaskID, activityID);
-            //SkipTo(MainSequence, skipTime, false);
+            float skipTime = GetTimeTaskStarts(skipTaskID, activityID);
+            SkipTo(MainSequence, skipTime, false);
 
-            //if (!TimelineController.isPlaying)
-            //{
-            //    MainSequence.Play();
-            //}
+            if (TimelineController.instance)
+            {
+                TimelineController.instance.PlayTimeline();
+            }
         }
 
         private float GetTimeTaskStarts(float skipTaskID, float skipActivityID = 1.0f)
 		{
-			//Create a list of all activity change events and sort them by fire time.
-			//USEventBase[] activityChangeEvents = MainSequence.GetComponentsInChildren< ActivityChangeEvent > ();
-			//USEventBase[] activityChangeMGEvents = MainSequence.GetComponentsInChildren< ActivityChangeTriggerMG > ();
-			//USEventBase[] allActivityChangeEvents = new USEventBase[activityChangeEvents.Length + activityChangeMGEvents.Length];
-			//activityChangeEvents.CopyTo (allActivityChangeEvents, 0);
-			//activityChangeMGEvents.CopyTo (allActivityChangeEvents, activityChangeEvents.Length);
-			//System.Array.Sort(allActivityChangeEvents, delegate(USEventBase a, USEventBase b) { return a.FireTime.CompareTo(b.FireTime); });
+			List<(CustomTracks.ActivityEventClip, float, float)> allClips = TimelineController.getAllClipsFromTrack<CustomTracks.ActivityEventClip>(TimelineController.TRACK_ACTIVITY);
 
-			////As these activities are sorted by fire time we return the first case where the task of an activityChange is equal to what we want.
-			//foreach(USEventBase activityChange in allActivityChangeEvents)
-			//{
-			//	float taskID = 0.0f;
-   //             float activityID = 0.0f;
+			foreach(var v in allClips)
+            {
+				float taskID = v.Item1.behaviour.GetProgressData()[1];
+				float activityID = v.Item1.behaviour.GetProgressData()[0];
 
-			//	if(activityChange is ActivityChangeEvent)
-			//	{
-			//		taskID = (activityChange as ActivityChangeEvent).GetProgressData()[1];
-   //                 activityID = (activityChange as ActivityChangeEvent).GetProgressData()[0];
-			//	}
-			//	else if(activityChange is ActivityChangeTriggerMG)
-			//	{
-			//		taskID = (activityChange as ActivityChangeTriggerMG).GetProgressData()[1];
-   //                 activityID = (activityChange as ActivityChangeTriggerMG).GetProgressData()[0];
-			//	}
-
-   //             if (taskID == skipTaskID && activityID == skipActivityID)
-			//	{
-			//		return activityChange.FireTime;
-			//	}
-			//}
+				if (taskID == skipTaskID && activityID == skipActivityID)
+					return v.Item2;
+            }
 
 			return 0;
 		}
-
-		private TimelineClip _GetLastActivityEventBefore( float time ) {
-
-			TimelineClip lastActivity = null;
-
-			//foreach (ActivityChangeEvent mg in MainSequence.GetComponentsInChildren< ActivityChangeEvent >()) {
-			//	if(!CheckIfAlreadyAtThisTask(ActivityTracker.Instance.Progress,mg.GetProgressData()))
-			//	{
-			//	if ( mg.FireTime < time && (lastActivity == null || mg.FireTime > lastActivity.FireTime) ) lastActivity = mg;
-			//	}
-			//}
-			
-			//// also check the change events which trigger minigames
-			//foreach (ActivityChangeTriggerMG mg in MainSequence.GetComponentsInChildren< ActivityChangeTriggerMG >()) {
-			//	if(!CheckIfAlreadyAtThisTask(ActivityTracker.Instance.Progress,mg.GetProgressData()))
-			//	{
-			//	if ( mg.FireTime < time && (lastActivity == null || mg.FireTime > lastActivity.FireTime) ) lastActivity = mg;
-			//	}
-			//}
-
-			return lastActivity;
-
-		}
-
 
 		private bool CheckIfAlreadyAtThisTask(float[] first, float[] second)
 		{
 			return first[0] == second[5] && first[1] == second[4] && first[2] == second[3] && first[3] == second[2] && 
 				first[4] == second[1] && first[5] == second[0];
-		}
-
-        private TimelineClip GetMiniGameLaunchEventAfter(float time)
-        {
-            TimelineClip nextActivity = null;
-            // also check the change events which trigger minigames
-            //foreach (ActivityChangeTriggerMG mg in MainSequence.GetComponentsInChildren<ActivityChangeTriggerMG>())
-            //{
-            //    if (!CheckIfAlreadyAtThisTask(ActivityTracker.Instance.Progress, mg.GetProgressData()))
-            //    {
-            //        if (mg.FireTime > time && (nextActivity == null || mg.FireTime < nextActivity.FireTime)) nextActivity = mg;
-            //    }
-            //}
-
-            //foreach (CreateMiniGame mg in MainSequence.GetComponentsInChildren<CreateMiniGame>())
-            //{
-            //    if (mg.FireTime > time && (nextActivity == null || mg.FireTime < nextActivity.FireTime)) nextActivity = mg;
-            //}
-
-            return nextActivity;
-        }
-
-		private TimelineClip _GetNextActivityEventAfter( float time ) {
-			
-			TimelineClip nextActivity = null;
-			
-			//foreach (ActivityChangeEvent mg in MainSequence.GetComponentsInChildren< ActivityChangeEvent >()) 
-			//{
-			//	if(!CheckIfAlreadyAtThisTask(ActivityTracker.Instance.Progress,mg.GetProgressData()))
-			//	{
-			//		if ( mg.FireTime > time && (nextActivity == null || mg.FireTime < nextActivity.FireTime) ) nextActivity = mg;
-			//	}
-			//}
-			
-			//// also check the change events which trigger minigames
-			//foreach (ActivityChangeTriggerMG mg in MainSequence.GetComponentsInChildren< ActivityChangeTriggerMG >()) 
-			//{
-			//	if(!CheckIfAlreadyAtThisTask(ActivityTracker.Instance.Progress,mg.GetProgressData()))
-			//	{
-			//		if ( mg.FireTime > time && (nextActivity == null || mg.FireTime < nextActivity.FireTime) ) nextActivity = mg;
-			//	}
-			//}
-
-			//foreach (MissionEndSequence mg in MainSequence.GetComponentsInChildren< MissionEndSequence >()) 
-			//{
-			//	if ( mg.FireTime > time && (nextActivity == null || mg.FireTime < nextActivity.FireTime) ) nextActivity = mg;
-			//}
-			
-			return nextActivity;
-			
 		}
 
         public void SkipTo(PlayableDirector sequence, float skipTime, bool forceProcessEvents)
@@ -423,10 +322,10 @@ namespace CoreSystem
                 animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
             }
 
-            /*bool shouldResetScene = sequence == _mainSequence;
+            bool shouldResetScene = sequence == _mainSequence;
 
             // Reset all the events that have happened in the time line.
-            sequence.ResetAllEvents();
+			PlayableInstance.ResetAll();
 
             // Restore the state of each object. 
             if (shouldResetScene && ObjectStateManager.Instance.HasBeenCached())
@@ -435,21 +334,10 @@ namespace CoreSystem
             }
 
             // Clear any events that have been queued up to fire.
-            sequence.ClearAllActiveEvents();
-
-            sequence.SetDirectRunningTime(0.0f);
 
             // Skip to before the dialogue event.
-            sequence.SkipTimelineTo(skipTime);
-
-            // Process the timeline to find all the events that have fired this frame.
-            sequence.UpdateSequencer(0.0f);
-
-            if(forceProcessEvents)
-            {
-                // Process all of the events.
-                sequence.ForceProcessEvents();
-            }
+			if(TimelineController.instance)
+				TimelineController.instance.SkipTimeline(skipTime);
 
             if (shouldResetScene)
             {
@@ -475,7 +363,7 @@ namespace CoreSystem
                 {
                     animatorCullingMode.Key.cullingMode = animatorCullingMode.Value;
                 }
-            }*/
+            }
         }
     }
 }

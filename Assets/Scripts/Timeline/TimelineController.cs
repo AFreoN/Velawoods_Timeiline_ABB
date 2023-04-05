@@ -1,13 +1,17 @@
 using UnityEngine;
+using UnityEngine.Timeline;
 using UnityEngine.Playables;
 using System.Collections;
-using System;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(PlayableDirector))]
 public class TimelineController : MonoBehaviour
 {
     public static TimelineController instance { get; private set; }
     public static bool isPlaying { get; private set; }
+
+    public const string TRACK_ACTIVITY = "Activity Event Track";
+    public const string TRACK_MINIGAME = "Minigame Track";
 
     /// <summary>
     /// Delegate to handle timeline pause and play state change events
@@ -16,7 +20,19 @@ public class TimelineController : MonoBehaviour
     public delegate void OnTimelineStateChange(bool b); //b = isPaused
     public static event OnTimelineStateChange onTimelineStateChange;
 
-    PlayableDirector playableDirector = null;
+    public static PlayableDirector playableDirector
+    {
+        get
+        {
+            if(pd == null)
+            {
+                pd = GameObject.FindObjectOfType<PlayableDirector>();
+            }
+            return pd;
+        }
+    }
+    static PlayableDirector pd = null;
+
     public PlayableDirector getPlayableDirector() => playableDirector;
     public double currentPlayableTime => getPlayableDirector().time;
 
@@ -25,14 +41,18 @@ public class TimelineController : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        playableDirector = GetComponent<PlayableDirector>();
-        isPlaying = true;
+        pd = GetComponent<PlayableDirector>();
 
         if(timelineData != null)
             timelineData.setData(getPlayableDirector, playableDirector.playableAsset);
 
-        playableDirector.RebuildGraph();
-        playableDirector.Play();
+        pd.RebuildGraph();
+        pd.Play();
+#if CLIENT_BUILD
+        PauseTimeline();
+#else
+        PlayTimeline();
+#endif
     }
 
     /// <summary>
@@ -42,7 +62,8 @@ public class TimelineController : MonoBehaviour
     {
         onTimelineStateChange?.Invoke(true);
 
-        playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(0);
+        if (playableDirector.playableGraph.IsValid())
+            playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(0);
         //playableDirector.Pause();
 
         isPlaying = false;
@@ -55,7 +76,8 @@ public class TimelineController : MonoBehaviour
     {
         onTimelineStateChange?.Invoke(false);
 
-        playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(1);
+        if(playableDirector.playableGraph.IsValid())
+            playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(1);
         //playableDirector.Play();
 
         isPlaying = true;
@@ -82,20 +104,92 @@ public class TimelineController : MonoBehaviour
         else PlayTimeline();
     }
 
-    private void Update()
+    public static float getPreviousActivityTime(float _time) => getPreviousTrackTime(TRACK_ACTIVITY, _time);
+    public static float getNextActivityTime(float _time) => getNextTrackTime(TRACK_ACTIVITY, _time);
+    public static float getPreviousMinigameTime(float _time) => getPreviousTrackTime(TRACK_MINIGAME, _time);
+    public static float getNextMinigameTime(float _time) => getNextTrackTime(TRACK_MINIGAME, _time);
+
+    static float getPreviousTrackTime(string _trackName, float _runningTime)
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        float result = 0, diff = float.MaxValue;
+
+        TimelineAsset asset = playableDirector.playableAsset as TimelineAsset;
+
+        foreach (var v in asset.GetOutputTracks())
         {
-            if (isPlaying)
-                PauseTimeline();
-            else
-                PlayTimeline();
+            if (v.name.Equals(_trackName))
+            {
+                foreach (var c in v.GetClips())
+                {
+                    if (c.start < _runningTime)
+                    {
+                        float currentDiff = _runningTime - (float)c.start;
+                        if (currentDiff < diff)
+                        {
+                            diff = currentDiff;
+                            result = (float)c.start;
+                        }
+                    }
+                }
+            }
         }
 
-        //if(play)
-        //    playableDirector.time += Time.deltaTime;
+        return result;
+    }
 
-        //if(play)
-        //    playableDirector.Evaluate();
+    static float getNextTrackTime(string _trackName, float _runningTime)
+    {
+        float result = -1, diff = float.MaxValue;
+
+        TimelineAsset asset = playableDirector.playableAsset as TimelineAsset;
+
+        foreach (var v in asset.GetOutputTracks())
+        {
+            if (v.name.Equals(_trackName))
+            {
+                foreach (var c in v.GetClips())
+                {
+                    if (c.start > _runningTime)
+                    {
+                        float currentDiff = (float)c.start - _runningTime;
+                        if (currentDiff < diff)
+                        {
+                            diff = currentDiff;
+                            result = (float)c.start;
+                        }
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// Get all the clips from the give track name
+    /// </summary>
+    /// <typeparam name="T">Playable asset this track is associated with</typeparam>
+    /// <param name="_trackName">Name of the track in timeline asset</param>
+    /// <returns></returns>
+    public static List<(T, float, float)> getAllClipsFromTrack<T>(string _trackName) where T : PlayableAsset
+    {
+        List<(T, float, float)> result = new List<(T, float, float)>();
+
+        TimelineAsset asset = playableDirector.playableAsset as TimelineAsset;
+
+        foreach(var track in asset.GetOutputTracks())
+        {
+            if (track.name.Equals(_trackName))
+            {
+                foreach(var c in track.GetClips())
+                {
+                    var item = ((T)c.asset, (float)c.start, (float)c.end);
+                    result.Add(item);
+                    return result;
+                }
+            }
+        }
+
+        return null;
     }
 }

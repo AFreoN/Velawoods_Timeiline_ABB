@@ -43,6 +43,18 @@ public class ActivePlayable : ScriptableObject
         playables = currentPlayable;
     }
 
+    public void Reset()
+    {
+        if (playables.Count == 0) return;
+
+        for (int i = 0; i < playables.Count; i++)
+        {
+            playables[i].OnReset();
+        }
+
+        playables.Clear();
+    }
+
     public void clear() => playables.Clear();
 
     bool isSkippable(float duration, float start, float end)
