@@ -26,27 +26,30 @@ namespace CustomTracks
 			if (!Application.isPlaying) return;
 #endif
 
-            if (callMissionEnd)
-            {
+			if (callMissionEnd)
+			{
 				EndMission();
 				return;
-            }
+			}
 
 			if (!initialized) return;
-
+			PlayableInstance.AddPlayable(this);
 			FireEvent();
 		}
 
-        public override void OnBehaviourPause(Playable playable, FrameData info)
-        {
+		public override void OnBehaviourPause(Playable playable, FrameData info)
+		{
 #if UNITY_EDITOR
 			if (!Application.isPlaying) return;
 #endif
 
 			if (!initialized) return;
 
-			if(playable.isPlayableCompleted(info))
+			if (playable.isPlayableCompleted(info))
+			{
+				PlayableInstance.RemovePlayable(this);
 				isTriggered = false;
+			}
 		}
 
 		/*        public override void ProcessFrame(Playable playable, FrameData info, object playerData)
@@ -109,7 +112,7 @@ namespace CustomTracks
 		}
 
 		void EndMission()
-        {
+		{
 			CoreEventSystem.Instance.SendEvent(CoreEventTypes.MISSION_END_SEQUENCE);
 			AmbientSoundManager ambientAudioManager = UnityEngine.Object.FindObjectOfType<AmbientSoundManager>();
 

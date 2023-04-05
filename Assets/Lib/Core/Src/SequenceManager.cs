@@ -325,7 +325,7 @@ namespace CoreSystem
             bool shouldResetScene = sequence == _mainSequence;
 
             // Reset all the events that have happened in the time line.
-			PlayableInstance.ResetAll();
+			//PlayableInstance.ResetAll();
 
             // Restore the state of each object. 
             if (shouldResetScene && ObjectStateManager.Instance.HasBeenCached())

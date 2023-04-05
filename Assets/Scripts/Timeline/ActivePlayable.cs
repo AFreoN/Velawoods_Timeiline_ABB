@@ -11,14 +11,18 @@ public class ActivePlayable : ScriptableObject
     public void Add(ITimelineBehaviour behaviour)
     {
         if (!playables.Contains(behaviour))
+        {
             playables.Add(behaviour);
+        }
     }
 
     //Remove ITimelineBehaviour in the playables list
     public void Remove(ITimelineBehaviour behaviour)
     {
         if (playables.Contains(behaviour))
+        {
             playables.Remove(behaviour);
+        }
     }
 
     //Call OnSkip() on ITimelineBehaviours in the playable list if playable director time is outside of this ITimelineBehaviours play times
@@ -34,7 +38,7 @@ public class ActivePlayable : ScriptableObject
             {
                 playables[i].OnSkip();
                 currentPlayable.Remove(playables[i]);
-                Debug.Log("Skipped playable");
+                //Debug.Log("Skipped playable");
             }
             //else
             //    Debug.Log("Unskippable on : " + playables[i].ToString());

@@ -13,6 +13,8 @@ namespace CustomTracks
             foreach (var c in GetClips())
             {
                 ((MinigameClip)(c.asset)).behaviour.initialized = true;
+                ((MinigameClip)(c.asset)).behaviour.startTime = c.start;
+                ((MinigameClip)(c.asset)).behaviour.endTime = c.end;
             }
 
             return ScriptPlayable<MinigameBehaviour>.Create(graph, inputCount);

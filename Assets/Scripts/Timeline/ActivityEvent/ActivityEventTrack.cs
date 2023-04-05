@@ -23,10 +23,16 @@ namespace CustomTracks
 		public override Playable CreateTrackMixer(PlayableGraph graph, GameObject go, int inputCount)
 		{
 			if (Application.isPlaying)
-            {
+			{
 				HasBeenFired = false;
 				FireEvent();
-            }
+			}
+
+			foreach (var c in GetClips())
+			{
+				((ActivityEventClip)(c.asset)).behaviour.startTime = c.start;
+				((ActivityEventClip)(c.asset)).behaviour.endTime = c.end;
+			}
 
 			return ScriptPlayable<ActivityEventBehaviour>.Create(graph, inputCount);
 		}
@@ -81,24 +87,24 @@ namespace CustomTracks
 					SequenceManager.Instance.SkipToActivity(taskBeforeResetID, activityBeforeResetID);
 				}
 
-                //Inject glow material scripts onto camera
-                if ((Camera.main.GetComponent<HighlightingRenderer>()) == null)
-                {
-                    Camera.main.gameObject.AddComponent<HighlightingRenderer>();
-                }
+				//Inject glow material scripts onto camera
+				if ((Camera.main.GetComponent<HighlightingRenderer>()) == null)
+				{
+					Camera.main.gameObject.AddComponent<HighlightingRenderer>();
+				}
 
-                HighlightingRenderer renderer = Camera.main.gameObject.GetComponent<HighlightingRenderer>();
-                Vector2 idealSize = new Vector2(2048, 1536);
-                Vector2 currentSize = new Vector2(Screen.width, Screen.height);
-                float widthRatio = currentSize.x / idealSize.x;
-                float heightRatio = currentSize.y / idealSize.y;
-                float ratio = Mathf.Max(widthRatio, heightRatio);
+				HighlightingRenderer renderer = Camera.main.gameObject.GetComponent<HighlightingRenderer>();
+				Vector2 idealSize = new Vector2(2048, 1536);
+				Vector2 currentSize = new Vector2(Screen.width, Screen.height);
+				float widthRatio = currentSize.x / idealSize.x;
+				float heightRatio = currentSize.y / idealSize.y;
+				float ratio = Mathf.Max(widthRatio, heightRatio);
 
-                renderer.iterations = 2;
-                renderer.blurMinSpread = 0.75f * ratio;
-                renderer.blurSpread = 1.3f * ratio;
-                renderer._blurIntensity = 0.3f * ratio;
-            }
+				renderer.iterations = 2;
+				renderer.blurMinSpread = 0.75f * ratio;
+				renderer.blurSpread = 1.3f * ratio;
+				renderer._blurIntensity = 0.3f * ratio;
+			}
 		}
 
 		private void SetUpActivityChangeEvents(float[] map_values)
@@ -123,45 +129,45 @@ namespace CustomTracks
 			foreach (TimelineClip c in allClips)
 			{
 				ActivityEventClip aec = (ActivityEventClip)c.asset;
-				if(aec.behaviour.callMissionEnd == false)
+				if (aec.behaviour.callMissionEnd == false)
 					allChangeEvents.Add(aec);
 			}
 
-            //ActivityChangeTriggerMG[] allTriggerEvents = SequenceManager.Instance.MainSequence.GetComponentsInChildren<ActivityChangeTriggerMG>();
+			//ActivityChangeTriggerMG[] allTriggerEvents = SequenceManager.Instance.MainSequence.GetComponentsInChildren<ActivityChangeTriggerMG>();
 
-            // Combine all of the events.
-            //USEventBase[] AllChangeEvents = allChangeEventsAsBase.Concat(allTriggerEventsAsBase).ToArray();
+			// Combine all of the events.
+			//USEventBase[] AllChangeEvents = allChangeEventsAsBase.Concat(allTriggerEventsAsBase).ToArray();
 
-            // Rewritten without Linq.
-
-
-            float[] newValues = (float[])map_values.Clone();
+			// Rewritten without Linq.
 
 
-            for (int index = 0; index < allChangeEvents.Count; ++index)
-            {
-                ActivityEventClip changeEvent = allChangeEvents[index];
+			float[] newValues = (float[])map_values.Clone();
 
-                ActivityTracker.Instance.NextActivity();
 
-                newValues[0] = ActivityTracker.Instance.Activity;
-                newValues[1] = ActivityTracker.Instance.Task;
+			for (int index = 0; index < allChangeEvents.Count; ++index)
+			{
+				ActivityEventClip changeEvent = allChangeEvents[index];
 
-                if (changeEvent)
-                {
-                    changeEvent.behaviour.SetProgressData(newValues);
+				ActivityTracker.Instance.NextActivity();
+
+				newValues[0] = ActivityTracker.Instance.Activity;
+				newValues[1] = ActivityTracker.Instance.Task;
+
+				if (changeEvent)
+				{
+					changeEvent.behaviour.SetProgressData(newValues);
 					changeEvent.behaviour.initialized = true;
-                }
-                //else
-                //{
-                //    ActivityChangeTriggerMG changeTriggerMG = AllChangeEvents[index] as ActivityChangeTriggerMG;
+				}
+				//else
+				//{
+				//    ActivityChangeTriggerMG changeTriggerMG = AllChangeEvents[index] as ActivityChangeTriggerMG;
 
-                //    if (changeTriggerMG)
-                //    {
-                //        changeTriggerMG.SetProgressData(newValues);
-                //    }
-                //}
-            }
-        }
+				//    if (changeTriggerMG)
+				//    {
+				//        changeTriggerMG.SetProgressData(newValues);
+				//    }
+				//}
+			}
+		}
 	}
 }

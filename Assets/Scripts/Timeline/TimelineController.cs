@@ -3,6 +3,7 @@ using UnityEngine.Timeline;
 using UnityEngine.Playables;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 [RequireComponent(typeof(PlayableDirector))]
 public class TimelineController : MonoBehaviour
@@ -94,6 +95,7 @@ public class TimelineController : MonoBehaviour
         else
             PauseTimeline();
 
+        CoreEventSystem.Instance.SendEvent(CoreEventTypes.ACTIVITY_SKIP_FINISHED);
         //Debug.Log("Timeline skipped with time : " + _time + ", play : " + _play);
     }
 
@@ -115,12 +117,43 @@ public class TimelineController : MonoBehaviour
 
         TimelineAsset asset = playableDirector.playableAsset as TimelineAsset;
 
+
         foreach (var v in asset.GetOutputTracks())
         {
             if (v.name.Equals(_trackName))
             {
+                List<TimelineClip> clips = new List<TimelineClip>();
+                TimelineClip currentClip = null;
+
                 foreach (var c in v.GetClips())
+                    clips.Add(c);
+
+                clips.Sort((x, y) => y.start.CompareTo(x.start));
+
+                foreach(var c in clips)
                 {
+                    if (c.start < _runningTime)
+                    {
+                        currentClip = c;
+                        //Debug.Log("Current clip time : " + c.start + ", Run time : " + _runningTime);
+                        //return (float)currentClip.start;
+                        break;
+                    }
+                }
+
+                if (currentClip != null)
+                {
+                    int index = clips.IndexOf(currentClip);
+                    if (index + 1 < clips.Count)
+                        result = (float)clips[index + 1].start;
+
+                    return result;
+                }
+                foreach (var c in clips)
+                {
+                    if (c == currentClip)
+                        continue;
+
                     if (c.start < _runningTime)
                     {
                         float currentDiff = _runningTime - (float)c.start;
@@ -147,8 +180,53 @@ public class TimelineController : MonoBehaviour
         {
             if (v.name.Equals(_trackName))
             {
+                List<TimelineClip> clips = new List<TimelineClip>();
+                TimelineClip currentClip = null;
+
+                foreach (var c in v.GetClips())
+                    clips.Add(c);
+
+                clips.Sort((x, y) => x.start.CompareTo(y.start));
+
+                foreach(var c in clips)
+                {
+                    if(c.start > _runningTime)
+                    {
+                        result = (float)c.start;
+                        return result;
+                    }
+                }
+
+                /*foreach (var c in v.GetClips())
+                {
+                    if (_runningTime > c.end)
+                    {
+                        float currentDiff = (float)c.start - _runningTime;
+                        if (currentDiff < diff)
+                        {
+                            diff = currentDiff;
+                            result = (float)c.start;
+                            currentClip = c;
+                        }
+                    }
+                }
+
+                if(currentClip != null)
+                {
+                    int index = clips.IndexOf(currentClip);
+                    if (index + 1 < clips.Count)
+                    {
+                        result = (float)clips[index + 1].start;
+                        Debug.Log("Skipping activity to : " + result + ", Run Time : " + _runningTime);
+                        return result;
+                    }
+                }
+
                 foreach (var c in v.GetClips())
                 {
+                    if (c == currentClip)
+                        continue;
+
                     if (c.start > _runningTime)
                     {
                         float currentDiff = (float)c.start - _runningTime;
@@ -158,7 +236,7 @@ public class TimelineController : MonoBehaviour
                             result = (float)c.start;
                         }
                     }
-                }
+                }*/
             }
         }
 
