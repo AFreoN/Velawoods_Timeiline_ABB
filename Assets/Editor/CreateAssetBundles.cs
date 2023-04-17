@@ -5,8 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class CreateAssetBundles
 {
-    [MenuItem("Assets/Build AssetBundle/Windows")]
+    [MenuItem("Assets/Build AssetBundle/All")]
     static void BuildAllAssetBundles()
+    {
+        BuildForWindows();
+        BuildForMac();
+        AssetDatabase.Refresh();
+    }
+
+    [MenuItem("Assets/Build AssetBundle/Windows")]
+    static void BuildAssetBundlesWindows()
+    {
+        BuildForWindows();
+    }
+
+    [MenuItem("Assets/Build AssetBundle/Mac")]
+    static void BuildAssetBundlesMac()
+    {
+        BuildForMac();
+    }
+
+    static void BuildForWindows()
     {
         string assetBundleDirectory = "Assets/StreamingAssets/Windows";
 
@@ -21,8 +40,7 @@ public class CreateAssetBundles
         BuildPipeline.BuildAssetBundles(path, BuildAssetBundleOptions.DeterministicAssetBundle, BuildTarget.StandaloneWindows64);
     }
 
-    [MenuItem("Assets/Build AssetBundle/Mac")]
-    static void BuildAllAssetBundlesMac()
+    static void BuildForMac()
     {
         string assetBundleDirectory = "Assets/StreamingAssets/Mac";
 

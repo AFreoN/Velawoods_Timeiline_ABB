@@ -7,27 +7,15 @@ using CustomExtensions;
 namespace CustomTracks
 {
     [Serializable]
-    public class DialogueBehaviour : PlayableBehaviour
+    public class DialogueBehaviour : PlayableBehaviour, ITimelineBehaviour
     {
         public DialogueEventData eventData;
         [HideInInspector] public DialogueEvent dialogueEvent;
 
-        //public override void OnPlayableCreate(Playable playable)
-        //{
-        //    GameObject g = GameObject.Find(DialogueTrack.HOLDER_NAME);
-        //    if (g == null)
-        //    {
-        //        Debug.LogError("No gameobject with name : " + DialogueTrack.HOLDER_NAME + " found!");
-        //        return;
-        //    }
-        //    GameObject holder = new GameObject();
-        //    holder.name = "Dialogue " + UnityEngine.Random.Range(01, 4);//holder.GetInstanceID().ToString();
-        //    holder.transform.SetParent(g.transform);
+        bool isTriggered = false;
 
-        //    dialogueEvent = holder.AddComponent<DialogueEvent>();
-        //    eventData = new DialogueEventData();
-        //    dialogueEvent.Data = eventData;
-        //}
+        public double startTime { get; set; }
+        public double endTime { get; set; }
 
         public override void OnBehaviourPlay(Playable playable, FrameData info)
         {
@@ -35,8 +23,10 @@ namespace CustomTracks
             if (!Application.isPlaying) return;
 #endif
 
-            if (dialogueEvent == null) return;
+            if (dialogueEvent == null || isTriggered) return;
 
+            isTriggered = true;
+            PlayableInstance.AddPlayable(this);
             dialogueEvent.OnClipStart(this);
         }
 
@@ -49,16 +39,24 @@ namespace CustomTracks
             if (dialogueEvent == null) return;
 
             if (playable.isPlayableCompleted(info))
+            {
+                isTriggered = false;
+                PlayableInstance.RemovePlayable(this);
                 dialogueEvent.OnClipEnd(this);
+            }
         }
 
         public override void OnPlayableDestroy(Playable playable)
         {
-            //Debug.Log("On playable destroy");
             if(dialogueEvent != null)
             {
-                UnityEngine.Object.DestroyImmediate(dialogueEvent.gameObject);
+                UnityEngine.Object.DestroyImmediate(dialogueEvent.gameObject);  //Delete Holder DialogueEvent Object
             }
+        }
+
+        public void OnSkip()
+        {
+            isTriggered = false;
         }
     }
 }

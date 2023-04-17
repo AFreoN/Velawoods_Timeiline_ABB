@@ -47,14 +47,39 @@ public class TimelineController : MonoBehaviour
         if(timelineData != null)
             timelineData.setData(getPlayableDirector, playableDirector.playableAsset);
 
-        pd.RebuildGraph();
-        pd.Play();
+        //pd.RebuildGraph();
+        //pd.Play();
 #if CLIENT_BUILD
         PauseTimeline();
 #else
         PlayTimeline();
 #endif
+
+#if UNITY_EDITOR
+        //Show current playing timeline on start
+        StartCoroutine(ShowTimelineWindow());
+#endif
     }
+
+#if UNITY_EDITOR
+    IEnumerator ShowTimelineWindow()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Transform old = UnityEditor.Selection.activeTransform;
+        UnityEditor.Timeline.TimelineEditorWindow window = UnityEditor.EditorWindow.GetWindow<UnityEditor.Timeline.TimelineEditorWindow>();
+        window.Show();
+        UnityEditor.Selection.activeTransform = transform;
+
+        yield return new WaitForSeconds(0.5f);
+        window.locked = true;
+        UnityEditor.Selection.activeTransform = old;
+    }
+
+    private void OnApplicationQuit()
+    {
+        UnityEditor.EditorWindow.GetWindow<UnityEditor.Timeline.TimelineEditorWindow>().locked = false;
+    }
+#endif
 
     /// <summary>
     /// Call when timeline needs to be paused
@@ -68,6 +93,7 @@ public class TimelineController : MonoBehaviour
         //playableDirector.Pause();
 
         isPlaying = false;
+        CoreEventSystem.Instance.SendEvent("USSequencerPause");
     }
 
     /// <summary>
@@ -82,6 +108,7 @@ public class TimelineController : MonoBehaviour
         //playableDirector.Play();
 
         isPlaying = true;
+        CoreEventSystem.Instance.SendEvent("USSequencerResume");
     }
 
     public void SkipTimeline(double _time, bool _play = true)
@@ -263,11 +290,17 @@ public class TimelineController : MonoBehaviour
                 {
                     var item = ((T)c.asset, (float)c.start, (float)c.end);
                     result.Add(item);
-                    return result;
                 }
             }
         }
 
-        return null;
+        return result;
+    }
+
+    [ContextMenu("Debug Activity Tracks")]
+    void DebugTracks()
+    {
+        var v = getAllClipsFromTrack<CustomTracks.ActivityEventClip>(TRACK_ACTIVITY);
+        Debug.Log("Total clip count : " + v.Count);
     }
 }

@@ -25,7 +25,7 @@ namespace CustomTracks
             #if CLIENT_BUILD
             if (TimelineController.instance)
             {
-                parent.exposedName = UnityEditor.GUID.Generate().ToString();
+                parent.exposedName = System.Guid.NewGuid().ToString();
                 TimelineController.instance.getPlayableDirector().SetReferenceValue(parent.exposedName, clone.parent);
             }
             #endif

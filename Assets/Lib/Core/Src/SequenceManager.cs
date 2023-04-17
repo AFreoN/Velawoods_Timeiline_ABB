@@ -215,6 +215,7 @@ namespace CoreSystem
             {
                 next = TimelineController.getNextActivityTime((float)MainSequence.time);
             }
+			//next = 242f;
 
             if (next != -1)
             {
@@ -268,9 +269,16 @@ namespace CoreSystem
 
         }
 
+		ActionCaller actionCaller = null;
+
         public void SkipToTask(float skipTaskID)
         {
             float skipTime = GetTimeTaskStarts(skipTaskID);
+			if(skipTime == -1f)
+            {
+
+				return;
+            }
             SkipTo(MainSequence, skipTime, false);
 
             if (TimelineController.instance)
@@ -282,7 +290,12 @@ namespace CoreSystem
         public void SkipToActivity(float skipTaskID, float activityID)
         {
             float skipTime = GetTimeTaskStarts(skipTaskID, activityID);
-            SkipTo(MainSequence, skipTime, false);
+			if (skipTime == -1f)
+			{
+				return;
+			}
+
+			SkipTo(MainSequence, skipTime, false);
 
             if (TimelineController.instance)
             {
@@ -303,7 +316,7 @@ namespace CoreSystem
 					return v.Item2;
             }
 
-			return 0;
+			return -1f;
 		}
 
 		private bool CheckIfAlreadyAtThisTask(float[] first, float[] second)
@@ -337,7 +350,16 @@ namespace CoreSystem
 
             // Skip to before the dialogue event.
 			if(TimelineController.instance)
-				TimelineController.instance.SkipTimeline(skipTime);
+					TimelineController.instance.SkipTimeline(skipTime);
+            else
+            {
+				if(actionCaller != null)
+                {
+					actionCaller.destroySelf();
+					actionCaller = null;
+                }
+				actionCaller = ActionCaller.CreateAction(() => TimelineController.instance, () => TimelineController.instance.SkipTimeline(skipTime, false));
+            }
 
             if (shouldResetScene)
             {

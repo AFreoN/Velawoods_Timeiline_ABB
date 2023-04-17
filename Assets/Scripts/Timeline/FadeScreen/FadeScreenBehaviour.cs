@@ -8,13 +8,15 @@ using CustomExtensions;
 namespace CustomTracks
 {
     [Serializable]
-    public class FadeScreenBehaviour : PlayableBehaviour
+    public class FadeScreenBehaviour : PlayableBehaviour, ITimelineBehaviour
     {
         public AnimationCurve fadeCurve;
         public Color fadeColor;
 
         [HideInInspector]
-        public double startTime, endTime;
+        public double startTime { get; set; }
+        public double endTime { get; set; }
+
         [HideInInspector]
         public PlayableDirector director;
 
@@ -30,13 +32,15 @@ namespace CustomTracks
 #endif
             if (startTime == 0 && endTime == 0) return;
 
+            PlayableInstance.AddPlayable(this);
             if (fadeObject == null)
             {
                 // Create the new game object that will be used to fade the screen
                 fadeObject = new GameObject();
                 fadeObject.name = "FadeObject"; // For easy identification
 
-                GameObject canvas = GameObject.Find("OverlayCanvas");
+                GameObject canvas = GameObject.Find("FadeCanvas");
+
                 fadeObject.transform.SetParent(canvas.transform);
 
                 // Add image and make it fill the screen
@@ -91,7 +95,16 @@ namespace CustomTracks
 #endif
 
             if (playable.isPlayableCompleted(info) && fadeObject)
+            {
+                PlayableInstance.RemovePlayable(this);
                 UnityEngine.Object.DestroyImmediate(fadeObject);    //Destroy create image and it's gameobject on end of this clip
+            }
+        }
+
+        public void OnSkip()
+        {
+            if (fadeObject)
+                UnityEngine.Object.DestroyImmediate(fadeObject);
         }
     }
 }

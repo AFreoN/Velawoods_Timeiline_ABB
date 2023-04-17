@@ -10,6 +10,8 @@ namespace CoreSystem
 			List<MinigameSectionData> data = new List<MinigameSectionData> ();
 
 			List<Dictionary<string, string>> widgetQuery = Database.Instance.Select ("*", "Widget", "activityid=" + activityID);
+
+			Debug.Log("Loaded minigame with activityID " + activityID + " and it's widgetQuery count is : " + widgetQuery.Count);
 			
 			if (widgetQuery.Count != 0) 
 			{

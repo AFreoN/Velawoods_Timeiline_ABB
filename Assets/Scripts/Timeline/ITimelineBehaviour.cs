@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 //Every object in the scene that requires control from custom timeline track needs to derived from this class
 public abstract class TimelineBehaviour : MonoBehaviour
@@ -47,6 +48,15 @@ public interface ITimelineBehaviour
     public double endTime { get; set; }
 
     public void OnSkip();
+
+    public virtual void OnReset()
+    {
+
+    }
+}
+
+public class CustomPlayaleBehaviour : UnityEngine.Playables.PlayableBehaviour
+{
 
     public virtual void OnReset()
     {

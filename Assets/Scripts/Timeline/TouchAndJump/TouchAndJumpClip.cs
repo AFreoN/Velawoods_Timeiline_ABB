@@ -27,16 +27,17 @@ namespace CustomTracks
                 {
                     GameObject g = v.ExposedReference.Resolve(graph.GetResolver());
                     TouchableData td = new TouchableData(g, v.jumpToPrefabNames, v.shouldFlash, v.skipTo);
-                    if (!clone.touchableGameObjects.Contains(g))
+                    if(!clone.touchableGameObjects.Contains(g))
                         clone.touchables.Add(td);
 
-#if CLIENT_BUILD
+                    #if CLIENT_BUILD
                     if (TimelineController.instance)
                     {
-                        v.ExposedReference.exposedName = UnityEditor.GUID.Generate().ToString();
+                        //v.ExposedReference.exposedName = System.Guid.NewGuid().ToString();
+                        v.ExposedReference.exposedName = System.Guid.NewGuid().ToString();
                         TimelineController.instance.getPlayableDirector().SetReferenceValue(v.ExposedReference.exposedName, g);
                     }
-#endif
+                    #endif
                 }
             }
 

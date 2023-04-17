@@ -74,6 +74,42 @@ namespace CustomExtensions
             }
         }
 
+        public static T CastTo<T>(this TimelineClip c) where T : PlayableAsset
+        {
+            if (c == null) return null;
+            return ((T)(c.asset));
+        }
+
+        /// <summary>
+        /// Creates timeline clip in a specified track
+        /// </summary>
+        /// <typeparam name="T">Clip type</typeparam>
+        /// <param name="t">Track to create the clip</param>
+        /// <param name="start">Start time of the clip</param>
+        /// <param name="duration">Duration of the clip</param>
+        /// <returns></returns>
+        public static TimelineClip CreateClip<T>(this TrackAsset t, float start, float duration) where T : PlayableAsset
+        {
+            TimelineClip tClip = t.CreateClip<T>();
+            tClip.start = start;
+            tClip.duration = duration;
+            return tClip;
+        }
+
+        public static T CreatePlayable<T>(this TrackAsset t, float start, float duration) where T : PlayableAsset
+        {
+            if (t == null) return null;
+            TimelineClip tClip = CreateClip<T>(t, start, duration);
+            return ((T)(tClip.asset));
+        }
+
+        public static void DeleteAllClips(this TrackAsset t)
+        {
+            if (t == null) return;
+
+            foreach (var c in t.GetClips())
+                t.DeleteClip(c);
+        }
         #endregion
 
         #region Gameobject

@@ -25,7 +25,7 @@ namespace CustomTracks
             #if CLIENT_BUILD
             if (TimelineController.instance)
             {
-                objectToWarpTo.exposedName = UnityEditor.GUID.Generate().ToString();
+                objectToWarpTo.exposedName = System.Guid.NewGuid().ToString();
                 TimelineController.instance.getPlayableDirector().SetReferenceValue(objectToWarpTo.exposedName, clone.objectToWarpTo);
             }
             #endif

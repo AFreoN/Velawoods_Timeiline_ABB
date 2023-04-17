@@ -53,6 +53,14 @@ namespace CoreSystem
 				CoreEventSystem.Instance.SendEvent(CoreEventTypes.MINIGAME_SUCCESSFUL_SKIP);
 				Skip (parameters);
 				_skipping = true;
+
+				if (_fadeScript == null)
+				{
+					_fadeScript = GetComponent<FadeCanvasGroup>();
+
+					_fadeScript = gameObject.AddComponent<FadeCanvasGroup>();
+					_fadeScript._canvasGroup = gameObject.AddComponent<CanvasGroup>();
+				}
 				_fadeScript.FadeTo(0.0f, 0);
 				return true;
 			}

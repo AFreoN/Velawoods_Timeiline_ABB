@@ -25,7 +25,7 @@ namespace CustomTracks
 #if CLIENT_BUILD
             if (TimelineController.instance)
             {
-                flashObject.exposedName = UnityEditor.GUID.Generate().ToString();
+                flashObject.exposedName = System.Guid.NewGuid().ToString();
                 TimelineController.instance.getPlayableDirector().SetReferenceValue(flashObject.exposedName, clone.flashObject);
             }
 #endif

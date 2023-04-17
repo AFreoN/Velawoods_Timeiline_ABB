@@ -38,7 +38,7 @@ namespace CustomTracks
 #if CLIENT_BUILD
                     if(TimelineController.instance != null)
                     {
-                        v.ExposedReference.exposedName = UnityEditor.GUID.Generate().ToString();
+                        v.ExposedReference.exposedName = System.Guid.NewGuid().ToString();
                         TimelineController.instance.getPlayableDirector().SetReferenceValue(v.ExposedReference.exposedName, g);
                     }
 #endif

@@ -63,6 +63,7 @@ public class DialogueEvent : TimelineBehaviour
     {
 		//string s = Data.dialogueData.character ? Data.dialogueData.character.name : "Null";
 		//Debug.Log("Showing dialogue for : " + s);
+		startTime = (float)((CustomTracks.DialogueBehaviour)o).startTime;
 		FireEvent();
     }
 
@@ -142,6 +143,7 @@ public class DialogueEvent : TimelineBehaviour
 	/// | Returning the updated running time of the sequence here because it's updated at a later frame. </summary>
 	public virtual void SkipEvent ()
 	{
+		Debug.Log("calling onskip for conversation");
 		FaceFXandAudio (FaceFXAudioCommand.Stop);
 		
         StopTimer();
@@ -203,8 +205,24 @@ public class DialogueEvent : TimelineBehaviour
 
     public override void OnSkip()
     {
-		Skip();
-    }
+		FaceFXandAudio(FaceFXAudioCommand.Stop);
+
+		StopTimer();
+
+		float skipTo = startTime + (endTime - startTime) + 0.01f;
+		//SequenceManager.Instance.SkipTo(Sequence, skipTo, true);
+		TimelineController.instance.SkipTimeline(skipTo);
+		RemoveListeners();
+
+		// Cause the animators to update so that the last target is set in the IK script. 
+		//      foreach (Animator a in GameObject.FindObjectsOfType<Animator>())
+		//      {
+		//	a.Update(0.01f);
+		//} 
+
+		ConversationManager.Instance.EndDialogue(Data.dialogueData);
+		RemoveListeners();
+	}
     // Called when skipped to / over this event. To actually skip this event, use SkipEvent()
     public void Skip ()
 	{
